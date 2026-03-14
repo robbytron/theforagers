@@ -4,7 +4,7 @@ import styles from './Nav.module.css';
 export default function Nav() {
   return (
     <nav className={styles.nav}>
-      <Link href="/" className={styles.logo}>The Foragers <span style={{color: 'red', fontSize: '10px'}}>v3</span></Link>
+      <Link href="/" className={styles.logo}>The Foragers</Link>
       <ul className={styles.links}>
         <li><Link href="/species">Species</Link></li>
         <li><Link href="/calendar">Calendar</Link></li>
