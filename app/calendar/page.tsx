@@ -42,10 +42,18 @@ export default async function CalendarPage() {
                 <h2 className={styles.monthTitle}>{month}</h2>
                 <p className={styles.monthMeta}>{byMonth[month].length} species in season</p>
               </div>
+              <Link href={`/calendar/${month.toLowerCase()}`} className={styles.monthLink}>
+                View {month} guide →
+              </Link>
             </div>
             {byMonth[month].length > 0 ? (
               <div className={styles.monthGrid}>
-                {byMonth[month].map(s => <SpeciesCard key={s.id} species={s} />)}
+                {byMonth[month].slice(0, 4).map(s => <SpeciesCard key={s.id} species={s} />)}
+                {byMonth[month].length > 4 && (
+                  <Link href={`/calendar/${month.toLowerCase()}`} className={styles.moreLink}>
+                    +{byMonth[month].length - 4} more species →
+                  </Link>
+                )}
               </div>
             ) : (
               <p className={styles.empty}>Species entries for {month} coming soon.</p>
