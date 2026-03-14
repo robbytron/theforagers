@@ -47,29 +47,41 @@ export async function getFirstINatPhoto(taxonId: number): Promise<SpeciesPhoto |
 }
 
 export async function resolveSpeciesPhotos(species: Species): Promise<SpeciesPhoto[]> {
-  const airtablePhotos: SpeciesPhoto[] = [
-    ...(species.heroImage ? [{
+  // Use cached iNaturalist hero URL if no Airtable hero image
+  let heroPhoto: SpeciesPhoto | null = null;
+
+  if (species.heroImage) {
+    heroPhoto = {
       url:         species.heroImage.url,
       thumbUrl:    species.heroImage.thumbnails?.large?.url ?? species.heroImage.url,
       attribution: species.heroImage.filename,
       license:     'CC-BY',
       source:      'airtable' as const,
-    }] : []),
-    ...species.additionalImages.map(att => ({
-      url:         att.url,
-      thumbUrl:    att.thumbnails?.large?.url ?? att.url,
-      attribution: att.filename,
+    };
+  } else if (species.iNaturalistHeroUrl) {
+    heroPhoto = {
+      url:         species.iNaturalistHeroUrl,
+      thumbUrl:    resizeINatUrl(species.iNaturalistHeroUrl, 'small'),
+      attribution: 'iNaturalist',
       license:     'CC-BY',
-      source:      'airtable' as const,
-    })),
-  ];
+      source:      'inaturalist' as const,
+    };
+  }
 
-  if (species.hideApiPhotos || !species.iNaturalistTaxonId) return airtablePhotos;
+  const additionalPhotos: SpeciesPhoto[] = species.additionalImages.map(att => ({
+    url:         att.url,
+    thumbUrl:    att.thumbnails?.large?.url ?? att.url,
+    attribution: att.filename,
+    license:     'CC-BY',
+    source:      'airtable' as const,
+  }));
 
-  const needed     = Math.max(0, 6 - airtablePhotos.length);
-  const inatPhotos = needed > 0 ? await getINatPhotos(species.iNaturalistTaxonId, needed + 2) : [];
-  const hero       = airtablePhotos.slice(0, 1);
-  const additional = airtablePhotos.slice(1);
+  const allPhotos = heroPhoto ? [heroPhoto, ...additionalPhotos] : additionalPhotos;
 
-  return [...hero, ...inatPhotos.slice(0, needed), ...additional];
+  if (species.hideApiPhotos || !species.iNaturalistTaxonId) return allPhotos;
+
+  const needed = Math.max(0, 6 - allPhotos.length);
+  const inatPhotos = needed > 0 ? await getINatPhotos(species.iNaturalistTaxonId, needed) : [];
+
+  return [...allPhotos, ...inatPhotos];
 }

@@ -59,6 +59,9 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
           <Image src={hero.url} alt={species.name} fill priority sizes="100vw" className={styles.heroImg} />
         ) : <div className={styles.heroPlaceholder} />}
         <div className={styles.heroOverlay} />
+        {hero?.source === 'inaturalist' && species.iNaturalistTaxonId && (
+          <a href={`https://www.inaturalist.org/taxa/${species.iNaturalistTaxonId}`} target="_blank" rel="noopener noreferrer" className={styles.heroCredit}>iNaturalist CC-BY</a>
+        )}
         <div className={styles.heroContent}>
           <Link href="/species" className={styles.breadcrumb}>← Species guide</Link>
           <div className={styles.heroTags}>
