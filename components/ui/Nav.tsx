@@ -8,7 +8,9 @@ export default function Nav() {
       <ul className={styles.links}>
         <li><Link href="/species">Species</Link></li>
         <li><Link href="/calendar">Calendar</Link></li>
-        <li><Link href="/beginners">Beginners</Link></li>
+        <li><Link href="/recipes">Recipes</Link></li>
+        <li><Link href="/guides">Guides</Link></li>
+        <li><Link href="/dangers">Dangers</Link></li>
       </ul>
     </nav>
   );

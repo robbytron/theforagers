@@ -136,3 +136,27 @@ export interface Lookalike {
   reviewerNotes:       string;
   photo:               SpeciesPhoto | null;
 }
+
+export type DangerCategory = 'Plants' | 'Fungi' | 'Berries';
+export type DangerSpeciesStatus = 'Draft' | 'Live';
+
+export interface DangerSpecies {
+  id:                   string;
+  name:                 string;
+  latinName:            string;
+  slug:                 string;
+  dangerLevel:          DangerLevel;
+  category:             DangerCategory;
+  status:               DangerSpeciesStatus;
+  shortDescription:     string;
+  fullDescription:      string;
+  identificationNotes:  string;
+  confusedWith:         string;
+  symptoms:             string;
+  firstAid:             string;
+  habitat:              string;
+  iNaturalistTaxonId:   number | null;
+  heroImage:            AirtableAttachment | null;
+  additionalImages:     AirtableAttachment[];
+  photos:               SpeciesPhoto[];
+}

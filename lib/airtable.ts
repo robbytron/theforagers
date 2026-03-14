@@ -1,4 +1,4 @@
-import type { Species, AirtableAttachment, SpeciesPhoto, Lookalike, DangerLevel, FAQ, Recipe } from '@/types';
+import type { Species, AirtableAttachment, SpeciesPhoto, Lookalike, DangerLevel, FAQ, Recipe, DangerSpecies, DangerCategory } from '@/types';
 
 const BASE_ID = process.env.AIRTABLE_BASE_ID;
 const PAT     = process.env.AIRTABLE_PAT;
@@ -180,4 +180,67 @@ export async function getAllRecipeSlugs(): Promise<string[]> {
 export async function getFeaturedRecipes(limit = 6): Promise<Recipe[]> {
   const all = await getAllRecipes();
   return all.slice(0, limit);
+}
+
+// Danger Species
+function normaliseDangerSpecies(record: any): DangerSpecies {
+  const f = record.fields;
+  const heroAtt: AirtableAttachment | null = f['Hero Image']?.[0] ?? null;
+
+  const photos: SpeciesPhoto[] = [];
+  if (heroAtt) {
+    photos.push({
+      url:         heroAtt.url,
+      thumbUrl:    heroAtt.thumbnails?.large?.url ?? heroAtt.url,
+      attribution: heroAtt.filename,
+      license:     'CC-BY',
+      source:      'airtable' as const,
+    });
+  }
+
+  return {
+    id:                   record.id,
+    name:                 f['Name'] ?? '',
+    latinName:            f['Latin Name'] ?? '',
+    slug:                 f['Slug'] ?? '',
+    dangerLevel:          f['Danger Level'] ?? 'Caution',
+    category:             f['Category'] ?? 'Plants',
+    status:               f['Status'] ?? 'Draft',
+    shortDescription:     f['Short Description'] ?? '',
+    fullDescription:      f['Full Description'] ?? '',
+    identificationNotes:  f['Identification Notes'] ?? '',
+    confusedWith:         f['Confused With'] ?? '',
+    symptoms:             f['Symptoms'] ?? '',
+    firstAid:             f['First Aid'] ?? '',
+    habitat:              f['Habitat'] ?? '',
+    iNaturalistTaxonId:   f['iNaturalist Taxon ID'] ?? null,
+    heroImage:            heroAtt,
+    additionalImages:     f['Additional Images'] ?? [],
+    photos,
+  };
+}
+
+export async function getAllDangerSpecies(): Promise<DangerSpecies[]> {
+  try {
+    const records = await airtableFetch('Danger Species');
+    return records.map(normaliseDangerSpecies).filter(d => d.status === 'Live').sort((a, b) => a.name.localeCompare(b.name));
+  } catch {
+    // Table may not have any records yet
+    return [];
+  }
+}
+
+export async function getDangerSpeciesBySlug(slug: string): Promise<DangerSpecies | null> {
+  const all = await getAllDangerSpecies();
+  return all.find(d => d.slug === slug) ?? null;
+}
+
+export async function getAllDangerSpeciesSlugs(): Promise<string[]> {
+  const all = await getAllDangerSpecies();
+  return all.map(d => d.slug).filter(Boolean);
+}
+
+export async function getDangerSpeciesByCategory(category: DangerCategory): Promise<DangerSpecies[]> {
+  const all = await getAllDangerSpecies();
+  return all.filter(d => d.category === category);
 }

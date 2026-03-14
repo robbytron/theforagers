@@ -97,34 +97,6 @@ export default async function HomePage() {
           <Link href="/beginners">Beginner&apos;s guide →</Link>
         </div>
       </div>
-
-      <footer className={styles.footer}>
-        <div className={styles.footerTop}>
-          <div>
-            <div className={styles.footerBrand}>The <em>Foragers</em></div>
-            <p className={styles.footerTagline}>Wild food of Britain</p>
-          </div>
-          <div className={styles.footerLinks}>
-            <div className={styles.footerCol}>
-              <h4>Explore</h4>
-              <ul>
-                <li><Link href="/species">Species Guide</Link></li>
-                <li><Link href="/calendar">Calendar</Link></li>
-              </ul>
-            </div>
-            <div className={styles.footerCol}>
-              <h4>Learn</h4>
-              <ul>
-                <li><Link href="/beginners">Beginners</Link></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className={styles.footerBottom}>
-          <p className={styles.footerLegal}>© {now.getFullYear()} The Foragers.</p>
-          <p className={styles.footerSafety}>Never eat anything you cannot positively identify.</p>
-        </div>
-      </footer>
     </>
   );
 }
