@@ -1,0 +1,96 @@
+export type SpeciesType = 'Greens' | 'Fungi' | 'Berries' | 'Nuts' | 'Roots' | 'Coastal' | 'Flowers';
+export type SpeciesDifficulty = 'Beginner' | 'Intermediate' | 'Expert Only';
+export type SpeciesStatus = 'Draft' | 'In Review' | 'Live' | 'Hidden';
+export type Month = 'January' | 'February' | 'March' | 'April' | 'May' | 'June' | 'July' | 'August' | 'September' | 'October' | 'November' | 'December';
+
+export interface AirtableAttachment {
+  id: string;
+  url: string;
+  filename: string;
+  width?: number;
+  height?: number;
+  thumbnails?: {
+    small?: { url: string; width: number; height: number };
+    large?: { url: string; width: number; height: number };
+    full?:  { url: string; width: number; height: number };
+  };
+}
+
+export interface AirtableSpeciesFields {
+  'Species Name':          string;
+  'Latin Name':            string;
+  'Slug':                  string;
+  'Type':                  SpeciesType;
+  'Difficulty':            SpeciesDifficulty;
+  'Status':                SpeciesStatus;
+  'Short Description':     string;
+  'Full Description':      string;
+  'Identification Notes':  string;
+  'Lookalikes & Dangers':  string;
+  'Habitat':               string;
+  'Culinary Uses':         string;
+  'Legal Notes':           string;
+  'iNaturalist Taxon ID':  number;
+  'Hero Image':            AirtableAttachment[];
+  'Additional Images':     AirtableAttachment[];
+  'Hide API Photos':       boolean;
+  'Expert Reviewed':       boolean;
+  'Reviewer Notes':        string;
+  'SEO Title':             string;
+  'SEO Description':       string;
+  'Last Updated':          string;
+  'Seasons':               Month[];
+  'Habitats':              string[];
+}
+
+export interface Species {
+  id:                   string;
+  name:                 string;
+  latinName:            string;
+  slug:                 string;
+  type:                 SpeciesType;
+  difficulty:           SpeciesDifficulty;
+  status:               SpeciesStatus;
+  shortDescription:     string;
+  fullDescription:      string;
+  identificationNotes:  string;
+  lookalikesAndDangers: string;
+  habitat:              string;
+  culinaryUses:         string;
+  legalNotes:           string;
+  iNaturalistTaxonId:   number | null;
+  heroImage:            AirtableAttachment | null;
+  additionalImages:     AirtableAttachment[];
+  hideApiPhotos:        boolean;
+  expertReviewed:       boolean;
+  reviewerNotes:        string;
+  seoTitle:             string;
+  seoDescription:       string;
+  lastUpdated:          string;
+  seasons:              Month[];
+  photos:               SpeciesPhoto[];
+}
+
+export interface SpeciesPhoto {
+  url:         string;
+  thumbUrl:    string;
+  attribution: string;
+  license:     string;
+  source:      'airtable' | 'inaturalist';
+  width?:      number;
+  height?:     number;
+}
+
+export interface INatPhoto {
+  id:           number;
+  url:          string;
+  attribution:  string;
+  license_code: string;
+}
+
+export interface INatObservation {
+  id:            number;
+  photos:        INatPhoto[];
+  quality_grade: string;
+  place_guess:   string;
+}
