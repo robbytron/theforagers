@@ -142,9 +142,9 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
               <h3 className={styles.factHead}>Photos</h3>
               <div className={styles.gallery}>
                 {gallery.map((photo, i) => (
-                  <div key={i} className={styles.galleryItem}>
+                  <a key={i} href={photo.url} target="_blank" rel="noopener noreferrer" className={styles.galleryItem}>
                     <Image src={photo.thumbUrl} alt={`${species.name} ${i+2}`} fill sizes="200px" className={styles.galleryImg} />
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
