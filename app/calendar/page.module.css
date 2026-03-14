@@ -2,7 +2,7 @@
 .heroLabel { font-size:var(--text-xs); font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); margin-bottom:var(--space-4); }
 .heroTitle { font-family:var(--font-display); font-size:clamp(var(--text-2xl),5vw,var(--text-3xl)); font-weight:300; line-height:1.08; letter-spacing:-0.03em; color:var(--cream); margin-bottom:var(--space-4); }
 .heroTitle em { font-style:italic; font-weight:600; color:var(--brown-light); }
-.heroSub { font-size:var(--text-base); color:rgba(244,239,228,0.6); max-width:480px; }
+.heroSub { font-size:var(--text-base); color:rgba(244,239,228,0.6); }
 .monthNav { background:var(--parchment); border-bottom:1px solid rgba(28,43,30,0.1); display:flex; overflow-x:auto; position:sticky; top:0; z-index:50; scrollbar-width:none; }
 .monthNav::-webkit-scrollbar { display:none; }
 .monthPill { flex:1; min-width:56px; display:flex; flex-direction:column; align-items:center; padding:var(--space-3) var(--space-2); border-right:1px solid rgba(28,43,30,0.06); text-decoration:none; transition:background 0.15s; }

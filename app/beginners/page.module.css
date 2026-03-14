@@ -2,8 +2,8 @@
 .heroLabel { font-size:var(--text-xs); font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); margin-bottom:var(--space-4); }
 .heroTitle { font-family:var(--font-display); font-size:clamp(var(--text-2xl),5vw,var(--text-3xl)); font-weight:300; line-height:1.08; letter-spacing:-0.03em; color:var(--cream); margin-bottom:var(--space-4); }
 .heroTitle em { font-style:italic; font-weight:600; color:var(--brown-light); }
-.heroSub { font-size:var(--text-base); color:rgba(244,239,228,0.7); max-width:520px; }
-.sectionIntro { max-width:640px; margin-bottom:var(--space-7); }
+.heroSub { font-size:var(--text-base); color:rgba(244,239,228,0.7); }
+.sectionIntro { margin-bottom:var(--space-7); }
 .sectionTitle { font-family:var(--font-display); font-size:clamp(var(--text-xl),3.5vw,var(--text-2xl)); font-weight:300; line-height:1.1; letter-spacing:-0.025em; color:var(--green-deep); margin-bottom:var(--space-4); }
 .sectionTitle em { font-style:italic; font-weight:600; color:var(--green-mid); }
 .sectionSub { font-size:var(--text-base); color:var(--green-muted); line-height:1.7; }
@@ -14,7 +14,7 @@
 .codeRule { font-family:var(--font-display); font-size:var(--text-md); font-weight:600; letter-spacing:-0.02em; color:var(--green-deep); margin-bottom:var(--space-2); }
 .codeDetail { font-size:var(--text-sm); color:var(--green-muted); line-height:1.65; }
 .safetyBox { background:var(--green-deep); padding:var(--space-8) var(--space-6); }
-.safetyInner { max-width:720px; margin:0 auto; text-align:center; }
+.safetyInner { text-align:center; }
 .safetyTitle { font-family:var(--font-display); font-size:clamp(var(--text-xl),3vw,var(--text-2xl)); font-weight:600; color:var(--cream); margin-bottom:var(--space-5); display:flex; align-items:center; justify-content:center; gap:var(--space-3); }
 .safetyRule { font-family:var(--font-display); font-size:var(--text-md); font-style:italic; font-weight:300; color:var(--brown-light); line-height:1.6; margin-bottom:var(--space-4); }
 .safetySub { font-size:var(--text-sm); color:rgba(244,239,228,0.5); line-height:1.7; }
