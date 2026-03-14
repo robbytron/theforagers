@@ -1,0 +1,105 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 40px;
+  cursor: pointer;
+  z-index: 10;
+  line-height: 1;
+  padding: 8px;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: white;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 60px;
+  cursor: pointer;
+  z-index: 10;
+  padding: 20px;
+  transition: color 0.2s;
+}
+
+.prev:hover, .next:hover {
+  color: white;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 90vw;
+  height: 80vh;
+  max-width: 1400px;
+  cursor: default;
+}
+
+.image {
+  object-fit: contain;
+}
+
+.counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+
+.attribution {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+}
+
+@media (max-width: 768px) {
+  .prev, .next {
+    font-size: 40px;
+    padding: 15px;
+  }
+
+  .prev {
+    left: 5px;
+  }
+
+  .next {
+    right: 5px;
+  }
+
+  .imageContainer {
+    width: 95vw;
+    height: 70vh;
+  }
+}

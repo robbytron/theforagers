@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Nav from '@/components/ui/Nav';
 import LookalikeComparison from '@/components/species/LookalikeComparison';
+import PhotoGallery from '@/components/species/PhotoGallery';
 import { getSpeciesBySlug, getAllSpeciesSlugs, getLookalikesForSpecies } from '@/lib/airtable';
 import { resolveSpeciesPhotos } from '@/lib/inaturalist';
 import type { FAQ } from '@/types';
@@ -137,16 +138,10 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
               <div className={styles.factRow}><dt>Expert reviewed</dt><dd>{species.expertReviewed ? 'Yes ✓' : 'Pending'}</dd></div>
             </dl>
           </div>
-          {gallery.length > 0 && (
+          {photos.length > 0 && (
             <div className={styles.galleryCard}>
               <h3 className={styles.factHead}>Photos</h3>
-              <div className={styles.gallery}>
-                {gallery.map((photo, i) => (
-                  <a key={i} href={photo.url} target="_blank" rel="noopener noreferrer" className={styles.galleryItem}>
-                    <Image src={photo.thumbUrl} alt={`${species.name} ${i+2}`} fill sizes="200px" className={styles.galleryImg} />
-                  </a>
-                ))}
-              </div>
+              <PhotoGallery photos={photos} speciesName={species.name} />
             </div>
           )}
           {species.iNaturalistTaxonId && (

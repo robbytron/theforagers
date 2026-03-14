@@ -1,0 +1,25 @@
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+.galleryItem {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  cursor: pointer;
+  display: block;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+.galleryImg {
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.galleryItem:hover .galleryImg {
+  transform: scale(1.04);
+}
