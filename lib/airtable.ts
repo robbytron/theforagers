@@ -1,4 +1,4 @@
-import type { Species, AirtableAttachment, SpeciesPhoto, Lookalike, DangerLevel, FAQ } from '@/types';
+import type { Species, AirtableAttachment, SpeciesPhoto, Lookalike, DangerLevel, FAQ, Recipe } from '@/types';
 
 const BASE_ID = process.env.AIRTABLE_BASE_ID;
 const PAT     = process.env.AIRTABLE_PAT;
@@ -140,4 +140,44 @@ export async function getLookalikesForSpecies(speciesId: string): Promise<Lookal
     // Table may not exist yet
     return [];
   }
+}
+
+function normaliseRecipe(record: any): Recipe {
+  const f = record.fields;
+  const image: AirtableAttachment | null = f['Image']?.[0] ?? null;
+
+  return {
+    id:               record.id,
+    name:             f['Recipe Name'] ?? '',
+    slug:             f['Slug'] ?? '',
+    shortDescription: f['Short Description'] ?? '',
+    difficulty:       f['Difficulty'] ?? 'Easy',
+    prepTime:         f['Prep Time'] ?? '',
+    cookTime:         f['Cook Time'] ?? '',
+    servings:         f['Servings'] ?? '',
+    ingredients:      f['Ingredients'] ?? '',
+    method:           f['Method'] ?? '',
+    image,
+    status:           f['Status'] ?? 'Draft',
+  };
+}
+
+export async function getAllRecipes(): Promise<Recipe[]> {
+  const records = await airtableFetch('Recipes');
+  return records.map(normaliseRecipe).filter(r => r.status === 'Live').sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export async function getRecipeBySlug(slug: string): Promise<Recipe | null> {
+  const all = await getAllRecipes();
+  return all.find(r => r.slug === slug) ?? null;
+}
+
+export async function getAllRecipeSlugs(): Promise<string[]> {
+  const all = await getAllRecipes();
+  return all.map(r => r.slug).filter(Boolean);
+}
+
+export async function getFeaturedRecipes(limit = 6): Promise<Recipe[]> {
+  const all = await getAllRecipes();
+  return all.slice(0, limit);
 }

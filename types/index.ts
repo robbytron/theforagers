@@ -105,6 +105,24 @@ export interface INatObservation {
 
 export type DangerLevel = 'Deadly' | 'Toxic' | 'Inedible' | 'Caution';
 
+export type RecipeDifficulty = 'Easy' | 'Medium' | 'Involved';
+export type RecipeStatus = 'Draft' | 'Live';
+
+export interface Recipe {
+  id:               string;
+  name:             string;
+  slug:             string;
+  shortDescription: string;
+  difficulty:       RecipeDifficulty;
+  prepTime:         string;
+  cookTime:         string;
+  servings:         string;
+  ingredients:      string;
+  method:           string;
+  image:            AirtableAttachment | null;
+  status:           RecipeStatus;
+}
+
 export interface Lookalike {
   id:                  string;
   name:                string;
