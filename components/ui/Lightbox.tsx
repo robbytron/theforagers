@@ -45,35 +45,32 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
 
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <button className={styles.close} onClick={onClose}>×</button>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.close} onClick={onClose}>×</button>
 
-      {photos.length > 1 && (
-        <>
-          <button className={styles.prev} onClick={(e) => { e.stopPropagation(); goPrev(); }}>‹</button>
-          <button className={styles.next} onClick={(e) => { e.stopPropagation(); goNext(); }}>›</button>
-        </>
-      )}
-
-      <div className={styles.imageContainer} onClick={(e) => e.stopPropagation()}>
-        <Image
-          src={photo.url}
-          alt={`Photo ${currentIndex + 1}`}
-          fill
-          sizes="90vw"
-          className={styles.image}
-          priority
-        />
-      </div>
-
-      {photos.length > 1 && (
-        <div className={styles.counter}>
-          {currentIndex + 1} / {photos.length}
+        <div className={styles.imageContainer}>
+          <Image
+            src={photo.url}
+            alt={`Photo ${currentIndex + 1}`}
+            fill
+            sizes="800px"
+            className={styles.image}
+            priority
+          />
         </div>
-      )}
 
-      {photo.attribution && (
-        <div className={styles.attribution}>{photo.attribution}</div>
-      )}
+        {photos.length > 1 && (
+          <div className={styles.controls}>
+            <button className={styles.prev} onClick={goPrev}>← Prev</button>
+            <span className={styles.counter}>{currentIndex + 1} / {photos.length}</span>
+            <button className={styles.next} onClick={goNext}>Next →</button>
+          </div>
+        )}
+
+        {photo.attribution && (
+          <div className={styles.attribution}>{photo.attribution}</div>
+        )}
+      </div>
     </div>
   );
 }
