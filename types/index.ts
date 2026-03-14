@@ -44,6 +44,11 @@ export interface AirtableSpeciesFields {
   'iNaturalist Hero URL':  string;
 }
 
+export interface FAQ {
+  q: string;
+  a: string;
+}
+
 export interface Species {
   id:                   string;
   name:                 string;
@@ -71,6 +76,7 @@ export interface Species {
   lastUpdated:          string;
   seasons:              Month[];
   photos:               SpeciesPhoto[];
+  faqs:                 FAQ[];
 }
 
 export interface SpeciesPhoto {

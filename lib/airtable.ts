@@ -1,4 +1,4 @@
-import type { Species, AirtableAttachment, SpeciesPhoto, Lookalike, DangerLevel } from '@/types';
+import type { Species, AirtableAttachment, SpeciesPhoto, Lookalike, DangerLevel, FAQ } from '@/types';
 
 const BASE_ID = process.env.AIRTABLE_BASE_ID;
 const PAT     = process.env.AIRTABLE_PAT;
@@ -23,10 +23,22 @@ async function airtableFetch(table: string, params: Record<string, string> = {},
   return records;
 }
 
+function parseFAQs(raw: string | undefined): FAQ[] {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((item: any) => item.q && item.a);
+  } catch {
+    return [];
+  }
+}
+
 function normalise(record: any): Species {
   const f = record.fields;
   const heroAtt: AirtableAttachment | null = f['Hero Image']?.[0] ?? null;
   const iNatHeroUrl: string | null = f['iNaturalist Hero URL'] ?? null;
+  const faqs = parseFAQs(f['FAQs']);
 
   // Build photos array: prefer Airtable hero, fall back to iNaturalist hero URL
   const photos: SpeciesPhoto[] = [];
@@ -75,6 +87,7 @@ function normalise(record: any): Species {
     lastUpdated:          f['Last Updated'] ?? '',
     seasons:              f['Seasons'] ?? [],
     photos,
+    faqs,
   };
 }
 

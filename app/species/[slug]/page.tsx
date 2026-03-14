@@ -1,14 +1,31 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import Image from 'next/image';
 import Link from 'next/link';
 import Nav from '@/components/ui/Nav';
 import LookalikeComparison from '@/components/species/LookalikeComparison';
 import { getSpeciesBySlug, getAllSpeciesSlugs, getLookalikesForSpecies } from '@/lib/airtable';
 import { resolveSpeciesPhotos } from '@/lib/inaturalist';
+import type { FAQ } from '@/types';
 import styles from './page.module.css';
 
 export const revalidate = 3600;
+
+function buildFAQSchema(faqs: FAQ[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a,
+      },
+    })),
+  };
+}
 
 export async function generateStaticParams() {
   const slugs = await getAllSpeciesSlugs();
@@ -85,6 +102,25 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
               <div className={styles.prose} dangerouslySetInnerHTML={{__html: species.culinaryUses}} />
             </section>
           )}
+          {species.legalNotes && (
+            <section className={styles.section}>
+              <h2 className={styles.sectionHead}>Legal notes</h2>
+              <div className={styles.prose} dangerouslySetInnerHTML={{__html: species.legalNotes}} />
+            </section>
+          )}
+          {species.faqs.length > 0 && (
+            <section className={styles.section}>
+              <h2 className={styles.sectionHead}>Common questions</h2>
+              <div className={styles.faqList}>
+                {species.faqs.map((faq, i) => (
+                  <div key={i} className={styles.faqItem}>
+                    <h3 className={styles.faqQuestion}>{faq.q}</h3>
+                    <p className={styles.faqAnswer}>{faq.a}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </article>
 
         <aside className={styles.sidebar}>
@@ -117,6 +153,13 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
           )}
         </aside>
       </div>
+      {species.faqs.length > 0 && (
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFAQSchema(species.faqs)) }}
+        />
+      )}
     </>
   );
 }
