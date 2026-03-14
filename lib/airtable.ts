@@ -26,13 +26,27 @@ async function airtableFetch(table: string, params: Record<string, string> = {},
 function normalise(record: any): Species {
   const f = record.fields;
   const heroAtt: AirtableAttachment | null = f['Hero Image']?.[0] ?? null;
-  const photos: SpeciesPhoto[] = heroAtt ? [{
-    url:         heroAtt.url,
-    thumbUrl:    heroAtt.thumbnails?.large?.url ?? heroAtt.url,
-    attribution: heroAtt.filename,
-    license:     'CC-BY',
-    source:      'airtable' as const,
-  }] : [];
+  const iNatHeroUrl: string | null = f['iNaturalist Hero URL'] ?? null;
+
+  // Build photos array: prefer Airtable hero, fall back to iNaturalist hero URL
+  const photos: SpeciesPhoto[] = [];
+  if (heroAtt) {
+    photos.push({
+      url:         heroAtt.url,
+      thumbUrl:    heroAtt.thumbnails?.large?.url ?? heroAtt.url,
+      attribution: heroAtt.filename,
+      license:     'CC-BY',
+      source:      'airtable' as const,
+    });
+  } else if (iNatHeroUrl) {
+    photos.push({
+      url:         iNatHeroUrl,
+      thumbUrl:    iNatHeroUrl.replace('/large.', '/small.'),
+      attribution: 'iNaturalist',
+      license:     'CC-BY',
+      source:      'inaturalist' as const,
+    });
+  }
 
   return {
     id:                   record.id,
@@ -50,6 +64,7 @@ function normalise(record: any): Species {
     culinaryUses:         f['Culinary Uses'] ?? '',
     legalNotes:           f['Legal Notes'] ?? '',
     iNaturalistTaxonId:   f['iNaturalist Taxon ID'] ?? null,
+    iNaturalistHeroUrl:   iNatHeroUrl,
     heroImage:            heroAtt,
     additionalImages:     f['Additional Images'] ?? [],
     hideApiPhotos:        f['Hide API Photos'] ?? false,

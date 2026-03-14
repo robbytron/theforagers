@@ -41,6 +41,7 @@ export interface AirtableSpeciesFields {
   'Last Updated':          string;
   'Seasons':               Month[];
   'Habitats':              string[];
+  'iNaturalist Hero URL':  string;
 }
 
 export interface Species {
@@ -59,6 +60,7 @@ export interface Species {
   culinaryUses:         string;
   legalNotes:           string;
   iNaturalistTaxonId:   number | null;
+  iNaturalistHeroUrl:   string | null;
   heroImage:            AirtableAttachment | null;
   additionalImages:     AirtableAttachment[];
   hideApiPhotos:        boolean;
