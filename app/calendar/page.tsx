@@ -45,7 +45,7 @@ export default async function CalendarPage() {
             </div>
             {byMonth[month].length > 0 ? (
               <div className={styles.monthGrid}>
-                {byMonth[month].slice(0,4).map(s => <SpeciesCard key={s.id} species={s} />)}
+                {byMonth[month].map(s => <SpeciesCard key={s.id} species={s} />)}
               </div>
             ) : (
               <p className={styles.empty}>Species entries for {month} coming soon.</p>

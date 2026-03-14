@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Nav from '@/components/ui/Nav';
 import SpeciesCard from '@/components/species/SpeciesCard';
-import { getFeaturedSpecies } from '@/lib/airtable';
+import { getFeaturedSpecies, getAllSpecies } from '@/lib/airtable';
+import type { Month } from '@/types';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -12,11 +13,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const MONTH_COUNTS: Record<string, number> = {
-  January:6,February:9,March:18,April:24,May:31,June:28,
-  July:26,August:29,September:34,October:31,November:14,December:8,
-};
+const MONTHS: Month[] = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const TICKER = [
   {name:'Wild Garlic',note:'in leaf now'},{name:'Wood Sorrel',note:'emerging'},
   {name:'Hawthorn Buds',note:'first flush'},{name:'Nettles',note:'young tops only'},
@@ -27,7 +24,13 @@ const TICKER = [
 export default async function HomePage() {
   const now = new Date();
   const currentMonth = MONTHS[now.getMonth()];
-  const featured = await getFeaturedSpecies(3);
+  const [featured, allSpecies] = await Promise.all([
+    getFeaturedSpecies(3),
+    getAllSpecies(),
+  ]);
+  const monthCounts = Object.fromEntries(
+    MONTHS.map(m => [m, allSpecies.filter(s => s.seasons.includes(m)).length])
+  ) as Record<Month, number>;
 
   return (
     <>
@@ -74,7 +77,7 @@ export default async function HomePage() {
             <Link key={month} href={`/calendar`}
               className={`${styles.calMonth} ${month===currentMonth ? styles.calActive : ''}`}>
               <div className={styles.calName}>{month.slice(0,3)}</div>
-              <div className={styles.calCount}>{MONTH_COUNTS[month]} species</div>
+              <div className={styles.calCount}>{monthCounts[month]} species</div>
             </Link>
           ))}
         </div>
