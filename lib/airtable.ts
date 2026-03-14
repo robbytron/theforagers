@@ -4,16 +4,18 @@ const BASE_ID = process.env.AIRTABLE_BASE_ID;
 const PAT     = process.env.AIRTABLE_PAT;
 const AIRTABLE_API = 'https://api.airtable.com/v0';
 
-async function airtableFetch(table: string, params: Record<string, string> = {}, revalidate = 3600) {
+async function airtableFetch(table: string, params: Record<string, string> = {}) {
   const url = new URL(`${AIRTABLE_API}/${BASE_ID}/${encodeURIComponent(table)}`);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
   const records: any[] = [];
   let offset: string | undefined;
   do {
     if (offset) url.searchParams.set('offset', offset);
+    // Don't cache paginated requests - offset tokens expire after ~5 minutes
+    // Caching is handled at the page level via revalidate export
     const res = await fetch(url.toString(), {
       headers: { Authorization: `Bearer ${PAT}` },
-      next: { revalidate },
+      cache: 'no-store',
     });
     if (!res.ok) throw new Error(`Airtable error ${res.status}: ${await res.text()}`);
     const data = await res.json();
