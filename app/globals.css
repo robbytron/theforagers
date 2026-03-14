@@ -89,3 +89,5 @@ img { display: block; max-width: 100%; }
 .tag-season   { background: var(--green-deep); color: var(--sage); }
 .tag-beginner { background: rgba(196,163,90,0.15); color: var(--brown); }
 .tag-caution  { background: rgba(180,80,60,0.1); color: #a04030; }
+.tag-deadly   { background: rgba(122,32,32,0.15); color: #7a2020; font-weight: 600; }
+.tag-inedible { background: rgba(139,105,20,0.12); color: #8b6914; }

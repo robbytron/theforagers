@@ -1,4 +1,4 @@
-import type { Species, AirtableAttachment, SpeciesPhoto } from '@/types';
+import type { Species, AirtableAttachment, SpeciesPhoto, Lookalike, DangerLevel } from '@/types';
 
 const BASE_ID = process.env.AIRTABLE_BASE_ID;
 const PAT     = process.env.AIRTABLE_PAT;
@@ -96,4 +96,35 @@ export async function getAllSpeciesSlugs(): Promise<string[]> {
 export async function getFeaturedSpecies(limit = 3): Promise<Species[]> {
   const all = await getAllSpecies();
   return all.slice(0, limit);
+}
+
+function normaliseLookalike(record: any): Lookalike {
+  const f = record.fields;
+  const heroAtt: AirtableAttachment | null = f['Hero Image Override']?.[0] ?? null;
+
+  return {
+    id:                  record.id,
+    name:                f['Name'] ?? '',
+    latinName:           f['Latin Name'] ?? '',
+    iNaturalistTaxonId:  f['iNaturalist Taxon ID'] ?? null,
+    dangerLevel:         f['Danger Level'] ?? 'Caution',
+    howToTellApart:      f['How to Tell Apart'] ?? '',
+    speciesIds:          f['Species'] ?? [],
+    heroImageOverride:   heroAtt,
+    expertReviewed:      f['Expert Reviewed'] ?? false,
+    reviewerNotes:       f['Reviewer Notes'] ?? '',
+    photo:               null, // Will be resolved by component
+  };
+}
+
+export async function getLookalikesForSpecies(speciesId: string): Promise<Lookalike[]> {
+  try {
+    const records = await airtableFetch('Lookalikes');
+    return records
+      .map(normaliseLookalike)
+      .filter(l => l.expertReviewed && l.speciesIds.includes(speciesId));
+  } catch {
+    // Table may not exist yet
+    return [];
+  }
 }

@@ -96,3 +96,19 @@ export interface INatObservation {
   quality_grade: string;
   place_guess:   string;
 }
+
+export type DangerLevel = 'Deadly' | 'Toxic' | 'Inedible' | 'Caution';
+
+export interface Lookalike {
+  id:                  string;
+  name:                string;
+  latinName:           string;
+  iNaturalistTaxonId:  number | null;
+  dangerLevel:         DangerLevel;
+  howToTellApart:      string;
+  speciesIds:          string[];
+  heroImageOverride:   AirtableAttachment | null;
+  expertReviewed:      boolean;
+  reviewerNotes:       string;
+  photo:               SpeciesPhoto | null;
+}

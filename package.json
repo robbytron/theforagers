@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "populate-inat-heroes": "tsx scripts/populate-inat-hero-urls.ts"
+    "populate-inat-heroes": "tsx scripts/populate-inat-hero-urls.ts",
+    "create-lookalikes-table": "tsx scripts/create-lookalikes-table.ts"
   },
   "dependencies": {
     "next": "16.1.6",

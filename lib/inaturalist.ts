@@ -41,6 +41,11 @@ export async function getINatPhotos(taxonId: number, limit = 8): Promise<Species
   return photos;
 }
 
+export async function getFirstINatPhoto(taxonId: number): Promise<SpeciesPhoto | null> {
+  const photos = await getINatPhotos(taxonId, 1);
+  return photos[0] ?? null;
+}
+
 export async function resolveSpeciesPhotos(species: Species): Promise<SpeciesPhoto[]> {
   const airtablePhotos: SpeciesPhoto[] = [
     ...(species.heroImage ? [{

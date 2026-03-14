@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Nav from '@/components/ui/Nav';
-import { getSpeciesBySlug, getAllSpeciesSlugs } from '@/lib/airtable';
+import LookalikeComparison from '@/components/species/LookalikeComparison';
+import { getSpeciesBySlug, getAllSpeciesSlugs, getLookalikesForSpecies } from '@/lib/airtable';
 import { resolveSpeciesPhotos } from '@/lib/inaturalist';
 import styles from './page.module.css';
 
@@ -26,7 +27,10 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
   const species = await getSpeciesBySlug(slug);
   if (!species) notFound();
 
-  const photos  = await resolveSpeciesPhotos(species);
+  const [photos, lookalikes] = await Promise.all([
+    resolveSpeciesPhotos(species),
+    getLookalikesForSpecies(species.id),
+  ]);
   const hero    = photos[0];
   const gallery = photos.slice(1, 6);
 
@@ -70,6 +74,11 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
               <div className={styles.prose} dangerouslySetInnerHTML={{__html: species.lookalikesAndDangers}} />
             </section>
           )}
+          <LookalikeComparison
+            speciesName={species.name}
+            speciesPhoto={hero ?? null}
+            lookalikes={lookalikes}
+          />
           {species.culinaryUses && (
             <section className={styles.section}>
               <h2 className={styles.sectionHead}>How to eat it</h2>
