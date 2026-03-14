@@ -19,7 +19,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${epilogue.variable}`}>
-      <body>{children}</body>
+      <body>
+        <div style={{ overflow: 'hidden', width: '100%', maxWidth: '100%' }}>
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
