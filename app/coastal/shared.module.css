@@ -1,0 +1,23 @@
+.page { min-height: 100vh; background: var(--parchment); }
+.header { background: linear-gradient(135deg, #1a3a4a 0%, #2d5a6a 100%); padding: var(--space-8) var(--space-6); }
+.headerInner { max-width: 800px; margin: 0 auto; }
+.breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: #7eb8c9; margin-bottom: var(--space-4); }
+.breadcrumb a { color: #7eb8c9; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--cream); }
+.title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: var(--cream); margin-bottom: var(--space-4); }
+.title em { font-style: italic; font-weight: 600; color: #a8d4e6; }
+.subtitle { font-size: var(--text-base); line-height: 1.7; color: rgba(244, 239, 228, 0.7); max-width: 600px; }
+.content { max-width: 800px; margin: 0 auto; padding: var(--space-8) var(--space-6); }
+.section { margin-bottom: var(--space-7); }
+.sectionTitle { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; color: var(--green-deep); margin-bottom: var(--space-4); }
+.prose { font-size: var(--text-base); color: var(--green-muted); line-height: 1.8; }
+.prose p { margin-bottom: var(--space-4); }
+.prose ul { list-style: none; margin: var(--space-4) 0; }
+.prose li { position: relative; padding-left: var(--space-5); margin-bottom: var(--space-3); }
+.prose li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: #2d5a6a; border-radius: 50%; }
+.prose strong { color: var(--green-deep); font-weight: 500; }
+.warning { background: #FFF5F5; border: 1px solid #C41E3A; padding: var(--space-5); margin: var(--space-5) 0; }
+.warning p { color: #5C1A1A; margin-bottom: 0; }
+.backLink { max-width: 800px; margin: 0 auto; padding: 0 var(--space-6) var(--space-8); }
+.backLink a { font-size: var(--text-sm); color: #2d5a6a; }
+@media (max-width: 640px) { .header { padding: var(--space-7) var(--space-4); } .content, .backLink { padding-left: var(--space-4); padding-right: var(--space-4); } }

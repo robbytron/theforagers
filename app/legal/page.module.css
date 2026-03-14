@@ -60,6 +60,45 @@
   font-weight: 600;
 }
 
+.guides {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-6) 0;
+}
+
+.guidesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.guideCard {
+  background: var(--cream);
+  padding: var(--space-4);
+  border: 1px solid rgba(28, 43, 30, 0.08);
+  border-left: 3px solid var(--green-mid);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.guideCard:hover {
+  border-color: var(--green-mid);
+  box-shadow: 0 4px 16px rgba(28, 43, 30, 0.08);
+}
+
+.guideCard h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--green-deep);
+  margin-bottom: var(--space-2);
+}
+
+.guideCard p {
+  font-size: var(--text-sm);
+  color: var(--green-muted);
+  line-height: 1.5;
+}
+
 .sections {
   max-width: 800px;
   margin: 0 auto;

@@ -67,6 +67,27 @@ export default async function BeginnersPage() {
         </div>
         {beginnerSpecies.length === 0 && <p className={styles.empty}>Set some species to Difficulty: Beginner in Airtable to see them here.</p>}
       </section>
+
+      <section className={styles.guidesSection}>
+        <div className={styles.sectionIntro}>
+          <p className="section-label">More for beginners</p>
+          <h2 className={styles.sectionTitle}>Beginner <em>Guides</em></h2>
+        </div>
+        <div className={styles.guidesGrid}>
+          <Link href="/beginners/first-10-species" className={styles.guideCard}>
+            <h3>First 10 Species</h3>
+            <p>The ten species every beginner should learn first — easy to identify and no dangerous lookalikes.</p>
+          </Link>
+          <Link href="/beginners/kit" className={styles.guideCard}>
+            <h3>Beginner Kit</h3>
+            <p>Essential equipment for new foragers — what you need for your first trips.</p>
+          </Link>
+          <Link href="/beginners/field-guides" className={styles.guideCard}>
+            <h3>Field Guides</h3>
+            <p>The books we recommend for learning to identify wild food.</p>
+          </Link>
+        </div>
+      </section>
     </>
   );
 }

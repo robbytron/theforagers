@@ -43,6 +43,28 @@ export default function JournalPage() {
           </p>
         </header>
 
+        <section className={styles.categories}>
+          <h2 className={styles.categoriesTitle}>Browse by Category</h2>
+          <div className={styles.categoryGrid}>
+            <Link href="/journal/in-season" className={styles.categoryCard}>
+              <h3>In Season</h3>
+              <p>Monthly dispatches on what&apos;s growing, what&apos;s ready, and what&apos;s worth finding right now.</p>
+            </Link>
+            <Link href="/journal/the-field" className={styles.categoryCard}>
+              <h3>The Field</h3>
+              <p>Notes from foraging expeditions — what we found, where we went, and what we learned.</p>
+            </Link>
+            <Link href="/journal/the-land" className={styles.categoryCard}>
+              <h3>The Land</h3>
+              <p>Essays on the British landscape, ecology, and our relationship with the land we forage.</p>
+            </Link>
+            <Link href="/journal/wild-table" className={styles.categoryCard}>
+              <h3>Wild Table</h3>
+              <p>Cooking with foraged ingredients — meals, experiments, and lessons from the kitchen.</p>
+            </Link>
+          </div>
+        </section>
+
         <section className={styles.content}>
           <div className={styles.comingSoon}>
             <h2>Coming Soon</h2>

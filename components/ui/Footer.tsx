@@ -15,19 +15,20 @@ export default function Footer() {
           <div className={styles.footerCol}>
             <h4>Explore</h4>
             <ul>
-              <li><Link href="/species">Species Guide</Link></li>
+              <li><Link href="/species">Species</Link></li>
               <li><Link href="/calendar">Calendar</Link></li>
-              <li><Link href="/recipes">Recipes</Link></li>
               <li><Link href="/where-to-forage">Where to Forage</Link></li>
+              <li><Link href="/coastal">Coastal</Link></li>
+              <li><Link href="/beginners">Beginners</Link></li>
             </ul>
           </div>
           <div className={styles.footerCol}>
             <h4>Learn</h4>
             <ul>
-              <li><Link href="/beginners">Beginners</Link></li>
+              <li><Link href="/recipes">Recipes</Link></li>
               <li><Link href="/guides">Guides</Link></li>
-              <li><Link href="/prepare-and-preserve">Preserve</Link></li>
-              <li><Link href="/coastal">Coastal</Link></li>
+              <li><Link href="/prepare-and-preserve">Prepare & Preserve</Link></li>
+              <li><Link href="/field-guides-and-kit">Field Guides & Kit</Link></li>
             </ul>
           </div>
           <div className={styles.footerCol}>
@@ -40,10 +41,19 @@ export default function Footer() {
             </ul>
           </div>
           <div className={styles.footerCol}>
+            <h4>Journal</h4>
+            <ul>
+              <li><Link href="/journal/in-season">In Season</Link></li>
+              <li><Link href="/journal/the-field">The Field</Link></li>
+              <li><Link href="/journal/the-land">The Land</Link></li>
+              <li><Link href="/journal/wild-table">Wild Table</Link></li>
+            </ul>
+          </div>
+          <div className={styles.footerCol}>
             <h4>About</h4>
             <ul>
               <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/journal">Journal</Link></li>
+              <li><Link href="/newsletter">Newsletter</Link></li>
             </ul>
           </div>
         </div>

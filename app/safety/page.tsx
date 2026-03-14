@@ -140,6 +140,24 @@ export default function SafetyPage() {
           </div>
         </section>
 
+        <section className={styles.guides}>
+          <h2 className={styles.sectionTitle}>Detailed Guides</h2>
+          <div className={styles.linksGrid}>
+            <Link href="/safety/identification" className={styles.linkCard}>
+              <h3>Identification</h3>
+              <p>Learn proper identification techniques and the features to check.</p>
+            </Link>
+            <Link href="/safety/lookalikes" className={styles.linkCard}>
+              <h3>Dangerous Lookalikes</h3>
+              <p>Common confusion species and how to tell them apart.</p>
+            </Link>
+            <Link href="/safety/first-aid" className={styles.linkCard}>
+              <h3>First Aid</h3>
+              <p>What to do if something goes wrong while foraging.</p>
+            </Link>
+          </div>
+        </section>
+
         <section className={styles.links}>
           <h2 className={styles.linksTitle}>Related Resources</h2>
           <div className={styles.linksGrid}>

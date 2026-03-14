@@ -69,6 +69,23 @@ export default async function DangersPage() {
           </div>
         </section>
 
+        <section className={styles.categories}>
+          <div className={styles.categoriesGrid}>
+            <Link href="/dangers/poisonous-plants" className={styles.categoryCard}>
+              <h3>Poisonous Plants</h3>
+              <p>Hemlock, Foxglove, Deadly Nightshade, and other toxic plants of Britain.</p>
+            </Link>
+            <Link href="/dangers/toxic-fungi" className={styles.categoryCard}>
+              <h3>Toxic Fungi</h3>
+              <p>Death Cap, Destroying Angel, and the mushrooms that kill.</p>
+            </Link>
+            <Link href="/dangers/dangerous-berries" className={styles.categoryCard}>
+              <h3>Dangerous Berries</h3>
+              <p>Yew, Nightshade, and toxic fruits that foragers must avoid.</p>
+            </Link>
+          </div>
+        </section>
+
         {!hasData ? (
           <>
             <section className={styles.placeholderSection}>

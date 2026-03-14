@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   description: 'Legal guidance for foraging in Britain — understanding land access, protected species, and commercial foraging rules.',
 };
 
+const DETAILED_GUIDES = [
+  { href: '/legal/foraging-law-uk', title: 'The Law Explained', description: 'The Wildlife and Countryside Act and what it means for foragers.' },
+  { href: '/legal/land-access', title: 'Land Access', description: 'Public land, private land, national parks, and access rights.' },
+  { href: '/legal/protected-species', title: 'Protected Species', description: 'Schedule 8 plants you cannot pick.' },
+  { href: '/legal/commercial-foraging', title: 'Commercial Foraging', description: 'Rules for selling foraged food.' },
+];
+
 const LEGAL_SECTIONS = [
   {
     title: 'The Basics',
@@ -86,6 +93,17 @@ export default function LegalPage() {
             law in Britain. It is not legal advice. Laws can change and interpretation varies.
             If you have specific legal questions, consult a qualified solicitor.
           </p>
+        </section>
+
+        <section className={styles.guides}>
+          <div className={styles.guidesGrid}>
+            {DETAILED_GUIDES.map((guide) => (
+              <Link key={guide.href} href={guide.href} className={styles.guideCard}>
+                <h3>{guide.title}</h3>
+                <p>{guide.description}</p>
+              </Link>
+            ))}
+          </div>
         </section>
 
         <section className={styles.sections}>

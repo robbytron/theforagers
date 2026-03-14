@@ -130,6 +130,24 @@ export default function CoastalPage() {
           </div>
         </section>
 
+        <section className={styles.guides}>
+          <h2 className={styles.habitatsTitle}>Coastal Guides</h2>
+          <div className={styles.linksGrid}>
+            <Link href="/coastal/shellfish" className={styles.guideCard}>
+              <h3>Shellfish</h3>
+              <p>Foraging for mussels, cockles, and other shellfish.</p>
+            </Link>
+            <Link href="/coastal/seaweed" className={styles.guideCard}>
+              <h3>Seaweed</h3>
+              <p>A guide to harvesting and using edible seaweeds.</p>
+            </Link>
+            <Link href="/coastal/water-quality" className={styles.guideCard}>
+              <h3>Water Quality</h3>
+              <p>Understanding water quality and safe harvesting areas.</p>
+            </Link>
+          </div>
+        </section>
+
         <section className={styles.links}>
           <h2 className={styles.linksTitle}>Related</h2>
           <div className={styles.linksGrid}>

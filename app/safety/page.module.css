@@ -211,6 +211,12 @@
   line-height: 1.7;
 }
 
+.guides {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
 .links {
   background: var(--green-deep);
   padding: var(--space-8) var(--space-6);
