@@ -1,7 +1,22 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Leaf, Circle, Cherry, Nut, Carrot, Waves, Flower2 } from 'lucide-react';
 import type { Species } from '@/types';
 import styles from './SpeciesCard.module.css';
+
+// Get icon component for type
+function getTypeIcon(type: string) {
+  const iconMap: Record<string, React.ElementType> = {
+    'Greens': Leaf,
+    'Fungi': Circle,
+    'Berries': Cherry,
+    'Nuts': Nut,
+    'Roots': Carrot,
+    'Coastal': Waves,
+    'Flowers': Flower2,
+  };
+  return iconMap[type] || null;
+}
 
 // Map type to CSS class
 function getTypeClass(type: string): string {
@@ -38,6 +53,7 @@ export default function SpeciesCard({ species }: { species: Species }) {
   const photo = species.photos[0];
   const typeClass = getTypeClass(species.type);
   const difficultyClass = getDifficultyClass(species.difficulty);
+  const TypeIcon = getTypeIcon(species.type);
 
   return (
     <Link href={`/species/${species.slug}`} className={styles.card}>
@@ -59,7 +75,10 @@ export default function SpeciesCard({ species }: { species: Species }) {
         <p className={styles.latin}>{species.latinName}</p>
         <p className={styles.desc}>{species.shortDescription}</p>
         <div className={styles.footer}>
-          <span className={styles.cta}>Full guide →</span>
+          <span className={styles.cta}>
+            {TypeIcon && <TypeIcon size={14} className={styles.ctaIcon} />}
+            Full guide →
+          </span>
         </div>
       </div>
     </Link>
