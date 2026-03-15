@@ -92,8 +92,9 @@ export default async function JournalPage() {
                   </div>
                 </Link>
 
-                {/* Articles */}
+                {/* Latest Articles */}
                 <div className={styles.articles}>
+                  <span className={styles.latestLabel}>Latest</span>
                   {articles.length > 0 ? (
                     articles.map((entry) => (
                       <Link
@@ -108,12 +109,10 @@ export default async function JournalPage() {
                   ) : (
                     <p className={styles.comingSoon}>Coming soon</p>
                   )}
+                  <Link href={`/journal/${cat.slug}`} className={styles.viewAllCard}>
+                    View all {cat.title} →
+                  </Link>
                 </div>
-
-                {/* View All Link */}
-                <Link href={`/journal/${cat.slug}`} className={styles.viewAll}>
-                  View all →
-                </Link>
               </div>
             );
           })}
