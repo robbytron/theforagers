@@ -131,13 +131,20 @@
   .heroMiniCarousel { gap:8px; }
   .heroMiniCard { width:45%; min-width:0; }
 }
-.seasonStrip { background:var(--green-deep); padding:var(--space-4) 0; overflow:hidden; }
+.seasonStrip { background:var(--green-deep); padding:var(--space-3) 0; margin-top:var(--space-3); overflow:hidden; display:flex; align-items:center; gap:var(--space-4); }
+.seasonLabel { flex-shrink:0; padding-left:var(--space-4); font-size:var(--text-xs); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--brown-light); }
+.seasonScrollWrapper { flex:1; overflow:hidden; }
 .seasonScroll { display:flex; gap:var(--space-7); animation:ticker 30s linear infinite; white-space:nowrap; }
 .seasonScroll:hover { animation-play-state:paused; }
 @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 .seasonItem { display:flex; align-items:center; gap:var(--space-3); font-size:var(--text-xs); letter-spacing:0.1em; text-transform:uppercase; color:var(--sage); flex-shrink:0; }
 .seasonItem strong { color:var(--cream); font-weight:500; }
 .dot { width:4px; height:4px; background:var(--brown-light); border-radius:50%; flex-shrink:0; }
+@media (max-width:640px) {
+  .seasonStrip { margin-top:var(--space-2); padding:var(--space-2) 0; }
+  .seasonLabel { padding-left:var(--space-3); font-size:9px; }
+  .seasonScroll { animation-duration:15s; gap:var(--space-5); }
+}
 
 /* Carousel Section */
 .carouselSection { background:var(--white); padding:var(--space-5) 0; }

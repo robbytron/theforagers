@@ -153,6 +153,16 @@ export default async function HomePage() {
                   <span className={styles.heroMiniName}>March Push</span>
                 </div>
               </Link>
+              {inSeasonSpecies.slice(1, 4).map(species => (
+                <Link key={species.id} href={`/species/${species.slug}`} className={styles.heroMiniCard}>
+                  {species.photos[0] && <img src={species.photos[0].thumbUrl} alt={species.name} />}
+                  <div className={styles.heroMiniOverlay} />
+                  <div className={styles.heroMiniContent}>
+                    <span className={styles.heroMiniType}>{species.type}</span>
+                    <span className={styles.heroMiniName}>{species.name}</span>
+                  </div>
+                </Link>
+              ))}
             </div>
             <div className={styles.heroMiniFade} />
           </div>
@@ -162,12 +172,15 @@ export default async function HomePage() {
       {/* Ticker - auto-generated from in-season species */}
       {tickerItems.length > 0 && (
         <div className={styles.seasonStrip}>
-          <div className={styles.seasonScroll}>
-            {[...tickerItems,...tickerItems].map((item,i) => (
-              <div key={i} className={styles.seasonItem}>
-                <span className={styles.dot} /><strong>{item.name}</strong><span>{item.note}</span>
-              </div>
-            ))}
+          <span className={styles.seasonLabel}>In season</span>
+          <div className={styles.seasonScrollWrapper}>
+            <div className={styles.seasonScroll}>
+              {[...tickerItems,...tickerItems].map((item,i) => (
+                <div key={i} className={styles.seasonItem}>
+                  <span className={styles.dot} /><strong>{item.name}</strong><span>{item.note}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
