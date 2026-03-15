@@ -152,7 +152,7 @@ export type DangerSpeciesStatus = 'Draft' | 'Live';
 export type FeatureContentType = 'Species' | 'Recipe' | 'Journal' | 'Danger' | 'Custom';
 
 // Journal
-export type JournalCategory = 'In Season' | 'The Field' | 'The Land' | 'Wild Table';
+export type JournalCategory = 'In Season' | 'From The Field' | 'The Land' | 'The Wild Table';
 export type JournalStatus = 'Draft' | 'Live';
 
 export interface JournalEntry {

@@ -5,7 +5,7 @@ import { getJournalEntriesByCategory } from '@/lib/airtable';
 import styles from '../shared.module.css';
 
 export const metadata: Metadata = {
-  title: 'The Field — Journal | The Foragers',
+  title: 'From The Field — Journal | The Foragers',
   description: 'Notes from foraging expeditions across Britain — what we found, where we went, and what we learned.',
 };
 
@@ -25,7 +25,7 @@ function formatDate(dateString: string | undefined): string {
 }
 
 export default async function TheFieldPage() {
-  const entries = await getJournalEntriesByCategory('The Field');
+  const entries = await getJournalEntriesByCategory('From The Field');
   const featured = entries[0];
   const remaining = entries.slice(1);
 
@@ -33,13 +33,8 @@ export default async function TheFieldPage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1692876339227-e74c5293a3e6?w=1600&q=80')" }}>
-          <div className={styles.headerInner}>
-            <h1 className={styles.title}>The <em>Field</em></h1>
-            <p className={styles.subtitle}>
-              Dispatches from foraging trips across Britain — what we found, where we went, and what we learned.
-            </p>
-          </div>
+        <header className={styles.header}>
+          <img src="/journal/categories/from-the-field-wide.png" alt="From The Field" className={styles.headerImage} />
         </header>
 
         <article className={styles.content}>
@@ -94,7 +89,7 @@ export default async function TheFieldPage() {
                 <p className={styles.exploreCardDesc}>Essays on landscape</p>
               </Link>
               <Link href="/journal/wild-table" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>Wild Table</h3>
+                <h3 className={styles.exploreCardTitle}>The Wild Table</h3>
                 <p className={styles.exploreCardDesc}>Cooking with wild food</p>
               </Link>
             </div>

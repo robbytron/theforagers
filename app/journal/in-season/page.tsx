@@ -33,13 +33,8 @@ export default async function InSeasonPage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1567579613414-e72304626a3b?w=1600&q=80')" }}>
-          <div className={styles.headerInner}>
-            <h1 className={styles.title}>In <em>Season</em></h1>
-            <p className={styles.subtitle}>
-              Monthly dispatches on what's growing, what's ready, and what's worth finding right now.
-            </p>
-          </div>
+        <header className={styles.header}>
+          <img src="/journal/categories/in-season-wide.png" alt="In Season" className={styles.headerImage} />
         </header>
 
         <article className={styles.content}>
@@ -86,7 +81,7 @@ export default async function InSeasonPage() {
             <h2 className={styles.exploreTitle}>Explore More</h2>
             <div className={styles.exploreGrid}>
               <Link href="/journal/the-field" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>The Field</h3>
+                <h3 className={styles.exploreCardTitle}>From The Field</h3>
                 <p className={styles.exploreCardDesc}>Notes from foraging trips</p>
               </Link>
               <Link href="/journal/the-land" className={styles.exploreCard}>
@@ -94,7 +89,7 @@ export default async function InSeasonPage() {
                 <p className={styles.exploreCardDesc}>Essays on landscape</p>
               </Link>
               <Link href="/journal/wild-table" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>Wild Table</h3>
+                <h3 className={styles.exploreCardTitle}>The Wild Table</h3>
                 <p className={styles.exploreCardDesc}>Cooking with wild food</p>
               </Link>
             </div>

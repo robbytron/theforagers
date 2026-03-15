@@ -18,13 +18,15 @@ const JOURNALS = [
     tagline: 'What to find right now',
     description: 'Monthly dispatches on what\'s growing, what\'s ready, and what\'s worth finding.',
     category: 'In Season',
+    image: '/journal/categories/in-season-card.png',
   },
   {
     slug: 'the-field',
-    title: 'The Field',
+    title: 'From The Field',
     tagline: 'Notes from the wild',
     description: 'First-hand accounts from foraging trips — what we found and what we learned.',
-    category: 'The Field',
+    category: 'From The Field',
+    image: '/journal/categories/from-the-field-card.png',
   },
   {
     slug: 'the-land',
@@ -32,13 +34,15 @@ const JOURNALS = [
     tagline: 'Essays on place',
     description: 'Longer pieces on landscape, ecology, and our relationship with wild Britain.',
     category: 'The Land',
+    image: '/journal/categories/the-land-card.png',
   },
   {
     slug: 'wild-table',
-    title: 'Wild Table',
+    title: 'The Wild Table',
     tagline: 'From forage to fork',
     description: 'Cooking with foraged ingredients — meals, experiments, and kitchen lessons.',
-    category: 'Wild Table',
+    category: 'The Wild Table',
+    image: '/journal/categories/the-wild-table-card.png',
   },
 ];
 
@@ -93,7 +97,7 @@ export default async function JournalPage() {
         <section className={styles.sections}>
           <h2 className={styles.sectionsTitle}>Explore the Journals</h2>
           <div className={styles.sectionsGrid}>
-            {JOURNALS.map((journal, index) => {
+            {JOURNALS.map((journal) => {
               const latest = latestByCategory[journal.category];
               return (
                 <Link
@@ -101,17 +105,20 @@ export default async function JournalPage() {
                   href={`/journal/${journal.slug}`}
                   className={styles.sectionCard}
                 >
-                  <span className={styles.sectionNumber}>0{index + 1}</span>
-                  <h3 className={styles.sectionTitle}>{journal.title}</h3>
-                  <p className={styles.sectionTagline}>{journal.tagline}</p>
-                  <p className={styles.sectionDesc}>{journal.description}</p>
-                  {latest && (
-                    <div className={styles.sectionLatest}>
-                      <span className={styles.sectionLatestLabel}>Latest:</span>
-                      <span className={styles.sectionLatestTitle}>{latest.title}</span>
-                    </div>
-                  )}
-                  <span className={styles.sectionLink}>Read {journal.title} →</span>
+                  <div className={styles.sectionImage}>
+                    <img src={journal.image} alt={journal.title} />
+                  </div>
+                  <div className={styles.sectionContent}>
+                    <p className={styles.sectionTagline}>{journal.tagline}</p>
+                    <p className={styles.sectionDesc}>{journal.description}</p>
+                    {latest && (
+                      <div className={styles.sectionLatest}>
+                        <span className={styles.sectionLatestLabel}>Latest:</span>
+                        <span className={styles.sectionLatestTitle}>{latest.title}</span>
+                      </div>
+                    )}
+                    <span className={styles.sectionLink}>Explore →</span>
+                  </div>
                 </Link>
               );
             })}

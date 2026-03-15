@@ -33,13 +33,8 @@ export default async function TheLandPage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1549709350-0a9d711063e3?w=1600&q=80')" }}>
-          <div className={styles.headerInner}>
-            <h1 className={styles.title}>The <em>Land</em></h1>
-            <p className={styles.subtitle}>
-              Essays on the British landscape, ecology, and our relationship with the land we forage.
-            </p>
-          </div>
+        <header className={styles.header}>
+          <img src="/journal/categories/the-land-wide.jpg" alt="The Land" className={styles.headerImage} />
         </header>
 
         <article className={styles.content}>
@@ -93,11 +88,11 @@ export default async function TheLandPage() {
                 <p className={styles.exploreCardDesc}>What to find right now</p>
               </Link>
               <Link href="/journal/the-field" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>The Field</h3>
+                <h3 className={styles.exploreCardTitle}>From The Field</h3>
                 <p className={styles.exploreCardDesc}>Notes from foraging trips</p>
               </Link>
               <Link href="/journal/wild-table" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>Wild Table</h3>
+                <h3 className={styles.exploreCardTitle}>The Wild Table</h3>
                 <p className={styles.exploreCardDesc}>Cooking with wild food</p>
               </Link>
             </div>

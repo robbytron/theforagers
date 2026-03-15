@@ -136,40 +136,47 @@
   display: flex;
   flex-direction: column;
   background: var(--cream);
-  padding: var(--space-6);
   border: 1px solid rgba(28, 43, 30, 0.08);
+  overflow: hidden;
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
 .sectionCard:hover {
   border-color: var(--sage);
-  box-shadow: 0 8px 30px rgba(28, 43, 30, 0.08);
-  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(28, 43, 30, 0.12);
+  transform: translateY(-4px);
 }
 
-.sectionNumber {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  font-weight: 200;
-  color: var(--sage);
-  opacity: 0.5;
-  line-height: 1;
-  margin-bottom: var(--space-3);
+.sectionImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
 }
 
-.sectionTitle {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 500;
-  color: var(--green-deep);
-  margin-bottom: var(--space-1);
+.sectionImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.sectionCard:hover .sectionImage img {
+  transform: scale(1.03);
+}
+
+.sectionContent {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .sectionTagline {
   font-size: var(--text-sm);
   font-style: italic;
   color: var(--sage);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 .sectionDesc {

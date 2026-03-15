@@ -24,10 +24,10 @@ const ARTICLE_INLINE_IMAGES: Record<string, string[]> = {
 
 // Fallback images by category
 const CATEGORY_IMAGES: Record<string, string> = {
-  'In Season': 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1600&q=80',
-  'The Field': 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80',
-  'The Land': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80',
-  'Wild Table': 'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=1600&q=80',
+  'In Season': '/journal/categories/in-season-wide.png',
+  'From The Field': '/journal/categories/from-the-field-wide.png',
+  'The Land': '/journal/categories/the-land-wide.jpg',
+  'The Wild Table': '/journal/categories/the-wild-table-wide.png',
 };
 
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1600&q=80';

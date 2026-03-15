@@ -5,7 +5,7 @@ import { getJournalEntriesByCategory } from '@/lib/airtable';
 import styles from '../shared.module.css';
 
 export const metadata: Metadata = {
-  title: 'Wild Table — Journal | The Foragers',
+  title: 'The Wild Table — Journal | The Foragers',
   description: 'Cooking with foraged ingredients — meals, experiments, and lessons from the kitchen.',
 };
 
@@ -25,7 +25,7 @@ function formatDate(dateString: string | undefined): string {
 }
 
 export default async function WildTablePage() {
-  const entries = await getJournalEntriesByCategory('Wild Table');
+  const entries = await getJournalEntriesByCategory('The Wild Table');
   const featured = entries[0];
   const remaining = entries.slice(1);
 
@@ -33,13 +33,8 @@ export default async function WildTablePage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1695088957803-0f2bf5d2d202?w=1600&q=80')" }}>
-          <div className={styles.headerInner}>
-            <h1 className={styles.title}>Wild <em>Table</em></h1>
-            <p className={styles.subtitle}>
-              Cooking with foraged ingredients — meals, experiments, and lessons from the kitchen.
-            </p>
-          </div>
+        <header className={styles.header}>
+          <img src="/journal/categories/the-wild-table-wide.png" alt="The Wild Table" className={styles.headerImage} />
         </header>
 
         <article className={styles.content}>
@@ -90,7 +85,7 @@ export default async function WildTablePage() {
                 <p className={styles.exploreCardDesc}>What to find right now</p>
               </Link>
               <Link href="/journal/the-field" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>The Field</h3>
+                <h3 className={styles.exploreCardTitle}>From The Field</h3>
                 <p className={styles.exploreCardDesc}>Notes from foraging trips</p>
               </Link>
               <Link href="/journal/the-land" className={styles.exploreCard}>
