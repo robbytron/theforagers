@@ -138,10 +138,12 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
         <div className={styles.content}>
           {paragraphs.map((paragraph, i) => {
             const elements = [];
+            const prevParagraph = i > 0 ? paragraphs[i - 1] : '';
+            const isAfterHeading = prevParagraph.startsWith('## ') || prevParagraph.startsWith('### ');
 
-            // Check if we should insert an image before this paragraph
+            // Check if we should insert an image before this paragraph (never after a heading)
             const imageIndex = imageInsertPoints.indexOf(i);
-            if (imageIndex !== -1 && inlineImages[imageIndex]) {
+            if (imageIndex !== -1 && inlineImages[imageIndex] && !isAfterHeading) {
               elements.push(
                 <figure key={`img-${i}`} className={styles.inlineImage}>
                   <img
