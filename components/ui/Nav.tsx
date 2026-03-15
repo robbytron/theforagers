@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
   Leaf,
@@ -91,9 +91,42 @@ const NAV_SECTIONS: NavSection[] = [
 export default function Nav() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDiff = currentScrollY - lastScrollY.current;
+
+      // Don't hide if mobile menu is open
+      if (mobileMenuOpen) {
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // Show nav when at top of page
+      if (currentScrollY < 60) {
+        setHidden(false);
+      }
+      // Hide on scroll down (more than 10px)
+      else if (scrollDiff > 10) {
+        setHidden(true);
+      }
+      // Show on scroll up (more than 10px)
+      else if (scrollDiff < -10) {
+        setHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [mobileMenuOpen]);
 
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav} ${hidden ? styles.navHidden : ''}`}>
       <Link href="/" className={styles.logo}>The Foragers</Link>
 
       {/* Desktop Navigation */}

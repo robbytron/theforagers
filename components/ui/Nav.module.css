@@ -8,6 +8,11 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4) var(--space-6);
+  transition: transform 0.3s ease;
+}
+
+.navHidden {
+  transform: translateY(-100%);
 }
 
 .nav::before {
