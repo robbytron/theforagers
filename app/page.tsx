@@ -74,7 +74,7 @@ export default async function HomePage() {
             <p className={styles.heroSub}>Everything you need to forage wild food in Britain.</p>
             <div className={styles.heroActions}>
               <Link href="/species" className="btn-primary">In season now</Link>
-              <Link href="/beginners" className="btn-ghost">Start here →</Link>
+              <Link href="/recipes" className="btn-ghost">March recipes →</Link>
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default async function HomePage() {
               <p className={styles.heroSub}>Everything you need to forage wild food in Britain.</p>
               <div className={styles.heroActions}>
                 <Link href="/species" className="btn-primary">In season now</Link>
-                <Link href="/beginners" className="btn-ghost">Start here →</Link>
+                <Link href="/recipes" className="btn-ghost">March recipes →</Link>
               </div>
             </div>
           </div>
@@ -114,20 +114,30 @@ export default async function HomePage() {
           )}
           <div className={styles.heroMiniWrapper}>
             <div className={styles.heroMiniCarousel}>
-              {inSeasonSpecies.slice(1, 8).map(species => (
-                <Link key={species.id} href={`/species/${species.slug}`} className={styles.heroMiniCard}>
-                  {species.photos[0] ? (
-                    <img src={species.photos[0].thumbUrl} alt={species.name} />
-                  ) : (
-                    <div style={{background:'var(--green-mid)', width:'100%', height:'100%'}} />
-                  )}
-                  <div className={styles.heroMiniOverlay} />
-                  <div className={styles.heroMiniContent}>
-                    <span className={styles.heroMiniType}>{species.type}</span>
-                    <span className={styles.heroMiniName}>{species.name}</span>
-                  </div>
-                </Link>
-              ))}
+              <Link href="/calendar/march" className={styles.heroMiniCard}>
+                <img src="/calendar/march.png" alt="March Calendar" />
+                <div className={styles.heroMiniOverlay} />
+                <div className={styles.heroMiniContent}>
+                  <span className={styles.heroMiniType}>Calendar</span>
+                  <span className={styles.heroMiniName}>March</span>
+                </div>
+              </Link>
+              <Link href="/journal/the-blackbird-at-dusk" className={styles.heroMiniCard}>
+                <img src="/journal/blackbird-hero.png" alt="The Blackbird at Dusk" />
+                <div className={styles.heroMiniOverlay} />
+                <div className={styles.heroMiniContent}>
+                  <span className={styles.heroMiniType}>Journal</span>
+                  <span className={styles.heroMiniName}>The Blackbird</span>
+                </div>
+              </Link>
+              <Link href="/journal/march-the-first-real-push-of-spring" className={styles.heroMiniCard}>
+                <img src="/journal/march-spring/hero.png" alt="March: The First Real Push of Spring" />
+                <div className={styles.heroMiniOverlay} />
+                <div className={styles.heroMiniContent}>
+                  <span className={styles.heroMiniType}>Journal</span>
+                  <span className={styles.heroMiniName}>March Push</span>
+                </div>
+              </Link>
             </div>
             <div className={styles.heroMiniFade} />
           </div>
@@ -209,25 +219,48 @@ export default async function HomePage() {
       )}
 
       {/* Featured - Staggered Grid */}
-      {featuredFeatures.length > 0 ? (
-        <section className={`${styles.featuredSection} texture-leaves`}>
-          <div className={styles.sectionHeader}>
-            <p className="section-label">Featured</p>
-            <h2 className={styles.sectionTitle}>Worth <em>exploring</em></h2>
-          </div>
-          <div className={styles.staggeredGrid}>
-            {featuredFeatures.slice(0, 6).map((feature, i) => (
-              <div key={feature.id} className={i === 0 || i === 3 ? styles.staggeredWide : styles.staggeredNormal}>
-                <FeaturedCard
-                  feature={feature}
-                  species={feature.contentType === 'Species' ? speciesMap.get(feature.slug) : null}
-                  variant={i === 0 || i === 3 ? 'large' : 'default'}
-                />
+      <section className={`${styles.featuredSection} texture-leaves`}>
+        <div className={styles.sectionHeader}>
+          <p className="section-label">Featured</p>
+          <h2 className={styles.sectionTitle}>Worth <em>exploring</em></h2>
+        </div>
+        <div className={styles.staggeredGrid}>
+          {/* Journal Categories */}
+          <div className={styles.staggeredWide}>
+            <Link href="/journal/the-wild-table" className={styles.journalCard}>
+              <img src="/journal/categories/the-wild-table-card.png" alt="The Wild Table" className={styles.journalCardImage} />
+              <div className={styles.journalCardOverlay} />
+              <div className={styles.journalCardContent}>
+                <span className={styles.journalCardLabel}>Journal</span>
+                <span className={styles.journalCardTitle}>The Wild Table</span>
+                <span className={styles.journalCardDesc}>Cooking with wild food</span>
               </div>
-            ))}
+            </Link>
           </div>
-        </section>
-      ) : (
+          <div className={styles.staggeredNormal}>
+            <Link href="/journal/from-the-field" className={styles.journalCard}>
+              <img src="/journal/categories/from-the-field-card.png" alt="From The Field" className={styles.journalCardImage} />
+              <div className={styles.journalCardOverlay} />
+              <div className={styles.journalCardContent}>
+                <span className={styles.journalCardLabel}>Journal</span>
+                <span className={styles.journalCardTitle}>From The Field</span>
+                <span className={styles.journalCardDesc}>Notes from foraging trips</span>
+              </div>
+            </Link>
+          </div>
+          {featuredFeatures.slice(0, 4).map((feature, i) => (
+            <div key={feature.id} className={i === 1 ? styles.staggeredWide : styles.staggeredNormal}>
+              <FeaturedCard
+                feature={feature}
+                species={feature.contentType === 'Species' ? speciesMap.get(feature.slug) : null}
+                variant={i === 1 ? 'large' : 'default'}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {featuredFeatures.length === 0 && (
         <section className={`${styles.inSeason} texture-leaves`}>
           <div className={styles.inSeasonIntro}>
             <p className="section-label">In season — {currentMonth} {now.getFullYear()}</p>
