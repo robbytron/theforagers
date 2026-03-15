@@ -21,6 +21,9 @@
 .methodList { display:flex; flex-direction:column; gap:var(--space-4); }
 .step { font-size:var(--text-base); color:var(--green-muted); line-height:1.7; }
 
+.intro { font-size:var(--text-lg); color:var(--green-deep); line-height:1.7; font-style:italic; border-left:3px solid var(--brown-light); padding-left:var(--space-4); }
+.notes { font-size:var(--text-base); color:var(--green-muted); line-height:1.7; background:var(--parchment); padding:var(--space-4); border-radius:4px; }
+
 .sidebar { position:sticky; top:calc(var(--space-7) + var(--space-4)); display:flex; flex-direction:column; gap:var(--space-4); }
 .factCard { background:var(--parchment); padding:var(--space-5); }
 .factHead { font-size:var(--text-xs); font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--brown); margin-bottom:var(--space-4); }

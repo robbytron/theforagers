@@ -152,15 +152,22 @@ function normaliseRecipe(record: any): Recipe {
     id:               record.id,
     name:             f['Recipe Name'] ?? '',
     slug:             f['Slug'] ?? '',
+    category:         f['Category'] ?? 'Savoury',
+    season:           f['Season'] ?? [],
     shortDescription: f['Short Description'] ?? '',
+    intro:            f['Intro'] ?? '',
     difficulty:       f['Difficulty'] ?? 'Easy',
     prepTime:         f['Prep Time'] ?? '',
     cookTime:         f['Cook Time'] ?? '',
     servings:         f['Servings'] ?? '',
     ingredients:      f['Ingredients'] ?? '',
     method:           f['Method'] ?? '',
+    notes:            f['Notes'] ?? '',
     image,
     status:           f['Status'] ?? 'Draft',
+    seoTitle:         f['SEO Title'] ?? '',
+    seoDescription:   f['SEO Description'] ?? '',
+    speciesIds:       f['Species'] ?? [],
   };
 }
 

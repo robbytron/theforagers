@@ -107,20 +107,28 @@ export type DangerLevel = 'Deadly' | 'Toxic' | 'Inedible' | 'Caution';
 
 export type RecipeDifficulty = 'Easy' | 'Medium' | 'Involved';
 export type RecipeStatus = 'Draft' | 'Live';
+export type RecipeCategory = 'Savoury' | 'Sweet' | 'Preserve' | 'Drink';
 
 export interface Recipe {
   id:               string;
   name:             string;
   slug:             string;
+  category:         RecipeCategory;
+  season:           Month[];
   shortDescription: string;
+  intro:            string;
   difficulty:       RecipeDifficulty;
   prepTime:         string;
   cookTime:         string;
   servings:         string;
   ingredients:      string;
   method:           string;
+  notes:            string;
   image:            AirtableAttachment | null;
   status:           RecipeStatus;
+  seoTitle:         string;
+  seoDescription:   string;
+  speciesIds:       string[];
 }
 
 export interface Lookalike {

@@ -40,6 +40,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
           <Link href="/recipes" className={styles.breadcrumb}>← All recipes</Link>
           <div className={styles.heroTags}>
             <span className={`tag ${difficultyClass}`}>{recipe.difficulty}</span>
+            {recipe.category && <span className="tag tag-season">{recipe.category}</span>}
           </div>
           <h1 className={styles.heroTitle}>{recipe.name}</h1>
           <p className={styles.heroDesc}>{recipe.shortDescription}</p>
@@ -48,6 +49,12 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
 
       <div className={styles.layout}>
         <article className={styles.article}>
+          {recipe.intro && (
+            <section className={styles.section}>
+              <p className={styles.intro}>{recipe.intro}</p>
+            </section>
+          )}
+
           <section className={styles.section}>
             <h2 className={styles.sectionHead}>Ingredients</h2>
             <div className={styles.ingredientsList}>
@@ -65,6 +72,13 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
               ))}
             </div>
           </section>
+
+          {recipe.notes && (
+            <section className={styles.section}>
+              <h2 className={styles.sectionHead}>Notes</h2>
+              <p className={styles.notes}>{recipe.notes}</p>
+            </section>
+          )}
         </article>
 
         <aside className={styles.sidebar}>
@@ -75,6 +89,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
               {recipe.prepTime && <div className={styles.factRow}><dt>Prep time</dt><dd>{recipe.prepTime}</dd></div>}
               {recipe.cookTime && <div className={styles.factRow}><dt>Cook time</dt><dd>{recipe.cookTime}</dd></div>}
               {recipe.servings && <div className={styles.factRow}><dt>Servings</dt><dd>{recipe.servings}</dd></div>}
+              {recipe.season && recipe.season.length > 0 && <div className={styles.factRow}><dt>Season</dt><dd>{recipe.season.join(', ')}</dd></div>}
             </dl>
           </div>
         </aside>
