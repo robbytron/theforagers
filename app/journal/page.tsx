@@ -78,45 +78,43 @@ export default async function JournalPage() {
           </p>
         </header>
 
-        {/* Category Cards - 4 in a row */}
-        <div className={styles.categoryGrid}>
-          {CATEGORIES.map((cat) => (
-            <Link key={cat.slug} href={`/journal/${cat.slug}`} className={styles.categoryCard}>
-              <img src={cat.image} alt={cat.title} className={styles.categoryImage} />
-              <div className={styles.categoryOverlay}>
-                <p className={styles.categoryTagline}>{cat.tagline}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Articles by Category */}
-        <div className={styles.sections}>
+        {/* 4-Column Category Grid */}
+        <div className={styles.grid}>
           {CATEGORIES.map((cat) => {
             const articles = entriesByCategory[cat.category] || [];
-            if (articles.length === 0) return null;
             return (
-              <section key={cat.slug} className={styles.categorySection}>
-                <div className={styles.sectionHeader}>
-                  <h2 className={styles.sectionTitle}>{cat.title}</h2>
-                  <Link href={`/journal/${cat.slug}`} className={styles.sectionLink}>
-                    View all →
-                  </Link>
+              <div key={cat.slug} className={styles.column}>
+                {/* Category Card */}
+                <Link href={`/journal/${cat.slug}`} className={styles.categoryCard}>
+                  <img src={cat.image} alt={cat.title} className={styles.categoryImage} />
+                  <div className={styles.categoryOverlay}>
+                    <p className={styles.categoryTagline}>{cat.tagline}</p>
+                  </div>
+                </Link>
+
+                {/* Articles */}
+                <div className={styles.articles}>
+                  {articles.length > 0 ? (
+                    articles.map((entry) => (
+                      <Link
+                        key={entry.id}
+                        href={`/journal/${entry.slug}`}
+                        className={styles.articleCard}
+                      >
+                        <h3 className={styles.articleTitle}>{entry.title}</h3>
+                        <span className={styles.articleMeta}>{getReadingTime(entry.body)} min</span>
+                      </Link>
+                    ))
+                  ) : (
+                    <p className={styles.comingSoon}>Coming soon</p>
+                  )}
                 </div>
-                <div className={styles.articleRow}>
-                  {articles.map((entry) => (
-                    <Link
-                      key={entry.id}
-                      href={`/journal/${entry.slug}`}
-                      className={styles.articleCard}
-                    >
-                      <h3 className={styles.articleTitle}>{entry.title}</h3>
-                      <p className={styles.articleExcerpt}>{entry.excerpt}</p>
-                      <span className={styles.articleMeta}>{getReadingTime(entry.body)} min read</span>
-                    </Link>
-                  ))}
-                </div>
-              </section>
+
+                {/* View All Link */}
+                <Link href={`/journal/${cat.slug}`} className={styles.viewAll}>
+                  View all →
+                </Link>
+              </div>
             );
           })}
         </div>

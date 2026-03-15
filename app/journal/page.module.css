@@ -29,8 +29,8 @@
   color: rgba(244, 239, 228, 0.8);
 }
 
-/* Category Grid - 4 in a row */
-.categoryGrid {
+/* 4-Column Grid */
+.grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-4);
@@ -39,20 +39,24 @@
   padding: var(--space-6) var(--space-5);
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Category Card */
 .categoryCard {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 4;
   overflow: hidden;
   border: 1px solid rgba(28, 43, 30, 0.1);
 }
 
 .categoryImage {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  display: block;
   transition: transform 0.4s ease;
 }
 
@@ -65,8 +69,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--space-4);
-  background: linear-gradient(to top, rgba(28, 43, 30, 0.85) 0%, rgba(28, 43, 30, 0.5) 70%, transparent 100%);
+  padding: var(--space-3);
+  background: linear-gradient(to top, rgba(28, 43, 30, 0.85) 0%, rgba(28, 43, 30, 0.4) 80%, transparent 100%);
 }
 
 .categoryTagline {
@@ -75,102 +79,64 @@
   color: rgba(244, 239, 228, 0.9);
 }
 
-/* Article Sections */
-.sections {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: var(--space-6) var(--space-5) var(--space-8);
+/* Articles Stack */
+.articles {
   display: flex;
   flex-direction: column;
-  gap: var(--space-7);
-}
-
-.categorySection {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  border-bottom: 1px solid rgba(28, 43, 30, 0.1);
-  padding-bottom: var(--space-3);
-}
-
-.sectionTitle {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 500;
-  color: var(--green-deep);
-}
-
-.sectionLink {
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--green-mid);
-  transition: color 0.2s;
-}
-
-.sectionLink:hover {
-  color: var(--green-deep);
-}
-
-/* Article Row */
-.articleRow {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  flex-grow: 1;
 }
 
 .articleCard {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3);
   background: var(--cream);
-  padding: var(--space-4);
-  border: 1px solid rgba(28, 43, 30, 0.08);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  border: 1px solid rgba(28, 43, 30, 0.06);
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .articleCard:hover {
   border-color: var(--sage);
-  box-shadow: 0 4px 20px rgba(28, 43, 30, 0.08);
+  background: white;
 }
 
 .articleTitle {
   font-family: var(--font-display);
-  font-size: var(--text-base);
-  font-weight: 500;
-  line-height: 1.3;
-  color: var(--green-deep);
-  margin-bottom: var(--space-2);
-}
-
-.articleExcerpt {
   font-size: var(--text-sm);
-  color: var(--green-muted);
-  line-height: 1.6;
-  margin-bottom: var(--space-3);
-  flex-grow: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--green-deep);
 }
 
 .articleMeta {
+  flex-shrink: 0;
   font-size: var(--text-xs);
   color: var(--slate);
 }
 
-.noArticles {
+.comingSoon {
   font-size: var(--text-sm);
   font-style: italic;
   color: var(--green-muted);
-  padding: var(--space-4);
-  background: var(--cream);
+  padding: var(--space-3);
   text-align: center;
+}
+
+.viewAll {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--green-mid);
+  padding: var(--space-2) 0;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.viewAll:hover {
+  color: var(--green-deep);
 }
 
 /* CTA */
@@ -233,19 +199,11 @@
   background: rgba(244, 239, 228, 0.1);
 }
 
-/* Tablet */
+/* Tablet - 2 columns */
 @media (max-width: 1000px) {
-  .categoryGrid {
+  .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
-  }
-
-  .categoryCard {
-    aspect-ratio: 4 / 5;
-  }
-
-  .articleRow {
-    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
   }
 }
 
@@ -259,34 +217,10 @@
     font-size: 2.25rem;
   }
 
-  .categoryGrid {
-    grid-template-columns: repeat(2, 1fr);
-    padding: var(--space-4);
-    gap: var(--space-2);
-  }
-
-  .categoryCard {
-    aspect-ratio: 3 / 4;
-  }
-
-  .categoryTagline {
-    font-size: var(--text-xs);
-  }
-
-  .sections {
+  .grid {
+    grid-template-columns: 1fr;
     padding: var(--space-5) var(--space-4);
     gap: var(--space-6);
-  }
-
-  .sectionHeader {
-    flex-direction: column;
-    gap: var(--space-2);
-    align-items: flex-start;
-  }
-
-  .articleRow {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
   }
 
   .cta {
