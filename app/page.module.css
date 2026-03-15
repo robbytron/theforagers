@@ -13,6 +13,7 @@
 .heroTitle em { font-style:italic; font-weight:600; color:var(--brown-light); }
 .heroSub { font-size:var(--text-base); color:rgba(244,239,228,0.8); margin-bottom:var(--space-4); line-height:1.6; }
 .heroActions { display:flex; gap:var(--space-3); flex-wrap:wrap; }
+.heroActions a { white-space:nowrap; }
 
 /* Right: Feature + Mini Carousel */
 .heroRight { display:flex; flex-direction:column; gap:var(--space-3); min-width:0; overflow:hidden; width:100%; box-sizing:border-box; }
@@ -42,7 +43,8 @@
   .heroGrid { grid-template-columns:1fr; min-height:auto; }
   .hero { aspect-ratio:4/3; min-height:280px; justify-content:flex-end; }
   .heroContent { padding:24px; padding-top:48px; }
-  .heroActions { flex-wrap:nowrap; align-items:flex-start; }
+  .heroActions { gap:10px; }
+  .heroActions a { padding:12px 18px; font-size:0.8rem; }
   .heroRight { gap:8px; }
   .heroFeature { min-height:160px; }
   .heroMiniCarousel { gap:8px; }
@@ -54,7 +56,8 @@
   .heroContent { padding:20px; padding-top:56px; }
   .heroTitle { font-size:1.4rem; }
   .heroSub { font-size:0.875rem; margin-bottom:16px; }
-  .heroActions { gap:8px; flex-wrap:nowrap; align-items:flex-start; }
+  .heroActions { gap:8px; }
+  .heroActions a { padding:10px 16px; font-size:0.75rem; }
   .heroFeature { min-height:120px; }
   .heroMiniCard { width:48%; }
 }
