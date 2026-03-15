@@ -89,10 +89,24 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
   // Split body into paragraphs
   const paragraphs = entry.body.split('\n\n').filter(p => p.trim());
 
-  // Calculate where to insert inline images (evenly spaced)
-  const imageInsertPoints = inlineImages.length > 0
-    ? inlineImages.map((_, i) => Math.floor((paragraphs.length / (inlineImages.length + 1)) * (i + 1)))
-    : [];
+  // Calculate where to insert inline images (evenly spaced, avoiding positions after headings)
+  const rawInsertPoints = inlineImages.map((_, i) =>
+    Math.floor((paragraphs.length / (inlineImages.length + 1)) * (i + 1))
+  );
+
+  // Adjust points that fall after headings - shift them forward
+  const imageInsertPoints = rawInsertPoints.map(point => {
+    let adjusted = point;
+    while (adjusted > 0 && adjusted < paragraphs.length) {
+      const prevParagraph = paragraphs[adjusted - 1];
+      if (prevParagraph?.startsWith('## ') || prevParagraph?.startsWith('### ')) {
+        adjusted++;
+      } else {
+        break;
+      }
+    }
+    return adjusted;
+  });
 
   return (
     <div className={styles.page}>
@@ -138,21 +152,10 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
         <div className={styles.content}>
           {paragraphs.map((paragraph, i) => {
             const elements = [];
-            const prevParagraph = i > 0 ? paragraphs[i - 1] : '';
-            const isAfterHeading = prevParagraph.startsWith('## ') || prevParagraph.startsWith('### ');
 
             // Check if we should insert an image before this paragraph
-            // If this spot is after a heading, the image will be shifted to next paragraph
-            let imageIndex = imageInsertPoints.indexOf(i);
-            if (imageIndex === -1 && i > 0) {
-              // Check if previous paragraph was supposed to have an image but was after a heading
-              const prevWasHeading = paragraphs[i - 1]?.startsWith('## ') || paragraphs[i - 1]?.startsWith('### ');
-              const prevHadImage = imageInsertPoints.indexOf(i - 1) !== -1;
-              if (prevWasHeading && prevHadImage) {
-                imageIndex = imageInsertPoints.indexOf(i - 1);
-              }
-            }
-            if (imageIndex !== -1 && inlineImages[imageIndex] && !isAfterHeading) {
+            const imageIndex = imageInsertPoints.indexOf(i);
+            if (imageIndex !== -1 && inlineImages[imageIndex]) {
               elements.push(
                 <figure key={`img-${i}`} className={styles.inlineImage}>
                   <img
