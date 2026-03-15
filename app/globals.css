@@ -43,6 +43,46 @@ body::before {
   opacity: 0.4;
 }
 
+/* Botanical texture overlays */
+.texture-fern {
+  position: relative;
+}
+.texture-fern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%238aab82' fill-opacity='0.06'%3E%3Cpath d='M40 5c0 0-8 12-8 25s8 25 8 25 8-12 8-25S40 5 40 5z'/%3E%3Cpath d='M25 20c5 3 10 15 10 15s-8-5-12-3c-4 2-3 8 2 13s15 7 15 7-10-8-10-17c0-6 2-12 5-15z' transform='translate(-5 10)'/%3E%3Cpath d='M55 20c-5 3-10 15-10 15s8-5 12-3c4 2 3 8-2 13s-15 7-15 7 10-8 10-17c0-6-2-12-5-15z' transform='translate(5 10)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.texture-leaves {
+  position: relative;
+}
+.texture-leaves::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%231c2b1e' fill-opacity='0.03'%3E%3Cellipse cx='20' cy='30' rx='12' ry='6' transform='rotate(-30 20 30)'/%3E%3Cellipse cx='70' cy='60' rx='10' ry='5' transform='rotate(20 70 60)'/%3E%3Cellipse cx='45' cy='85' rx='8' ry='4' transform='rotate(-10 45 85)'/%3E%3Cellipse cx='85' cy='20' rx='9' ry='4' transform='rotate(40 85 20)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100px 100px;
+  pointer-events: none;
+}
+
+.texture-paper {
+  position: relative;
+}
+.texture-paper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23f4efe4' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+}
+
 h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); font-weight: 300; line-height: 1.1; letter-spacing: -0.025em; }
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }

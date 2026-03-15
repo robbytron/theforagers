@@ -120,7 +120,7 @@ export default async function HomePage() {
 
       {/* Featured - Staggered Grid */}
       {featuredFeatures.length > 0 ? (
-        <section className={styles.featuredSection}>
+        <section className={`${styles.featuredSection} texture-leaves`}>
           <div className={styles.sectionHeader}>
             <p className="section-label">Featured</p>
             <h2 className={styles.sectionTitle}>Worth <em>exploring</em></h2>
@@ -138,7 +138,7 @@ export default async function HomePage() {
           </div>
         </section>
       ) : (
-        <section className={styles.inSeason}>
+        <section className={`${styles.inSeason} texture-leaves`}>
           <div className={styles.inSeasonIntro}>
             <p className="section-label">In season — {currentMonth} {now.getFullYear()}</p>
             <h2 className={styles.sectionTitle}>The best finds<br />this <em>fortnight</em></h2>
@@ -151,7 +151,7 @@ export default async function HomePage() {
       )}
 
       {/* Calendar Section */}
-      <section className={styles.calendarSection}>
+      <section className={`${styles.calendarSection} texture-fern`}>
         <p className="section-label" style={{color:'var(--sage)'}}>The forager&apos;s year</p>
         <h2 className={styles.sectionTitle} style={{color:'var(--cream)'}}>
           Every month has<br />something <em style={{color:'var(--brown-light)'}}>worth finding</em>
@@ -169,13 +169,13 @@ export default async function HomePage() {
 
       {/* Editorial Panels */}
       <div className={styles.editorial}>
-        <div className={styles.editorialPanel} style={{background:'var(--parchment)'}}>
+        <div className={`${styles.editorialPanel} texture-paper`} style={{background:'var(--parchment)'}}>
           <p className="section-label">The species guide</p>
           <h3 className={styles.editorialTitle}>Every plant,<br />properly <em>identified</em></h3>
           <p>Over 200 species with photographs, lookalike warnings, and culinary guidance.</p>
           <Link href="/species">Browse the full guide →</Link>
         </div>
-        <div className={styles.editorialPanel}>
+        <div className={`${styles.editorialPanel} texture-leaves`}>
           <p className="section-label">New to foraging?</p>
           <h3 className={styles.editorialTitle}>Start with <em>ten species.</em><br />Learn them properly.</h3>
           <p>Master these and you&apos;ll always find something edible.</p>
