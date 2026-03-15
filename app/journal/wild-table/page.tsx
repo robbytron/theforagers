@@ -80,6 +80,27 @@ export default async function WildTablePage() {
           )}
         </article>
 
+        {/* Explore Other Journals */}
+        <section className={styles.explore}>
+          <div className={styles.exploreInner}>
+            <h2 className={styles.exploreTitle}>Explore More</h2>
+            <div className={styles.exploreGrid}>
+              <Link href="/journal/in-season" className={styles.exploreCard}>
+                <h3 className={styles.exploreCardTitle}>In Season</h3>
+                <p className={styles.exploreCardDesc}>What to find right now</p>
+              </Link>
+              <Link href="/journal/the-field" className={styles.exploreCard}>
+                <h3 className={styles.exploreCardTitle}>The Field</h3>
+                <p className={styles.exploreCardDesc}>Notes from foraging trips</p>
+              </Link>
+              <Link href="/journal/the-land" className={styles.exploreCard}>
+                <h3 className={styles.exploreCardTitle}>The Land</h3>
+                <p className={styles.exploreCardDesc}>Essays on landscape</p>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <div className={styles.backLink}>
           <Link href="/">← Back to Home</Link>
         </div>
