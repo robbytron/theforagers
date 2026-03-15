@@ -1,25 +1,7 @@
 /* Journal Entry Page */
 .page {
   min-height: 100vh;
-  background: var(--parchment);
-  position: relative;
-}
-
-/* SVG Background - full page */
-.page::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background-image: url('/backgrounds/botanical-1.svg');
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: 600px auto;
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: -1;
+  background: #ede5d0;
 }
 
 /* Hero Image - clean, shorter */
@@ -41,11 +23,9 @@
 
 /* Header - below image */
 .header {
-  position: relative;
-  z-index: 1;
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-5) var(--space-6);
+  padding: 32px 24px;
   border-bottom: 1px solid rgba(28, 43, 30, 0.1);
 }
 
@@ -101,17 +81,15 @@
 
 /* Article Content */
 .article {
-  position: relative;
-  z-index: 1;
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-6) var(--space-6) var(--space-8);
+  padding: 24px 24px 48px;
 }
 
 .content {
-  font-size: var(--text-base);
+  font-size: 1rem;
   line-height: 1.8;
-  color: var(--green-muted);
+  color: #4a6b4d;
 }
 
 .heading {
