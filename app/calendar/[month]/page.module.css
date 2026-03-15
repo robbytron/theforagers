@@ -2,10 +2,9 @@
 .heroImage {
   position: relative;
   width: 100%;
-  height: auto;
-  aspect-ratio: 1.8 / 1;
+  height: 55vw;
+  max-height: 400px;
   margin-top: 72px;
-  overflow: hidden;
 }
 
 /* Header */
@@ -281,7 +280,7 @@
 
 @media (max-width: 640px) {
   .heroImage {
-    margin-top: 0 !important;
-    aspect-ratio: 1.8 / 1;
+    margin-top: 0;
+    height: 50vw;
   }
 }
