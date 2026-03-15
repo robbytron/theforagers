@@ -143,16 +143,12 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
             const imageIndex = imageInsertPoints.indexOf(i);
             if (imageIndex !== -1 && inlineImages[imageIndex]) {
               elements.push(
-                <div key={`img-${i}`} className={styles.inlineImage}>
-                  <Image
+                <figure key={`img-${i}`} className={styles.inlineImage}>
+                  <img
                     src={inlineImages[imageIndex]}
                     alt=""
-                    width={720}
-                    height={0}
-                    sizes="(max-width: 720px) 100vw, 720px"
-                    style={{ width: '100%', height: 'auto' }}
                   />
-                </div>
+                </figure>
               );
             }
 
