@@ -1,6 +1,6 @@
 /* Hero Grid - Clean Tile Layout */
 .heroWrapper { background:var(--parchment); padding:var(--space-3); }
-.heroGrid { display:grid; grid-template-columns:4fr 6fr; gap:var(--space-3); min-height:55vh; }
+.heroGrid { display:grid; grid-template-columns:4fr 6fr; gap:var(--space-3); min-height:70vh; }
 
 /* Left: Main Hero Card - Text Overlaid */
 .hero { position:relative; display:flex; flex-direction:column; justify-content:flex-end; border-radius:var(--radius-lg); overflow:hidden; animation:heroFade 1.2s ease both; }
