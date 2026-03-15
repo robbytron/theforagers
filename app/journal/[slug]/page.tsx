@@ -8,23 +8,6 @@ import styles from './page.module.css';
 
 export const revalidate = 3600;
 
-// Specific hero images for articles (wide landscape format)
-const ARTICLE_HERO_IMAGES: Record<string, string> = {
-  'march-the-first-real-push-of-spring': '/journal/march-spring-1.png',
-  'the-blackbird-at-dusk': '/journal/blackbird-1.png',
-};
-
-// Inline images for articles (shown throughout the content)
-const ARTICLE_INLINE_IMAGES: Record<string, string[]> = {
-  'march-the-first-real-push-of-spring': [
-    '/journal/march-spring-2.png',
-    '/journal/march-spring-3.png',
-  ],
-  'the-blackbird-at-dusk': [
-    '/journal/blackbird-2.png',
-    '/journal/blackbird-3.png',
-  ],
-};
 
 // Fallback images by category
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -66,13 +49,9 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
   const categorySlug = entry.category.toLowerCase().replace(/\s+/g, '-');
 
   // Get hero image
-  const heroImageUrl = ARTICLE_HERO_IMAGES[slug]
-    || entry.heroImage?.url
+  const heroImageUrl = entry.heroImage?.url
     || CATEGORY_IMAGES[entry.category]
     || DEFAULT_IMAGE;
-
-  // Get inline images for this article
-  const inlineImages = ARTICLE_INLINE_IMAGES[slug] || [];
 
   // Calculate reading time
   const readingTime = getReadingTime(entry.body);
@@ -92,11 +71,6 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
 
   // Split body into paragraphs
   const paragraphs = entry.body.split('\n\n').filter(p => p.trim());
-
-  // Calculate where to insert inline images (roughly evenly spaced)
-  const imageInsertPoints = inlineImages.length > 0
-    ? inlineImages.map((_, i) => Math.floor((paragraphs.length / (inlineImages.length + 1)) * (i + 1)))
-    : [];
 
   return (
     <div className={styles.page}>
@@ -141,34 +115,13 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
       <article className={styles.article}>
         <div className={styles.content}>
           {paragraphs.map((paragraph, i) => {
-            const elements = [];
-
-            // Check if we should insert an image before this paragraph
-            const imageIndex = imageInsertPoints.indexOf(i);
-            if (imageIndex !== -1 && inlineImages[imageIndex]) {
-              elements.push(
-                <div key={`img-${i}`} className={styles.inlineImage}>
-                  <Image
-                    src={inlineImages[imageIndex]}
-                    alt=""
-                    width={720}
-                    height={480}
-                    sizes="(max-width: 720px) 100vw, 720px"
-                  />
-                </div>
-              );
-            }
-
-            // Add the paragraph
             if (paragraph.startsWith('## ')) {
-              elements.push(<h2 key={i} className={styles.heading}>{paragraph.replace('## ', '')}</h2>);
+              return <h2 key={i} className={styles.heading}>{paragraph.replace('## ', '')}</h2>;
             } else if (paragraph.startsWith('### ')) {
-              elements.push(<h3 key={i} className={styles.subheading}>{paragraph.replace('### ', '')}</h3>);
+              return <h3 key={i} className={styles.subheading}>{paragraph.replace('### ', '')}</h3>;
             } else {
-              elements.push(<p key={i} className={styles.paragraph}>{paragraph}</p>);
+              return <p key={i} className={styles.paragraph}>{paragraph}</p>;
             }
-
-            return elements;
           })}
         </div>
 
