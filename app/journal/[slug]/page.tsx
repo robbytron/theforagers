@@ -11,6 +11,7 @@ export const revalidate = 3600;
 // Custom hero images for specific articles
 const ARTICLE_HERO_IMAGES: Record<string, string> = {
   'the-blackbird-at-dusk': '/journal/blackbird-hero.png',
+  'march-the-first-real-push-of-spring': '/journal/march-spring/hero.png',
 };
 
 // Inline images for articles
@@ -19,6 +20,10 @@ const ARTICLE_INLINE_IMAGES: Record<string, string[]> = {
     '/journal/blackbird-1.png',
     '/journal/blackbird-2.png',
     '/journal/blackbird-3.png',
+  ],
+  'march-the-first-real-push-of-spring': [
+    '/journal/march-spring/inline-1.png',
+    '/journal/march-spring/inline-2.png',
   ],
 };
 
