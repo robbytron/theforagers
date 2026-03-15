@@ -42,11 +42,11 @@
   .heroWrapper { padding:8px; padding-top:80px; }
   .heroGrid { grid-template-columns:1fr; min-height:auto; }
   .hero { aspect-ratio:4/3; min-height:280px; justify-content:flex-end; }
-  .heroContent { padding:24px; padding-top:48px; }
+  .heroContent { padding:16px; padding-top:48px; }
   .heroActions { gap:10px; }
   .heroActions a { padding:12px 18px; font-size:0.8rem; }
   .heroRight { gap:8px; }
-  .heroFeature { min-height:160px; }
+  .heroFeature { min-height:160px; padding:16px; }
   .heroMiniCarousel { gap:8px; }
   .heroMiniCard { width:45%; min-width:0; }
 }
