@@ -11,7 +11,7 @@ export const revalidate = 3600;
 // Specific hero images for articles
 const ARTICLE_IMAGES: Record<string, string> = {
   'march-the-first-real-push-of-spring': '/journal/march-spring-1.png',
-  'you-will-hear-a-blackbird-before-you-see-one': '/journal/blackbird-1.png',
+  'the-blackbird-at-dusk': '/journal/blackbird-1.png',
 };
 
 // Fallback images by category
@@ -62,7 +62,7 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
     : null;
 
   // Split body into paragraphs
-  const paragraphs = entry.body.split('\n\n');
+  const paragraphs = entry.body.split('\n\n').filter(p => p.trim());
 
   return (
     <div className={styles.page}>
@@ -86,8 +86,7 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
           <span>/</span>
           <Link href={`/journal/${categorySlug}`}>{entry.category}</Link>
         </div>
-        <h1 className={styles.title}>{entry.title}</h1>
-        {entry.excerpt && <p className={styles.excerpt}>{entry.excerpt}</p>}
+
         <div className={styles.meta}>
           <span>The Foragers</span>
           {formattedDate && (
@@ -96,9 +95,9 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
               <span>{formattedDate}</span>
             </>
           )}
-          <span className={styles.metaDivider} />
-          <span>{entry.category}</span>
         </div>
+
+        <h1 className={styles.title}>{entry.title}</h1>
       </header>
 
       {/* Article Content */}

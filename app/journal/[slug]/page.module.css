@@ -2,13 +2,33 @@
 .page {
   min-height: 100vh;
   background: var(--parchment);
+  position: relative;
 }
 
-/* Hero Image - clean, no text */
+/* SVG Background - full page */
+.page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-image: url('/backgrounds/botanical-1.svg');
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: 600px auto;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hero Image - clean, shorter */
 .heroImage {
   position: relative;
   width: 100%;
-  aspect-ratio: 21/9;
+  height: 35vh;
+  min-height: 250px;
+  max-height: 400px;
   overflow: hidden;
 }
 
@@ -18,12 +38,13 @@
   object-fit: cover;
 }
 
-/* Header Section - below image */
+/* Header - below image */
 .header {
   position: relative;
+  z-index: 1;
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-6) var(--space-6) var(--space-5);
+  padding: var(--space-5) var(--space-6);
   border-bottom: 1px solid rgba(28, 43, 30, 0.1);
 }
 
@@ -52,29 +73,13 @@
   opacity: 0.4;
 }
 
-.title {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.5vw, 2rem);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: var(--green-deep);
-  margin-bottom: var(--space-3);
-}
-
-.excerpt {
-  font-size: var(--text-base);
-  color: var(--green-muted);
-  line-height: 1.6;
-  margin-bottom: var(--space-4);
-}
-
 .meta {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   font-size: var(--text-sm);
   color: var(--green-muted);
+  margin-bottom: var(--space-3);
 }
 
 .metaDivider {
@@ -84,17 +89,22 @@
   border-radius: 50%;
 }
 
-/* Article Content with SVG background */
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--green-deep);
+}
+
+/* Article Content */
 .article {
   position: relative;
+  z-index: 1;
   max-width: 720px;
   margin: 0 auto;
   padding: var(--space-6) var(--space-6) var(--space-8);
-  background-image: url('/backgrounds/botanical-1.svg');
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: 300px auto;
-  background-attachment: scroll;
 }
 
 .content {
@@ -164,12 +174,19 @@
 
 /* Mobile */
 @media (max-width: 640px) {
+  .page::before {
+    width: 100%;
+    background-size: 400px auto;
+    opacity: 0.04;
+  }
+
   .heroImage {
-    aspect-ratio: 16/9;
+    height: 30vh;
+    min-height: 200px;
   }
 
   .header {
-    padding: var(--space-5) var(--space-4);
+    padding: var(--space-4) var(--space-4);
   }
 
   .title {
@@ -178,7 +195,6 @@
 
   .article {
     padding: var(--space-5) var(--space-4) var(--space-6);
-    background-size: 200px auto;
   }
 
   .meta {
