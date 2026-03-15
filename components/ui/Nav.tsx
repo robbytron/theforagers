@@ -36,6 +36,7 @@ type DropdownItem = {
 
 type NavSection = {
   label: string;
+  href?: string;
   items: DropdownItem[];
 };
 
@@ -70,11 +71,12 @@ const NAV_SECTIONS: NavSection[] = [
   },
   {
     label: 'Journal',
+    href: '/journal',
     items: [
       { label: 'In Season', href: '/journal/in-season', icon: <Sun size={18} />, description: 'What\'s ready now' },
-      { label: 'The Field', href: '/journal/the-field', icon: <Mountain size={18} />, description: 'Foraging stories' },
+      { label: 'From The Field', href: '/journal/the-field', icon: <Mountain size={18} />, description: 'Foraging stories' },
       { label: 'The Land', href: '/journal/the-land', icon: <Trees size={18} />, description: 'Landscape essays' },
-      { label: 'Wild Table', href: '/journal/wild-table', icon: <ChefHat size={18} />, description: 'Cooking notes' },
+      { label: 'The Wild Table', href: '/journal/wild-table', icon: <ChefHat size={18} />, description: 'Cooking notes' },
     ],
   },
   {
@@ -103,10 +105,17 @@ export default function Nav() {
             onMouseEnter={() => setActiveDropdown(section.label)}
             onMouseLeave={() => setActiveDropdown(null)}
           >
-            <button className={styles.dropdownTrigger}>
-              {section.label}
-              <ChevronDown size={14} className={`${styles.chevron} ${activeDropdown === section.label ? styles.chevronOpen : ''}`} />
-            </button>
+            {section.href ? (
+              <Link href={section.href} className={styles.dropdownTrigger}>
+                {section.label}
+                <ChevronDown size={14} className={`${styles.chevron} ${activeDropdown === section.label ? styles.chevronOpen : ''}`} />
+              </Link>
+            ) : (
+              <button className={styles.dropdownTrigger}>
+                {section.label}
+                <ChevronDown size={14} className={`${styles.chevron} ${activeDropdown === section.label ? styles.chevronOpen : ''}`} />
+              </button>
+            )}
 
             {activeDropdown === section.label && (
               <div className={styles.dropdown}>
@@ -149,7 +158,13 @@ export default function Nav() {
           <div className={styles.mobileMenuInner}>
             {NAV_SECTIONS.map((section) => (
               <div key={section.label} className={styles.mobileSection}>
-                <h3 className={styles.mobileSectionTitle}>{section.label}</h3>
+                {section.href ? (
+                  <Link href={section.href} className={styles.mobileSectionTitle} onClick={() => setMobileMenuOpen(false)}>
+                    {section.label}
+                  </Link>
+                ) : (
+                  <h3 className={styles.mobileSectionTitle}>{section.label}</h3>
+                )}
                 <ul className={styles.mobileSectionList}>
                   {section.items.map((item) => (
                     <li key={item.href}>
