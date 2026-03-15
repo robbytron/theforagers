@@ -42,7 +42,7 @@
   .heroWrapper { padding:8px; padding-top:80px; }
   .heroGrid { grid-template-columns:1fr; min-height:auto; }
   .hero { aspect-ratio:4/3; min-height:280px; justify-content:flex-end; }
-  .heroContent { padding-top:48px; padding-right:16px; padding-bottom:16px; padding-left:16px; }
+  .heroContent { padding-top:48px; padding-right:12px; padding-bottom:12px; padding-left:12px; }
   .heroActions { gap:10px; }
   .heroActions a { padding:12px 18px; font-size:0.8rem; }
   .heroRight { gap:8px; }
@@ -53,7 +53,7 @@
 @media (max-width:600px) {
   .heroWrapper { padding-top:72px; }
   .hero { aspect-ratio:3/2; min-height:300px; justify-content:flex-end; }
-  .heroContent { padding-top:72px; padding-right:16px; padding-bottom:16px; padding-left:16px; }
+  .heroContent { padding-top:72px; padding-right:12px; padding-bottom:12px; padding-left:12px; }
   .heroTitle { font-size:1.4rem; }
   .heroSub { font-size:0.875rem; margin-bottom:16px; }
   .heroActions { gap:8px; }
