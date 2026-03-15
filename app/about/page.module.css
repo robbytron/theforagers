@@ -12,7 +12,7 @@
   justify-content: flex-end;
   align-items: center;
   text-align: center;
-  background: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1600&q=80') center/cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1621351159305-5a9dc76b2830?w=1600&q=80') center/cover no-repeat;
 }
 
 .header::before {

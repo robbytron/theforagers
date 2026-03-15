@@ -13,7 +13,7 @@ export default function SeaweedPage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header}>
+        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1728142233948-bf3b8c0a370b?w=1600&q=80')" }}>
           <div className={styles.headerInner}>
             <nav className={styles.breadcrumb}>
               <Link href="/coastal">Coastal</Link>

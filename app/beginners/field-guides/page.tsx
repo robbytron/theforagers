@@ -13,7 +13,7 @@ export default function BeginnerFieldGuidesPage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header}>
+        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620648104944-01fba106ec4f?w=1600&q=80')" }}>
           <div className={styles.headerInner}>
             <nav className={styles.breadcrumb}>
               <Link href="/beginners">Beginners</Link>

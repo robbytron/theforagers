@@ -13,7 +13,7 @@ export default function CommercialForagingPage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header}>
+        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1738692074163-b066702aa2db?w=1600&q=80')" }}>
           <div className={styles.headerInner}>
             <nav className={styles.breadcrumb}>
               <Link href="/legal">Legal</Link>

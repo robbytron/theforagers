@@ -64,7 +64,7 @@ export default function DangerousBerriesPage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header}>
+        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1666464278818-39435c15eb8b?w=1600&q=80')" }}>
           <div className={styles.headerInner}>
             <nav className={styles.breadcrumb}>
               <Link href="/dangers">Dangers</Link>

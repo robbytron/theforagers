@@ -13,7 +13,7 @@ export default function LandAccessPage() {
     <>
       <Nav />
       <main className={styles.page}>
-        <header className={styles.header}>
+        <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1612457516962-3cd4214e8bc4?w=1600&q=80')" }}>
           <div className={styles.headerInner}>
             <nav className={styles.breadcrumb}>
               <Link href="/legal">Legal</Link>

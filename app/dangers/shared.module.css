@@ -1,12 +1,13 @@
 .page { min-height: 100vh; background: var(--parchment); }
-.header { background: #2D1F1F; padding: var(--space-8) var(--space-6); }
-.headerInner { max-width: 800px; margin: 0 auto; }
-.breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: rgba(244, 239, 228, 0.5); margin-bottom: var(--space-4); }
-.breadcrumb a { color: rgba(244, 239, 228, 0.5); transition: color 0.2s; }
+.header { position: relative; padding: calc(var(--space-9) + var(--space-4)) var(--space-6) var(--space-8); min-height: 320px; display: flex; align-items: flex-end; background-size: cover; background-position: center; }
+.header::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(45,31,31,0.3) 0%, rgba(45,31,31,0.7) 60%, rgba(45,31,31,0.9) 100%); }
+.headerInner { position: relative; max-width: 800px; margin: 0 auto; width: 100%; }
+.breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: rgba(244, 239, 228, 0.6); margin-bottom: var(--space-4); }
+.breadcrumb a { color: rgba(244, 239, 228, 0.6); transition: color 0.2s; }
 .breadcrumb a:hover { color: var(--cream); }
-.title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: var(--cream); margin-bottom: var(--space-4); }
+.title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: var(--cream); margin-bottom: var(--space-4); text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
 .title em { font-style: italic; font-weight: 600; color: #C41E3A; }
-.subtitle { font-size: var(--text-base); line-height: 1.7; color: rgba(244, 239, 228, 0.7); max-width: 600px; }
+.subtitle { font-size: var(--text-base); line-height: 1.7; color: rgba(244, 239, 228, 0.85); max-width: 600px; }
 .warning { background: #8B0000; padding: var(--space-5) var(--space-6); }
 .warningInner { max-width: 800px; margin: 0 auto; }
 .warning p { font-size: var(--text-sm); color: var(--cream); line-height: 1.6; }
