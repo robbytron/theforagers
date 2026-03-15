@@ -18,13 +18,19 @@ function getTypeClass(type: string): string {
   const typeMap: Record<string, string> = {
     'Greens': 'tag-greens',
     'Fungi': 'tag-fungi',
-    'Berries': 'tag-berries',
+    'Berries': 'tag-fruit',
     'Nuts': 'tag-nuts',
     'Roots': 'tag-roots',
     'Coastal': 'tag-coastal',
     'Flowers': 'tag-flowers',
   };
   return typeMap[type] || 'tag-greens';
+}
+
+// Display name for types
+function getTypeDisplay(type: string): string {
+  if (type === 'Berries') return 'Fruit/Berries';
+  return type;
 }
 
 // Map difficulty to CSS class
@@ -90,7 +96,7 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
         <div className={styles.heroContent}>
           <Link href="/species" className={styles.breadcrumb}>← Species guide</Link>
           <div className={styles.heroTags}>
-            <span className={`tag ${getTypeClass(species.type)}`}>{species.type}</span>
+            <span className={`tag ${getTypeClass(species.type)}`}>{getTypeDisplay(species.type)}</span>
             <span className={`tag ${getDifficultyClass(species.difficulty)}`}>{species.difficulty}</span>
             {species.expertReviewed && <span className="tag tag-beginner">Expert reviewed ✓</span>}
           </div>

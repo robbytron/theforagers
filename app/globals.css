@@ -99,7 +99,7 @@ img { display: block; max-width: 100%; }
 /* Type tags - distinct colors per category */
 .tag-greens  { background: rgba(76,140,74,0.18); color: #2d6b2a; }
 .tag-fungi   { background: rgba(139,90,43,0.18); color: #6b4423; }
-.tag-berries { background: rgba(139,60,108,0.18); color: #7a2d5a; }
+.tag-berries, .tag-fruit { background: rgba(139,60,108,0.18); color: #7a2d5a; }
 .tag-nuts    { background: rgba(160,120,60,0.18); color: #7a5a20; }
 .tag-roots   { background: rgba(160,100,80,0.18); color: #8b4a30; }
 .tag-coastal { background: rgba(60,120,140,0.18); color: #2a5a6b; }
