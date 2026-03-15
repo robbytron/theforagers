@@ -62,33 +62,58 @@ export default async function HomePage() {
     <>
       <Nav />
 
-      {/* Hero Grid - Tile Layout */}
-      <section className={styles.heroGrid}>
-        <div className={styles.hero}>
-          <div className={styles.heroBg} />
-          <p className={styles.heroSeason}>{currentMonth} · Britain&apos;s Woodlands</p>
-          <h1 className={styles.heroTitle}>The land is<br /><em>waking up.</em></h1>
-          <p className={styles.heroSub}>Everything you need to forage wild food in Britain — what&apos;s out there, when to find it, and how to identify it safely.</p>
-          <div className={styles.heroActions}>
-            <Link href="/species" className="btn-primary">In season now</Link>
-            <Link href="/beginners" className="btn-ghost">Start here →</Link>
+      {/* Hero Grid - Clean Tile Layout */}
+      <section className={styles.heroWrapper}>
+        <div className={styles.heroGrid}>
+          {/* Left: Main Hero Card */}
+          <div className={styles.hero}>
+            <div className={styles.heroImage}>
+              <div className={styles.heroBg} />
+            </div>
+            <div className={styles.heroContent}>
+              <p className={styles.heroSeason}>{currentMonth} · Britain&apos;s Woodlands</p>
+              <h1 className={styles.heroTitle}>The land is <em>waking up.</em><br />Go and find it.</h1>
+              <p className={styles.heroSub}>Everything you need to forage wild food in Britain — what&apos;s in season, how to identify it, and what to make with it.</p>
+              <div className={styles.heroActions}>
+                <Link href="/species" className="btn-primary">In season now</Link>
+                <Link href="/beginners" className="btn-ghost">Start here →</Link>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className={styles.heroSide}>
-          {inSeasonSpecies.slice(0, 3).map((species, i) => (
-            <Link key={species.id} href={`/species/${species.slug}`} className={`${styles.heroTile} ${species.photos[0] ? 'dark' : ''}`}>
-              {species.photos[0] && (
-                <>
-                  <div className={styles.heroTileImage}>
+
+          {/* Right: Feature + Mini Carousel */}
+          <div className={styles.heroRight}>
+            {inSeasonSpecies[0] && (
+              <Link href={`/species/${inSeasonSpecies[0].slug}`} className={styles.heroFeature}>
+                {inSeasonSpecies[0].photos[0] && (
+                  <>
+                    <div className={styles.heroFeatureImage}>
+                      <img src={inSeasonSpecies[0].photos[0].url} alt={inSeasonSpecies[0].name} />
+                    </div>
+                    <div className={styles.heroFeatureOverlay} />
+                  </>
+                )}
+                <span className={styles.heroFeatureLabel}>Featured · {inSeasonSpecies[0].type}</span>
+                <span className={styles.heroFeatureTitle}>{inSeasonSpecies[0].name}</span>
+              </Link>
+            )}
+            <div className={styles.heroMiniCarousel}>
+              {inSeasonSpecies.slice(1, 4).map(species => (
+                <Link key={species.id} href={`/species/${species.slug}`} className={styles.heroMiniCard}>
+                  {species.photos[0] ? (
                     <img src={species.photos[0].thumbUrl} alt={species.name} />
+                  ) : (
+                    <div style={{background:'var(--green-mid)', width:'100%', height:'100%'}} />
+                  )}
+                  <div className={styles.heroMiniOverlay} />
+                  <div className={styles.heroMiniContent}>
+                    <span className={styles.heroMiniType}>{species.type}</span>
+                    <span className={styles.heroMiniName}>{species.name}</span>
                   </div>
-                  <div className={styles.heroTileOverlay} />
-                </>
-              )}
-              <span className={styles.heroTileLabel}>{i === 0 ? 'In season' : species.type}</span>
-              <span className={styles.heroTileTitle}>{species.name}</span>
-            </Link>
-          ))}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

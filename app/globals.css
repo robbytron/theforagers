@@ -14,7 +14,7 @@ img, video { max-width: 100%; }
   --brown:       #8b6914;
   --brown-light: #c4a35a;
   --white:       #faf8f3;
-  --slate:       #5B7B8C;
+  --slate:       #2D7DD2;
   --font-display: var(--font-fraunces, Georgia, serif);
   --font-body:    var(--font-epilogue, system-ui, sans-serif);
   --space-1: 4px; --space-2: 8px; --space-3: 16px; --space-4: 24px;
