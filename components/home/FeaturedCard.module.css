@@ -6,6 +6,7 @@
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
+  border-radius: 8px;
 }
 
 .card:hover {
@@ -51,6 +52,7 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  border-radius: 4px;
 }
 
 .content {
@@ -113,6 +115,7 @@
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
+  border-radius: 8px;
 }
 
 .cardLarge:hover {
@@ -144,6 +147,7 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  border-radius: 4px;
 }
 
 .largeContent {
@@ -184,6 +188,7 @@
   padding: var(--space-3);
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 8px;
 }
 
 .cardCompact:hover {
@@ -197,6 +202,7 @@
   height: 80px;
   flex-shrink: 0;
   overflow: hidden;
+  border-radius: 6px;
 }
 
 .compactContent {
@@ -234,4 +240,5 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  border-radius: 4px;
 }

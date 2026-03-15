@@ -1,4 +1,4 @@
-.card { display: flex; flex-direction: column; background: var(--white); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; }
+.card { display: flex; flex-direction: column; background: var(--white); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%; border-radius: 8px; }
 .card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(28,43,30,0.12); }
 .imgWrap { position: relative; aspect-ratio: 4/3; overflow: hidden; flex-shrink: 0; }
 .img { object-fit: cover; filter: saturate(0.9); transition: filter 0.3s, transform 0.4s; }
