@@ -98,7 +98,7 @@ export default async function HomePage() {
               </Link>
             )}
             <div className={styles.heroMiniCarousel}>
-              {inSeasonSpecies.slice(1, 4).map(species => (
+              {inSeasonSpecies.slice(1, 8).map(species => (
                 <Link key={species.id} href={`/species/${species.slug}`} className={styles.heroMiniCard}>
                   {species.photos[0] ? (
                     <img src={species.photos[0].thumbUrl} alt={species.name} />
