@@ -38,21 +38,21 @@
 .heroMiniName { font-family:var(--font-display); font-size:var(--text-base); font-weight:400; color:var(--cream); line-height:1.2; }
 
 @media (max-width:900px) {
-  .heroWrapper { padding:8px; padding-top:70px; }
+  .heroWrapper { padding:8px; padding-top:80px; }
   .heroGrid { grid-template-columns:1fr; min-height:auto; }
   .hero { aspect-ratio:4/3; min-height:280px; }
-  .heroContent { padding:20px; }
+  .heroContent { padding:20px; padding-top:40px; }
   .heroRight { gap:8px; }
   .heroFeature { min-height:160px; }
   .heroMiniCarousel { gap:8px; }
   .heroMiniCard { width:45%; min-width:0; }
 }
 @media (max-width:600px) {
-  .heroWrapper { padding-top:60px; }
-  .hero { aspect-ratio:3/2; min-height:240px; }
-  .heroContent { padding:16px; }
+  .heroWrapper { padding-top:72px; }
+  .hero { aspect-ratio:3/2; min-height:260px; }
+  .heroContent { padding:16px; padding-top:48px; }
   .heroTitle { font-size:1.4rem; }
-  .heroSub { font-size:0.875rem; }
+  .heroSub { font-size:0.875rem; margin-bottom:20px; }
   .heroActions { gap:8px; }
   .heroFeature { min-height:120px; }
   .heroMiniCard { width:48%; }
