@@ -5,14 +5,29 @@ import { getJournalEntriesByCategory } from '@/lib/airtable';
 import styles from '../shared.module.css';
 
 export const metadata: Metadata = {
-  title: 'In Season — Journal',
+  title: 'In Season — Journal | The Foragers',
   description: 'Monthly dispatches on what\'s growing, what\'s ready, and what\'s worth finding right now.',
 };
 
 export const revalidate = 3600;
 
+function getReadingTime(text: string): number {
+  const wordsPerMinute = 200;
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / wordsPerMinute));
+}
+
+function formatDate(dateString: string | undefined): string {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return '';
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
 export default async function InSeasonPage() {
   const entries = await getJournalEntriesByCategory('In Season');
+  const featured = entries[0];
+  const remaining = entries.slice(1);
 
   return (
     <>
@@ -20,43 +35,53 @@ export default async function InSeasonPage() {
       <main className={styles.page}>
         <header className={styles.header} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1567579613414-e72304626a3b?w=1600&q=80')" }}>
           <div className={styles.headerInner}>
-            <nav className={styles.breadcrumb}>
-              <Link href="/journal">Journal</Link>
-              <span>/</span>
-              <span>In Season</span>
-            </nav>
             <h1 className={styles.title}>In <em>Season</em></h1>
             <p className={styles.subtitle}>
-              Monthly dispatches tied to what&apos;s happening right now.
+              Monthly dispatches on what's growing, what's ready, and what's worth finding right now.
             </p>
           </div>
         </header>
 
         <article className={styles.content}>
-          <p className={styles.intro}>
-            The state of the hedgerows. The first wild garlic of the year. What the woods
-            look like in October. Seasonal notes updated throughout the year.
-          </p>
-
-          {entries.length > 0 ? (
-            <div className={styles.entryList}>
-              {entries.map(entry => (
-                <Link key={entry.id} href={`/journal/${entry.slug}`} className={styles.entryCard}>
-                  <h3 className={styles.entryTitle}>{entry.title}</h3>
-                  <p className={styles.entryExcerpt}>{entry.excerpt}</p>
-                </Link>
-              ))}
-            </div>
-          ) : (
+          {entries.length === 0 ? (
             <div className={styles.comingSoon}>
               <h2>Coming Soon</h2>
-              <p>We&apos;re working on our first seasonal dispatches. Check back soon.</p>
+              <p>Monthly guides to what's in season will appear here. Check back soon.</p>
             </div>
+          ) : (
+            <>
+              {featured && (
+                <Link href={`/journal/${featured.slug}`} className={styles.featured}>
+                  <span className={styles.featuredLabel}>Latest</span>
+                  <h2 className={styles.featuredTitle}>{featured.title}</h2>
+                  <p className={styles.featuredExcerpt}>{featured.excerpt}</p>
+                  <div className={styles.featuredMeta}>
+                    {formatDate(featured.publishDate) && <span>{formatDate(featured.publishDate)}</span>}
+                    <span>{getReadingTime(featured.body)} min read</span>
+                  </div>
+                </Link>
+              )}
+
+              {remaining.length > 0 && (
+                <div className={styles.entryList}>
+                  {remaining.map(entry => (
+                    <Link key={entry.id} href={`/journal/${entry.slug}`} className={styles.entryCard}>
+                      <h3 className={styles.entryTitle}>{entry.title}</h3>
+                      <p className={styles.entryExcerpt}>{entry.excerpt}</p>
+                      <div className={styles.entryMeta}>
+                        {formatDate(entry.publishDate) && <span>{formatDate(entry.publishDate)}</span>}
+                        <span>{getReadingTime(entry.body)} min read</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </article>
 
         <div className={styles.backLink}>
-          <Link href="/journal">&larr; Back to Journal</Link>
+          <Link href="/">← Back to Home</Link>
         </div>
       </main>
     </>
