@@ -33,25 +33,11 @@ function getDifficultyClass(difficulty: string): string {
   return diffMap[difficulty] || 'tag-intermediate';
 }
 
-// Get icon for type
-function getTypeIcon(type: string): string {
-  const iconMap: Record<string, string> = {
-    'Greens': '\u{1F33F}',    // herb
-    'Fungi': '\u{1F344}',     // mushroom
-    'Berries': '\u{1FAD0}',   // blueberries
-    'Nuts': '\u{1F330}',      // chestnut
-    'Roots': '\u{1F955}',     // carrot
-    'Coastal': '\u{1F30A}',   // wave
-    'Flowers': '\u{1F338}',   // cherry blossom
-  };
-  return iconMap[type] || '';
-}
 
 export default function SpeciesCard({ species }: { species: Species }) {
   const photo = species.photos[0];
   const typeClass = getTypeClass(species.type);
   const difficultyClass = getDifficultyClass(species.difficulty);
-  const typeIcon = getTypeIcon(species.type);
 
   return (
     <Link href={`/species/${species.slug}`} className={styles.card}>
@@ -73,7 +59,7 @@ export default function SpeciesCard({ species }: { species: Species }) {
         <p className={styles.latin}>{species.latinName}</p>
         <p className={styles.desc}>{species.shortDescription}</p>
         <div className={styles.footer}>
-          <span className={styles.cta}>{typeIcon} Full guide →</span>
+          <span className={styles.cta}>Full guide →</span>
         </div>
       </div>
     </Link>
