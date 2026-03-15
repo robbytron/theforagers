@@ -233,7 +233,7 @@ export default async function HomePage() {
         </h2>
         <div className={styles.calendarGrid}>
           {MONTHS.map(month => (
-            <Link key={month} href={`/calendar`}
+            <Link key={month} href={`/calendar/${month.toLowerCase()}`}
               className={`${styles.calMonth} ${month===currentMonth ? styles.calActive : ''}`}>
               <div className={styles.calName}>{month.slice(0,3)}</div>
               <div className={styles.calCount}>{monthCounts[month]} species</div>
