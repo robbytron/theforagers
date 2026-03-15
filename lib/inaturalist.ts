@@ -1,13 +1,13 @@
 import type { INatObservation, SpeciesPhoto, Species } from '@/types';
 
 const INAT_API = 'https://api.inaturalist.org/v1';
+const UK_PLACE_ID = 6857; // United Kingdom
 
 function resizeINatUrl(url: string, size: 'small' | 'medium' | 'large'): string {
   return url.replace(/\/square\.|\/small\.|\/medium\.|\/large\.|\/original\./, `/${size}.`);
 }
 
-export async function getINatPhotos(taxonId: number, limit = 10): Promise<SpeciesPhoto[]> {
-  // Filter by license in API call - cc0 only (public domain, no attribution required)
+async function fetchINatPhotos(taxonId: number, limit: number, placeId?: number): Promise<SpeciesPhoto[]> {
   const params = new URLSearchParams({
     taxon_id:      String(taxonId),
     quality_grade: 'research',
@@ -18,6 +18,10 @@ export async function getINatPhotos(taxonId: number, limit = 10): Promise<Specie
     photo_license: 'cc0',
   });
 
+  if (placeId) {
+    params.set('place_id', String(placeId));
+  }
+
   const res = await fetch(`${INAT_API}/observations?${params}`, { next: { revalidate: 86400 } });
   if (!res.ok) return [];
 
@@ -26,7 +30,6 @@ export async function getINatPhotos(taxonId: number, limit = 10): Promise<Specie
 
   for (const obs of data.results) {
     for (const photo of obs.photos) {
-      // Double-check license - only cc0 (public domain)
       if (photo.license_code !== 'cc0') continue;
       photos.push({
         url:         resizeINatUrl(photo.url, 'large'),
@@ -40,6 +43,26 @@ export async function getINatPhotos(taxonId: number, limit = 10): Promise<Specie
     if (photos.length >= limit) break;
   }
   return photos;
+}
+
+export async function getINatPhotos(taxonId: number, limit = 10): Promise<SpeciesPhoto[]> {
+  // First fetch UK photos (highest rated)
+  const ukPhotos = await fetchINatPhotos(taxonId, limit, UK_PLACE_ID);
+
+  // If we have enough UK photos, return them
+  if (ukPhotos.length >= limit) {
+    return ukPhotos.slice(0, limit);
+  }
+
+  // Otherwise, fetch global photos to fill the rest
+  const needed = limit - ukPhotos.length;
+  const globalPhotos = await fetchINatPhotos(taxonId, needed);
+
+  // Filter out duplicates (photos already in UK set)
+  const ukUrls = new Set(ukPhotos.map(p => p.url));
+  const uniqueGlobal = globalPhotos.filter(p => !ukUrls.has(p.url));
+
+  return [...ukPhotos, ...uniqueGlobal].slice(0, limit);
 }
 
 export async function getFirstINatPhoto(taxonId: number): Promise<SpeciesPhoto | null> {

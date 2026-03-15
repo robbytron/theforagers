@@ -17,29 +17,35 @@ const PAT = envVars.AIRTABLE_PAT;
 const AIRTABLE_API = 'https://api.airtable.com/v0';
 const INAT_API = 'https://api.inaturalist.org/v1';
 
+const UK_PLACE_ID = 6857; // United Kingdom
+
 async function getINatPhoto(taxonId) {
-  // Use license filter to get cc0 only (public domain)
-  const params = new URLSearchParams({
-    taxon_id: String(taxonId),
-    quality_grade: 'research',
-    per_page: '5',
-    order: 'desc',
-    order_by: 'votes',
-    photos: 'true',
-    photo_license: 'cc0',
-  });
+  // Try UK first, then global - CC0 only
+  for (const placeId of [UK_PLACE_ID, null]) {
+    const params = new URLSearchParams({
+      taxon_id: String(taxonId),
+      quality_grade: 'research',
+      per_page: '5',
+      order: 'desc',
+      order_by: 'votes',
+      photos: 'true',
+      photo_license: 'cc0',
+    });
 
-  const res = await fetch(`${INAT_API}/observations?${params}`);
-  if (!res.ok) return null;
+    if (placeId) {
+      params.set('place_id', String(placeId));
+    }
 
-  const data = await res.json();
+    const res = await fetch(`${INAT_API}/observations?${params}`);
+    if (!res.ok) continue;
 
-  for (const obs of data.results) {
-    for (const photo of obs.photos) {
-      // Double-check license - only cc0
-      if (photo.license_code !== 'cc0') continue;
-      // Return large version
-      return photo.url.replace(/\/square\.|\/small\.|\/medium\.|\/original\./, '/large.');
+    const data = await res.json();
+
+    for (const obs of data.results) {
+      for (const photo of obs.photos) {
+        if (photo.license_code !== 'cc0') continue;
+        return photo.url.replace(/\/square\.|\/small\.|\/medium\.|\/original\./, '/large.');
+      }
     }
   }
   return null;
