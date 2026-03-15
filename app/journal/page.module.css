@@ -107,9 +107,33 @@
   transition: border-color 0.2s, background 0.2s;
 }
 
+.articleCardWithImage {
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
 .articleCard:hover {
   border-color: var(--sage);
   background: white;
+}
+
+.articleImage {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.articleContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.articleCardWithImage .articleContent {
+  padding: var(--space-3);
 }
 
 .articleTitle {

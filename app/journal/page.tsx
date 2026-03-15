@@ -100,10 +100,19 @@ export default async function JournalPage() {
                       <Link
                         key={entry.id}
                         href={`/journal/${entry.slug}`}
-                        className={styles.articleCard}
+                        className={`${styles.articleCard} ${entry.heroImage ? styles.articleCardWithImage : ''}`}
                       >
-                        <h3 className={styles.articleTitle}>{entry.title}</h3>
-                        <span className={styles.articleMeta}>{getReadingTime(entry.body)} min</span>
+                        {entry.heroImage && (
+                          <img
+                            src={entry.heroImage.url}
+                            alt={entry.title}
+                            className={styles.articleImage}
+                          />
+                        )}
+                        <div className={styles.articleContent}>
+                          <h3 className={styles.articleTitle}>{entry.title}</h3>
+                          <span className={styles.articleMeta}>{getReadingTime(entry.body)} min</span>
+                        </div>
                       </Link>
                     ))
                   ) : (
