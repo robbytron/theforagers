@@ -127,8 +127,6 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.breadcrumbs}>
-          <Link href="/journal">Journal</Link>
-          <span>/</span>
           <Link href={`/journal/${categorySlug}`}>{entry.category}</Link>
         </div>
 
@@ -180,8 +178,7 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
         </div>
 
         <footer className={styles.footer}>
-          <Link href="/journal" className={styles.backLink}>← Back to Journal</Link>
-          <Link href={`/journal/${categorySlug}`} className={styles.category}>{entry.category}</Link>
+          <Link href={`/journal/${categorySlug}`} className={styles.backLink}>← Back to {entry.category}</Link>
         </footer>
       </article>
     </div>
