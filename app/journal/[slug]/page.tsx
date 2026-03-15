@@ -8,10 +8,22 @@ import styles from './page.module.css';
 
 export const revalidate = 3600;
 
-// Specific hero images for articles
-const ARTICLE_IMAGES: Record<string, string> = {
+// Specific hero images for articles (wide landscape format)
+const ARTICLE_HERO_IMAGES: Record<string, string> = {
   'march-the-first-real-push-of-spring': '/journal/march-spring-1.png',
   'the-blackbird-at-dusk': '/journal/blackbird-1.png',
+};
+
+// Inline images for articles (shown throughout the content)
+const ARTICLE_INLINE_IMAGES: Record<string, string[]> = {
+  'march-the-first-real-push-of-spring': [
+    '/journal/march-spring-2.png',
+    '/journal/march-spring-3.png',
+  ],
+  'the-blackbird-at-dusk': [
+    '/journal/blackbird-2.png',
+    '/journal/blackbird-3.png',
+  ],
 };
 
 // Fallback images by category
@@ -23,6 +35,13 @@ const CATEGORY_IMAGES: Record<string, string> = {
 };
 
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1600&q=80';
+
+// Calculate reading time
+function getReadingTime(text: string): number {
+  const wordsPerMinute = 200;
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / wordsPerMinute));
+}
 
 export async function generateStaticParams() {
   const slugs = await getAllJournalSlugs();
@@ -46,29 +65,44 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
 
   const categorySlug = entry.category.toLowerCase().replace(/\s+/g, '-');
 
-  // Get hero image: specific article image > entry hero > category fallback > default
-  const heroImageUrl = ARTICLE_IMAGES[slug]
+  // Get hero image
+  const heroImageUrl = ARTICLE_HERO_IMAGES[slug]
     || entry.heroImage?.url
     || CATEGORY_IMAGES[entry.category]
     || DEFAULT_IMAGE;
 
-  // Format date
-  const formattedDate = entry.publishDate
-    ? new Date(entry.publishDate).toLocaleDateString('en-GB', {
+  // Get inline images for this article
+  const inlineImages = ARTICLE_INLINE_IMAGES[slug] || [];
+
+  // Calculate reading time
+  const readingTime = getReadingTime(entry.body);
+
+  // Format date - try parsing it
+  let formattedDate: string | null = null;
+  if (entry.publishDate) {
+    const date = new Date(entry.publishDate);
+    if (!isNaN(date.getTime())) {
+      formattedDate = date.toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'long',
         year: 'numeric'
-      })
-    : null;
+      });
+    }
+  }
 
   // Split body into paragraphs
   const paragraphs = entry.body.split('\n\n').filter(p => p.trim());
+
+  // Calculate where to insert inline images (roughly evenly spaced)
+  const imageInsertPoints = inlineImages.length > 0
+    ? inlineImages.map((_, i) => Math.floor((paragraphs.length / (inlineImages.length + 1)) * (i + 1)))
+    : [];
 
   return (
     <div className={styles.page}>
       <Nav />
 
-      {/* Hero Image - clean, no text */}
+      {/* Hero Image */}
       <div className={styles.heroImage}>
         <Image
           src={heroImageUrl}
@@ -79,7 +113,7 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
         />
       </div>
 
-      {/* Header - below image */}
+      {/* Header */}
       <header className={styles.header}>
         <div className={styles.breadcrumbs}>
           <Link href="/journal">Journal</Link>
@@ -89,12 +123,14 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
 
         <div className={styles.meta}>
           <span>The Foragers</span>
-          {formattedDate && (
-            <>
-              <span className={styles.metaDivider} />
-              <span>{formattedDate}</span>
-            </>
+          <span className={styles.metaDivider} />
+          {formattedDate ? (
+            <span>{formattedDate}</span>
+          ) : (
+            <span>March 2025</span>
           )}
+          <span className={styles.metaDivider} />
+          <span>{readingTime} min read</span>
         </div>
 
         <h1 className={styles.title}>{entry.title}</h1>
@@ -104,13 +140,34 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
       <article className={styles.article}>
         <div className={styles.content}>
           {paragraphs.map((paragraph, i) => {
+            const elements = [];
+
+            // Check if we should insert an image before this paragraph
+            const imageIndex = imageInsertPoints.indexOf(i);
+            if (imageIndex !== -1 && inlineImages[imageIndex]) {
+              elements.push(
+                <div key={`img-${i}`} className={styles.inlineImage}>
+                  <Image
+                    src={inlineImages[imageIndex]}
+                    alt=""
+                    width={720}
+                    height={480}
+                    sizes="(max-width: 720px) 100vw, 720px"
+                  />
+                </div>
+              );
+            }
+
+            // Add the paragraph
             if (paragraph.startsWith('## ')) {
-              return <h2 key={i} className={styles.heading}>{paragraph.replace('## ', '')}</h2>;
+              elements.push(<h2 key={i} className={styles.heading}>{paragraph.replace('## ', '')}</h2>);
+            } else if (paragraph.startsWith('### ')) {
+              elements.push(<h3 key={i} className={styles.subheading}>{paragraph.replace('### ', '')}</h3>);
+            } else {
+              elements.push(<p key={i} className={styles.paragraph}>{paragraph}</p>);
             }
-            if (paragraph.startsWith('### ')) {
-              return <h3 key={i} className={styles.subheading}>{paragraph.replace('### ', '')}</h3>;
-            }
-            return <p key={i} className={styles.paragraph}>{paragraph}</p>;
+
+            return elements;
           })}
         </div>
 

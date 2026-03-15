@@ -140,6 +140,19 @@
   margin-bottom: 0;
 }
 
+/* Inline Images */
+.inlineImage {
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.inlineImage img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* Footer */
 .footer {
   margin-top: var(--space-7);
