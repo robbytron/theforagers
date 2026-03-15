@@ -62,15 +62,33 @@ export default async function HomePage() {
     <>
       <Nav />
 
-      {/* Original Hero */}
-      <section className={styles.hero}>
-        <div className={styles.heroBg} />
-        <p className={styles.heroSeason}>{currentMonth} · Britain&apos;s Woodlands &amp; Hedgerows</p>
-        <h1 className={styles.heroTitle}>The land is<br /><em>waking up.</em><br />Go and find it.</h1>
-        <p className={styles.heroSub}>Everything you need to forage wild food in Britain — what&apos;s out there, when to find it, and how to be sure you&apos;re eating the right thing.</p>
-        <div className={styles.heroActions}>
-          <Link href="/species" className="btn-primary">What&apos;s in season now</Link>
-          <Link href="/beginners" className="btn-ghost">Start here →</Link>
+      {/* Hero Grid - Tile Layout */}
+      <section className={styles.heroGrid}>
+        <div className={styles.hero}>
+          <div className={styles.heroBg} />
+          <p className={styles.heroSeason}>{currentMonth} · Britain&apos;s Woodlands</p>
+          <h1 className={styles.heroTitle}>The land is<br /><em>waking up.</em></h1>
+          <p className={styles.heroSub}>Everything you need to forage wild food in Britain — what&apos;s out there, when to find it, and how to identify it safely.</p>
+          <div className={styles.heroActions}>
+            <Link href="/species" className="btn-primary">In season now</Link>
+            <Link href="/beginners" className="btn-ghost">Start here →</Link>
+          </div>
+        </div>
+        <div className={styles.heroSide}>
+          {inSeasonSpecies.slice(0, 3).map((species, i) => (
+            <Link key={species.id} href={`/species/${species.slug}`} className={`${styles.heroTile} ${species.photos[0] ? 'dark' : ''}`}>
+              {species.photos[0] && (
+                <>
+                  <div className={styles.heroTileImage}>
+                    <img src={species.photos[0].thumbUrl} alt={species.name} />
+                  </div>
+                  <div className={styles.heroTileOverlay} />
+                </>
+              )}
+              <span className={styles.heroTileLabel}>{i === 0 ? 'In season' : species.type}</span>
+              <span className={styles.heroTileTitle}>{species.name}</span>
+            </Link>
+          ))}
         </div>
       </section>
 

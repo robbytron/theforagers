@@ -4,6 +4,7 @@
   border: 1px solid rgba(28,43,30,0.06);
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: var(--radius-lg);
 }
 
 .card:hover {

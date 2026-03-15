@@ -19,7 +19,7 @@
 .monthHeader { margin-bottom:var(--space-6); display:flex; justify-content:space-between; align-items:flex-start; }
 .monthLink { font-size:var(--text-xs); font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--brown); transition:color 0.2s; }
 .monthLink:hover { color:var(--green-deep); }
-.moreLink { display:flex; align-items:center; justify-content:center; background:var(--parchment); font-size:var(--text-sm); font-weight:500; color:var(--brown); padding:var(--space-4); transition:background 0.2s; }
+.moreLink { display:flex; align-items:center; justify-content:center; background:var(--parchment); font-size:var(--text-sm); font-weight:500; color:var(--brown); padding:var(--space-4); transition:background 0.2s; border-radius:var(--radius-lg); }
 .moreLink:hover { background:var(--cream); }
 .monthTitle { font-family:var(--font-display); font-size:clamp(var(--text-xl),4vw,var(--text-2xl)); font-weight:300; letter-spacing:-0.025em; color:var(--green-deep); }
 .monthMeta { font-size:var(--text-sm); color:var(--green-muted); margin-top:var(--space-2); }

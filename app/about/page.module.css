@@ -73,6 +73,7 @@
   padding: var(--space-6);
   border: 1px solid rgba(28, 43, 30, 0.08);
   transition: border-color 0.2s, box-shadow 0.2s;
+  border-radius: var(--radius-lg);
 }
 
 .sectionCard:hover {

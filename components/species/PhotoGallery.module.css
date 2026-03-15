@@ -13,6 +13,7 @@
   border: none;
   padding: 0;
   background: none;
+  border-radius: var(--radius-lg);
 }
 
 .galleryImg {

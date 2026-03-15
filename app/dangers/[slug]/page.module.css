@@ -40,6 +40,7 @@
   color: white;
   padding: 4px 12px;
   margin-bottom: var(--space-3);
+  border-radius: var(--radius-sm);
 }
 
 .title {
@@ -77,6 +78,8 @@
   height: 400px;
   margin-bottom: var(--space-6);
   background: var(--cream);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
 .intro {
@@ -124,6 +127,7 @@
   background: #FFF5F5;
   border: 1px solid #C41E3A;
   padding: var(--space-5);
+  border-radius: var(--radius-lg);
 }
 
 .warningTitle {
@@ -152,6 +156,7 @@
   background: #F0FFF4;
   border: 1px solid var(--sage);
   padding: var(--space-5);
+  border-radius: var(--radius-lg);
 }
 
 .firstAidTitle {
@@ -180,6 +185,7 @@
   background: #8B0000;
   padding: var(--space-5);
   color: var(--cream);
+  border-radius: var(--radius-lg);
 }
 
 .emergency h3 {
