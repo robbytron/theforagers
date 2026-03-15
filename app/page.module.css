@@ -59,7 +59,6 @@
   .heroActions { gap:8px; }
   .heroActions a { padding:10px 16px; font-size:0.75rem; }
   .heroFeature { min-height:120px; padding:16px; }
-  .heroMiniContent { padding:12px; }
   .heroMiniCard { width:48%; }
 }
 .seasonStrip { background:var(--green-deep); padding:var(--space-4) 0; overflow:hidden; }
