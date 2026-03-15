@@ -8,15 +8,21 @@ import styles from './page.module.css';
 
 export const revalidate = 3600;
 
-// Placeholder images by category
-const PLACEHOLDER_IMAGES: Record<string, string> = {
+// Specific hero images for articles
+const ARTICLE_IMAGES: Record<string, string> = {
+  'march-the-first-real-push-of-spring': '/journal/march-spring-1.png',
+  'you-will-hear-a-blackbird-before-you-see-one': '/journal/blackbird-1.png',
+};
+
+// Fallback images by category
+const CATEGORY_IMAGES: Record<string, string> = {
   'In Season': 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1600&q=80',
   'The Field': 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80',
   'The Land': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80',
   'Wild Table': 'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=1600&q=80',
 };
 
-const DEFAULT_PLACEHOLDER = 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1600&q=80';
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1600&q=80';
 
 export async function generateStaticParams() {
   const slugs = await getAllJournalSlugs();
@@ -39,7 +45,21 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
   if (!entry) notFound();
 
   const categorySlug = entry.category.toLowerCase().replace(/\s+/g, '-');
-  const heroImageUrl = entry.heroImage?.url || PLACEHOLDER_IMAGES[entry.category] || DEFAULT_PLACEHOLDER;
+
+  // Get hero image: specific article image > entry hero > category fallback > default
+  const heroImageUrl = ARTICLE_IMAGES[slug]
+    || entry.heroImage?.url
+    || CATEGORY_IMAGES[entry.category]
+    || DEFAULT_IMAGE;
+
+  // Format date
+  const formattedDate = entry.publishDate
+    ? new Date(entry.publishDate).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      })
+    : null;
 
   // Split body into paragraphs
   const paragraphs = entry.body.split('\n\n');
@@ -48,39 +68,36 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
     <div className={styles.page}>
       <Nav />
 
-      {/* Hero Header with Image */}
-      <header className={styles.heroHeader}>
-        <div className={styles.heroImage}>
-          <Image
-            src={heroImageUrl}
-            alt={entry.title}
-            fill
-            priority
-            sizes="100vw"
-          />
+      {/* Hero Image - clean, no text */}
+      <div className={styles.heroImage}>
+        <Image
+          src={heroImageUrl}
+          alt={entry.title}
+          fill
+          priority
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Header - below image */}
+      <header className={styles.header}>
+        <div className={styles.breadcrumbs}>
+          <Link href="/journal">Journal</Link>
+          <span>/</span>
+          <Link href={`/journal/${categorySlug}`}>{entry.category}</Link>
         </div>
-        <div className={styles.heroOverlay} />
-        <div className={styles.heroContent}>
-          <div className={styles.breadcrumbs}>
-            <Link href="/journal">Journal</Link>
-            <span>/</span>
-            <Link href={`/journal/${categorySlug}`}>{entry.category}</Link>
-          </div>
-          <h1 className={styles.title}>{entry.title}</h1>
-          {entry.excerpt && <p className={styles.excerpt}>{entry.excerpt}</p>}
-          <div className={styles.meta}>
-            <span>{entry.category}</span>
-            {entry.publishDate && (
-              <>
-                <span>·</span>
-                <span>{new Date(entry.publishDate).toLocaleDateString('en-GB', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric'
-                })}</span>
-              </>
-            )}
-          </div>
+        <h1 className={styles.title}>{entry.title}</h1>
+        {entry.excerpt && <p className={styles.excerpt}>{entry.excerpt}</p>}
+        <div className={styles.meta}>
+          <span>The Foragers</span>
+          {formattedDate && (
+            <>
+              <span className={styles.metaDivider} />
+              <span>{formattedDate}</span>
+            </>
+          )}
+          <span className={styles.metaDivider} />
+          <span>{entry.category}</span>
         </div>
       </header>
 
@@ -88,14 +105,12 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
       <article className={styles.article}>
         <div className={styles.content}>
           {paragraphs.map((paragraph, i) => {
-            // Handle headings
             if (paragraph.startsWith('## ')) {
               return <h2 key={i} className={styles.heading}>{paragraph.replace('## ', '')}</h2>;
             }
             if (paragraph.startsWith('### ')) {
               return <h3 key={i} className={styles.subheading}>{paragraph.replace('### ', '')}</h3>;
             }
-            // Regular paragraphs - all same size
             return <p key={i} className={styles.paragraph}>{paragraph}</p>;
           })}
         </div>

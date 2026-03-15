@@ -4,18 +4,12 @@
   background: var(--parchment);
 }
 
-/* Hero Header */
-.heroHeader {
-  position: relative;
-  min-height: 45vh;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
-}
-
+/* Hero Image - clean, no text */
 .heroImage {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21/9;
+  overflow: hidden;
 }
 
 .heroImage img {
@@ -24,18 +18,13 @@
   object-fit: cover;
 }
 
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(28,43,30,0.92) 0%, rgba(28,43,30,0.6) 50%, rgba(28,43,30,0.3) 100%);
-}
-
-.heroContent {
+/* Header Section - below image */
+.header {
   position: relative;
   max-width: 720px;
   margin: 0 auto;
-  width: 100%;
-  padding: var(--space-7) var(--space-6);
+  padding: var(--space-6) var(--space-6) var(--space-5);
+  border-bottom: 1px solid rgba(28, 43, 30, 0.1);
 }
 
 .breadcrumbs {
@@ -46,22 +35,21 @@
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--cream);
+  color: var(--green-muted);
   margin-bottom: var(--space-4);
 }
 
 .breadcrumbs a {
-  color: var(--cream);
-  opacity: 0.85;
-  transition: opacity 0.2s;
+  color: var(--slate);
+  transition: color 0.2s;
 }
 
 .breadcrumbs a:hover {
-  opacity: 1;
+  color: var(--green-deep);
 }
 
 .breadcrumbs span {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .title {
@@ -70,30 +58,43 @@
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: var(--cream);
+  color: var(--green-deep);
   margin-bottom: var(--space-3);
 }
 
 .excerpt {
   font-size: var(--text-base);
-  color: rgba(244, 239, 228, 0.85);
+  color: var(--green-muted);
   line-height: 1.6;
+  margin-bottom: var(--space-4);
 }
 
 .meta {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  margin-top: var(--space-4);
+  gap: var(--space-4);
   font-size: var(--text-sm);
-  color: var(--sage);
+  color: var(--green-muted);
 }
 
-/* Article Content - same max-width and padding as heroContent */
+.metaDivider {
+  width: 4px;
+  height: 4px;
+  background: var(--sage);
+  border-radius: 50%;
+}
+
+/* Article Content with SVG background */
 .article {
+  position: relative;
   max-width: 720px;
   margin: 0 auto;
   padding: var(--space-6) var(--space-6) var(--space-8);
+  background-image: url('/backgrounds/botanical-1.svg');
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: 300px auto;
+  background-attachment: scroll;
 }
 
 .content {
@@ -163,12 +164,12 @@
 
 /* Mobile */
 @media (max-width: 640px) {
-  .heroHeader {
-    min-height: 35vh;
+  .heroImage {
+    aspect-ratio: 16/9;
   }
 
-  .heroContent {
-    padding: var(--space-6) var(--space-4);
+  .header {
+    padding: var(--space-5) var(--space-4);
   }
 
   .title {
@@ -177,6 +178,12 @@
 
   .article {
     padding: var(--space-5) var(--space-4) var(--space-6);
+    background-size: 200px auto;
+  }
+
+  .meta {
+    flex-wrap: wrap;
+    gap: var(--space-2);
   }
 
   .footer {
