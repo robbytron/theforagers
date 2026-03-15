@@ -18,11 +18,11 @@ const AIRTABLE_API = 'https://api.airtable.com/v0';
 const INAT_API = 'https://api.inaturalist.org/v1';
 
 async function getINatPhoto(taxonId) {
-  // Use license filter to get cc0 only (public domain)
+  // CC0 only - public domain, no attribution required
   const params = new URLSearchParams({
     taxon_id: String(taxonId),
     quality_grade: 'research',
-    per_page: '5',
+    per_page: '10',
     order: 'desc',
     order_by: 'votes',
     photos: 'true',
@@ -36,9 +36,7 @@ async function getINatPhoto(taxonId) {
 
   for (const obs of data.results) {
     for (const photo of obs.photos) {
-      // Double-check license - only cc0
       if (photo.license_code !== 'cc0') continue;
-      // Return large version
       return photo.url.replace(/\/square\.|\/small\.|\/medium\.|\/original\./, '/large.');
     }
   }
@@ -48,7 +46,6 @@ async function getINatPhoto(taxonId) {
 async function main() {
   console.log('Fetching all species...');
 
-  // Fetch all species
   let allRecords = [];
   let offset;
   do {
@@ -65,42 +62,48 @@ async function main() {
 
   console.log(`Found ${allRecords.length} species`);
 
-  // Find species needing hero URLs
+  // Find species with taxon ID and no Airtable hero image
   const needsHero = allRecords.filter(r => {
     const f = r.fields;
-    // Has taxon ID, no hero image, no hero URL
-    return f['iNaturalist Taxon ID'] && !f['Hero Image'] && !f['iNaturalist Hero URL'];
+    return f['iNaturalist Taxon ID'] && !f['Hero Image'];
   });
 
-  console.log(`${needsHero.length} species need hero URLs`);
-
-  if (needsHero.length === 0) {
-    console.log('Nothing to update!');
-    return;
-  }
+  console.log(`${needsHero.length} species need hero URLs from iNaturalist`);
 
   // Process each
   const updates = [];
+  let found = 0;
+  let notFound = 0;
+
   for (const record of needsHero) {
     const taxonId = record.fields['iNaturalist Taxon ID'];
     const name = record.fields['Species Name'];
+    const currentUrl = record.fields['iNaturalist Hero URL'];
 
-    console.log(`Fetching photo for ${name} (taxon ${taxonId})...`);
+    process.stdout.write(`Fetching CC0 photo for ${name}...`);
     const photoUrl = await getINatPhoto(taxonId);
 
     if (photoUrl) {
       updates.push({ id: record.id, fields: { 'iNaturalist Hero URL': photoUrl } });
-      console.log(`  ✓ Found photo`);
+      console.log(' ✓');
+      found++;
     } else {
-      console.log(`  ✗ No licensed photo found`);
+      // Clear existing URL if no CC0 available
+      if (currentUrl) {
+        updates.push({ id: record.id, fields: { 'iNaturalist Hero URL': null } });
+      }
+      console.log(' ✗ no CC0 photo');
+      notFound++;
     }
 
-    // Rate limit
     await new Promise(r => setTimeout(r, 200));
   }
 
+  console.log(`\nFound CC0 photos: ${found}`);
+  console.log(`No CC0 photos: ${notFound}`);
+
   if (updates.length === 0) {
-    console.log('\nNo photos found to update');
+    console.log('\nNothing to update');
     return;
   }
 
@@ -123,13 +126,13 @@ async function main() {
     if (!res.ok) {
       console.error('Error:', await res.text());
     } else {
-      console.log(`  Updated batch ${Math.floor(i / BATCH_SIZE) + 1}`);
+      console.log(`  Updated batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(updates.length / BATCH_SIZE)}`);
     }
 
     await new Promise(r => setTimeout(r, 200));
   }
 
-  console.log(`\nDone! Updated ${updates.length} hero URLs.`);
+  console.log(`\nDone!`);
 }
 
 main().catch(console.error);

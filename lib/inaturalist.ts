@@ -7,7 +7,7 @@ function resizeINatUrl(url: string, size: 'small' | 'medium' | 'large'): string 
 }
 
 export async function getINatPhotos(taxonId: number, limit = 10): Promise<SpeciesPhoto[]> {
-  // Filter by license in API call - cc0, cc-by, cc-by-sa (no NC variants)
+  // Filter by license in API call - cc0 only (public domain, no attribution required)
   const params = new URLSearchParams({
     taxon_id:      String(taxonId),
     quality_grade: 'research',
@@ -15,7 +15,7 @@ export async function getINatPhotos(taxonId: number, limit = 10): Promise<Specie
     order:         'desc',
     order_by:      'votes',
     photos:        'true',
-    photo_license: 'cc0,cc-by,cc-by-sa',
+    photo_license: 'cc0',
   });
 
   const res = await fetch(`${INAT_API}/observations?${params}`, { next: { revalidate: 86400 } });
@@ -26,9 +26,8 @@ export async function getINatPhotos(taxonId: number, limit = 10): Promise<Specie
 
   for (const obs of data.results) {
     for (const photo of obs.photos) {
-      // Double-check license (API should handle this, but be safe)
-      if (!photo.license_code) continue;
-      if (photo.license_code.includes('nc')) continue;
+      // Double-check license - only cc0 (public domain)
+      if (photo.license_code !== 'cc0') continue;
       photos.push({
         url:         resizeINatUrl(photo.url, 'large'),
         thumbUrl:    resizeINatUrl(photo.url, 'small'),
