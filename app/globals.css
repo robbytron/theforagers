@@ -20,7 +20,7 @@ img, video { max-width: 100%; }
   --space-1: 4px; --space-2: 8px; --space-3: 16px; --space-4: 24px;
   --space-5: 32px; --space-6: 48px; --space-7: 64px; --space-8: 96px; --space-9: 128px;
   --text-xs: 0.64rem; --text-sm: 0.8rem; --text-base: 1rem; --text-md: 1.25rem;
-  --text-lg: 1.563rem; --text-xl: 1.953rem; --text-2xl: 2.441rem; --text-3xl: 3.052rem;
+  --text-lg: 1.4rem; --text-xl: 1.75rem; --text-2xl: 2rem; --text-3xl: 2.5rem;
   --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
 }
 
