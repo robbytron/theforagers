@@ -97,16 +97,13 @@ export default async function WildTablePage() {
             <h2 className={styles.exploreTitle}>Explore More</h2>
             <div className={styles.exploreGrid}>
               <Link href="/journal/in-season" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>In Season</h3>
-                <p className={styles.exploreCardDesc}>What to find right now</p>
+                <img src="/journal/categories/in-season-card.png" alt="In Season" className={styles.exploreCardImage} />
               </Link>
               <Link href="/journal/from-the-field" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>From The Field</h3>
-                <p className={styles.exploreCardDesc}>Notes from foraging trips</p>
+                <img src="/journal/categories/from-the-field-card.png" alt="From The Field" className={styles.exploreCardImage} />
               </Link>
               <Link href="/journal/the-land" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>The Land</h3>
-                <p className={styles.exploreCardDesc}>Essays on landscape</p>
+                <img src="/journal/categories/the-land-card.png" alt="The Land" className={styles.exploreCardImage} />
               </Link>
             </div>
           </div>
