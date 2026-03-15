@@ -8,6 +8,10 @@ import styles from './page.module.css';
 
 export const revalidate = 3600;
 
+// Custom hero images for specific articles
+const ARTICLE_HERO_IMAGES: Record<string, string> = {
+  'the-blackbird-at-dusk': '/journal/blackbird-hero.png',
+};
 
 // Fallback images by category
 const CATEGORY_IMAGES: Record<string, string> = {
@@ -49,7 +53,8 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
   const categorySlug = entry.category.toLowerCase().replace(/\s+/g, '-');
 
   // Get hero image
-  const heroImageUrl = entry.heroImage?.url
+  const heroImageUrl = ARTICLE_HERO_IMAGES[slug]
+    || entry.heroImage?.url
     || CATEGORY_IMAGES[entry.category]
     || DEFAULT_IMAGE;
 
