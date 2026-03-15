@@ -3,10 +3,34 @@ import Image from 'next/image';
 import type { Species } from '@/types';
 import styles from './SpeciesCard.module.css';
 
+// Map type to CSS class
+function getTypeClass(type: string): string {
+  const typeMap: Record<string, string> = {
+    'Greens': 'tag-greens',
+    'Fungi': 'tag-fungi',
+    'Berries': 'tag-berries',
+    'Nuts': 'tag-nuts',
+    'Roots': 'tag-roots',
+    'Coastal': 'tag-coastal',
+    'Flowers': 'tag-flowers',
+  };
+  return typeMap[type] || 'tag-greens';
+}
+
+// Map difficulty to CSS class
+function getDifficultyClass(difficulty: string): string {
+  const diffMap: Record<string, string> = {
+    'Beginner': 'tag-beginner',
+    'Intermediate': 'tag-intermediate',
+    'Expert Only': 'tag-expert',
+  };
+  return diffMap[difficulty] || 'tag-intermediate';
+}
+
 export default function SpeciesCard({ species }: { species: Species }) {
   const photo = species.photos[0];
-  const difficultyClass = species.difficulty === 'Beginner' ? 'tag-beginner'
-    : species.difficulty === 'Expert Only' ? 'tag-caution' : 'tag-season';
+  const typeClass = getTypeClass(species.type);
+  const difficultyClass = getDifficultyClass(species.difficulty);
 
   return (
     <Link href={`/species/${species.slug}`} className={styles.card}>
@@ -21,7 +45,7 @@ export default function SpeciesCard({ species }: { species: Species }) {
       </div>
       <div className={styles.body}>
         <div className={styles.tags}>
-          <span className="tag tag-season">{species.type}</span>
+          <span className={`tag ${typeClass}`}>{species.type}</span>
           <span className={`tag ${difficultyClass}`}>{species.difficulty}</span>
         </div>
         <p className={styles.name}>{species.name}</p>

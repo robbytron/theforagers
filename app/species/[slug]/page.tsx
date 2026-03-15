@@ -13,6 +13,30 @@ import styles from './page.module.css';
 
 export const revalidate = 3600;
 
+// Map type to CSS class
+function getTypeClass(type: string): string {
+  const typeMap: Record<string, string> = {
+    'Greens': 'tag-greens',
+    'Fungi': 'tag-fungi',
+    'Berries': 'tag-berries',
+    'Nuts': 'tag-nuts',
+    'Roots': 'tag-roots',
+    'Coastal': 'tag-coastal',
+    'Flowers': 'tag-flowers',
+  };
+  return typeMap[type] || 'tag-greens';
+}
+
+// Map difficulty to CSS class
+function getDifficultyClass(difficulty: string): string {
+  const diffMap: Record<string, string> = {
+    'Beginner': 'tag-beginner',
+    'Intermediate': 'tag-intermediate',
+    'Expert Only': 'tag-expert',
+  };
+  return diffMap[difficulty] || 'tag-intermediate';
+}
+
 function buildFAQSchema(faqs: FAQ[]) {
   return {
     '@context': 'https://schema.org',
@@ -66,8 +90,8 @@ export default async function SpeciesPage({ params }: { params: Promise<{ slug: 
         <div className={styles.heroContent}>
           <Link href="/species" className={styles.breadcrumb}>← Species guide</Link>
           <div className={styles.heroTags}>
-            <span className="tag tag-season">{species.type}</span>
-            <span className={`tag ${species.difficulty === 'Beginner' ? 'tag-beginner' : species.difficulty === 'Expert Only' ? 'tag-caution' : 'tag-season'}`}>{species.difficulty}</span>
+            <span className={`tag ${getTypeClass(species.type)}`}>{species.type}</span>
+            <span className={`tag ${getDifficultyClass(species.difficulty)}`}>{species.difficulty}</span>
             {species.expertReviewed && <span className="tag tag-beginner">Expert reviewed ✓</span>}
           </div>
           <h1 className={styles.heroTitle}>{species.name}</h1>
