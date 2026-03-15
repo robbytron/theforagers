@@ -7,6 +7,7 @@ interface FeaturedCardProps {
   feature: HomepageFeature;
   species?: Species | null;
   recipe?: Recipe | null;
+  variant?: 'default' | 'large' | 'compact';
 }
 
 function getUrl(feature: HomepageFeature): string {
@@ -26,7 +27,7 @@ function getUrl(feature: HomepageFeature): string {
   }
 }
 
-export default function FeaturedCard({ feature, species, recipe }: FeaturedCardProps) {
+export default function FeaturedCard({ feature, species, recipe, variant = 'default' }: FeaturedCardProps) {
   const url = getUrl(feature);
 
   // Determine image URL
@@ -42,8 +43,71 @@ export default function FeaturedCard({ feature, species, recipe }: FeaturedCardP
   // Determine description
   const description = feature.description || species?.shortDescription || recipe?.shortDescription || '';
 
+  const cardClass = variant === 'large'
+    ? styles.cardLarge
+    : variant === 'compact'
+      ? styles.cardCompact
+      : styles.card;
+
+  if (variant === 'compact') {
+    return (
+      <Link href={url} className={cardClass}>
+        <div className={styles.compactImageWrap}>
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={feature.title}
+              fill
+              sizes="120px"
+              className={styles.image}
+            />
+          ) : (
+            <div className={styles.placeholder} />
+          )}
+        </div>
+        <div className={styles.compactContent}>
+          <span className={styles.compactType}>{feature.contentType}</span>
+          <h3 className={styles.compactTitle}>{feature.title}</h3>
+          {feature.badge && <span className={styles.compactBadge}>{feature.badge}</span>}
+        </div>
+      </Link>
+    );
+  }
+
+  if (variant === 'large') {
+    return (
+      <Link href={url} className={cardClass}>
+        <div className={styles.largeImageWrap}>
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={feature.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 60vw"
+              className={styles.image}
+            />
+          ) : (
+            <div className={styles.placeholder} />
+          )}
+          <div className={styles.largeOverlay} />
+          {feature.badge && (
+            <span className={styles.largeBadge}>{feature.badge}</span>
+          )}
+        </div>
+        <div className={styles.largeContent}>
+          <span className={styles.type}>{feature.contentType}</span>
+          <h3 className={styles.largeTitle}>{feature.title}</h3>
+          {description && (
+            <p className={styles.largeDesc}>{description}</p>
+          )}
+          <span className={styles.cta}>Read more →</span>
+        </div>
+      </Link>
+    );
+  }
+
   return (
-    <Link href={url} className={styles.card}>
+    <Link href={url} className={cardClass}>
       <div className={styles.imageWrap}>
         {imageUrl ? (
           <Image

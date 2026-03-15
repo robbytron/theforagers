@@ -16,7 +16,24 @@
 .dot { width:4px; height:4px; background:var(--brown-light); border-radius:50%; flex-shrink:0; }
 .latestSection { background:var(--cream); padding:var(--space-8) var(--space-6); }
 .sectionHeader { margin-bottom:var(--space-6); }
-.latestGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-4); }
+
+/* Magazine Layout - Lead + Sidebar */
+.magazineGrid { display:grid; grid-template-columns:1.4fr 1fr; gap:var(--space-4); }
+.magazineLead { display:flex; }
+.magazineLead > * { flex:1; }
+.magazineSide { display:flex; flex-direction:column; gap:var(--space-3); }
+@media (max-width:900px) { .magazineGrid { grid-template-columns:1fr; } .magazineSide { flex-direction:row; flex-wrap:wrap; } .magazineSide > * { flex:1; min-width:280px; } }
+
+/* Featured Section */
+.featuredSection { background:var(--parchment); padding:var(--space-8) var(--space-6); }
+
+/* Staggered Grid - Mixed sizes */
+.staggeredGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-4); }
+.staggeredWide { grid-column:span 2; }
+.staggeredNormal { grid-column:span 1; }
+@media (max-width:900px) { .staggeredGrid { grid-template-columns:1fr 1fr; } .staggeredWide { grid-column:span 2; } }
+@media (max-width:600px) { .staggeredGrid { grid-template-columns:1fr; } .staggeredWide,.staggeredNormal { grid-column:span 1; } }
+
 .inSeason { background:var(--parchment); padding:var(--space-8) var(--space-6); }
 .inSeasonIntro { margin-bottom:var(--space-7); }
 .inSeasonIntro p { color:var(--green-muted); }
