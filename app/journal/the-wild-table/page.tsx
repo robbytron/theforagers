@@ -5,13 +5,13 @@ import { getJournalEntriesByCategory } from '@/lib/airtable';
 import styles from '../shared.module.css';
 
 export const metadata: Metadata = {
-  title: 'From The Field — Journal | The Foragers',
-  description: 'Notes from foraging expeditions across Britain — what we found, where we went, and what we learned.',
+  title: 'The Wild Table — Journal | The Foragers',
+  description: 'Cooking with foraged ingredients — meals, experiments, and lessons from the kitchen.',
 };
 
 export const revalidate = 3600;
 
-const FALLBACK_IMAGE = '/journal/categories/from-the-field-wide.png';
+const FALLBACK_IMAGE = '/journal/categories/the-wild-table-wide.png';
 
 function getReadingTime(text: string): number {
   const wordsPerMinute = 200;
@@ -26,8 +26,8 @@ function formatDate(dateString: string | undefined): string {
   return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-export default async function TheFieldPage() {
-  const entries = await getJournalEntriesByCategory('From The Field');
+export default async function WildTablePage() {
+  const entries = await getJournalEntriesByCategory('The Wild Table');
   const featured = entries[0];
   const remaining = entries.slice(1);
 
@@ -36,14 +36,14 @@ export default async function TheFieldPage() {
       <Nav />
       <main className={styles.page}>
         <header className={styles.header}>
-          <img src="/journal/categories/from-the-field-wide.png" alt="From The Field" className={styles.headerImage} />
+          <img src="/journal/categories/the-wild-table-wide.png" alt="The Wild Table" className={styles.headerImage} />
         </header>
 
         <article className={styles.content}>
           {entries.length === 0 ? (
             <div className={styles.comingSoon}>
               <h2>Coming Soon</h2>
-              <p>We're preparing our first field reports. Check back soon.</p>
+              <p>We're documenting our kitchen experiments. Check back soon.</p>
             </div>
           ) : (
             <>
@@ -100,13 +100,13 @@ export default async function TheFieldPage() {
                 <h3 className={styles.exploreCardTitle}>In Season</h3>
                 <p className={styles.exploreCardDesc}>What to find right now</p>
               </Link>
+              <Link href="/journal/from-the-field" className={styles.exploreCard}>
+                <h3 className={styles.exploreCardTitle}>From The Field</h3>
+                <p className={styles.exploreCardDesc}>Notes from foraging trips</p>
+              </Link>
               <Link href="/journal/the-land" className={styles.exploreCard}>
                 <h3 className={styles.exploreCardTitle}>The Land</h3>
                 <p className={styles.exploreCardDesc}>Essays on landscape</p>
-              </Link>
-              <Link href="/journal/wild-table" className={styles.exploreCard}>
-                <h3 className={styles.exploreCardTitle}>The Wild Table</h3>
-                <p className={styles.exploreCardDesc}>Cooking with wild food</p>
               </Link>
             </div>
           </div>

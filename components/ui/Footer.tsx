@@ -44,9 +44,9 @@ export default function Footer() {
             <h4><Link href="/journal">Journal</Link></h4>
             <ul>
               <li><Link href="/journal/in-season">In Season</Link></li>
-              <li><Link href="/journal/the-field">From The Field</Link></li>
+              <li><Link href="/journal/from-the-field">From The Field</Link></li>
               <li><Link href="/journal/the-land">The Land</Link></li>
-              <li><Link href="/journal/wild-table">The Wild Table</Link></li>
+              <li><Link href="/journal/the-wild-table">The Wild Table</Link></li>
             </ul>
           </div>
           <div className={styles.footerCol}>

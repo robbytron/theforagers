@@ -74,9 +74,9 @@ const NAV_SECTIONS: NavSection[] = [
     href: '/journal',
     items: [
       { label: 'In Season', href: '/journal/in-season', icon: <Sun size={18} />, description: 'What\'s ready now' },
-      { label: 'From The Field', href: '/journal/the-field', icon: <Mountain size={18} />, description: 'Foraging stories' },
+      { label: 'From The Field', href: '/journal/from-the-field', icon: <Mountain size={18} />, description: 'Foraging stories' },
       { label: 'The Land', href: '/journal/the-land', icon: <Trees size={18} />, description: 'Landscape essays' },
-      { label: 'The Wild Table', href: '/journal/wild-table', icon: <ChefHat size={18} />, description: 'Cooking notes' },
+      { label: 'The Wild Table', href: '/journal/the-wild-table', icon: <ChefHat size={18} />, description: 'Cooking notes' },
     ],
   },
   {

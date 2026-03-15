@@ -100,11 +100,11 @@ export default async function TheLandPage() {
                 <h3 className={styles.exploreCardTitle}>In Season</h3>
                 <p className={styles.exploreCardDesc}>What to find right now</p>
               </Link>
-              <Link href="/journal/the-field" className={styles.exploreCard}>
+              <Link href="/journal/from-the-field" className={styles.exploreCard}>
                 <h3 className={styles.exploreCardTitle}>From The Field</h3>
                 <p className={styles.exploreCardDesc}>Notes from foraging trips</p>
               </Link>
-              <Link href="/journal/wild-table" className={styles.exploreCard}>
+              <Link href="/journal/the-wild-table" className={styles.exploreCard}>
                 <h3 className={styles.exploreCardTitle}>The Wild Table</h3>
                 <p className={styles.exploreCardDesc}>Cooking with wild food</p>
               </Link>

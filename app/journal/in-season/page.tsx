@@ -96,7 +96,7 @@ export default async function InSeasonPage() {
           <div className={styles.exploreInner}>
             <h2 className={styles.exploreTitle}>Explore More</h2>
             <div className={styles.exploreGrid}>
-              <Link href="/journal/the-field" className={styles.exploreCard}>
+              <Link href="/journal/from-the-field" className={styles.exploreCard}>
                 <h3 className={styles.exploreCardTitle}>From The Field</h3>
                 <p className={styles.exploreCardDesc}>Notes from foraging trips</p>
               </Link>
@@ -104,7 +104,7 @@ export default async function InSeasonPage() {
                 <h3 className={styles.exploreCardTitle}>The Land</h3>
                 <p className={styles.exploreCardDesc}>Essays on landscape</p>
               </Link>
-              <Link href="/journal/wild-table" className={styles.exploreCard}>
+              <Link href="/journal/the-wild-table" className={styles.exploreCard}>
                 <h3 className={styles.exploreCardTitle}>The Wild Table</h3>
                 <p className={styles.exploreCardDesc}>Cooking with wild food</p>
               </Link>

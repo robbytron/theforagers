@@ -21,7 +21,7 @@ const CATEGORIES: { slug: string; title: string; tagline: string; category: Jour
     image: '/journal/categories/in-season-card.png',
   },
   {
-    slug: 'the-field',
+    slug: 'from-the-field',
     title: 'From The Field',
     tagline: 'Notes from foraging trips',
     category: 'From The Field',
@@ -35,7 +35,7 @@ const CATEGORIES: { slug: string; title: string; tagline: string; category: Jour
     image: '/journal/categories/the-land-card.png',
   },
   {
-    slug: 'wild-table',
+    slug: 'the-wild-table',
     title: 'The Wild Table',
     tagline: 'Cooking with wild food',
     category: 'The Wild Table',
