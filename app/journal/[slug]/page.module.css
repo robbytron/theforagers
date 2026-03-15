@@ -30,6 +30,7 @@
   min-height: 250px;
   max-height: 400px;
   overflow: hidden;
+  margin-top: 72px;
 }
 
 .heroImage img {

@@ -110,6 +110,7 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
           fill
           priority
           sizes="100vw"
+          style={{ objectFit: 'cover' }}
         />
       </div>
 
