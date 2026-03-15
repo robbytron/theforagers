@@ -95,11 +95,7 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
             if (paragraph.startsWith('### ')) {
               return <h3 key={i} className={styles.subheading}>{paragraph.replace('### ', '')}</h3>;
             }
-            // First paragraph gets special treatment
-            if (i === 0) {
-              return <p key={i} className={styles.leadParagraph}>{paragraph}</p>;
-            }
-            // Regular paragraphs
+            // Regular paragraphs - all same size
             return <p key={i} className={styles.paragraph}>{paragraph}</p>;
           })}
         </div>
