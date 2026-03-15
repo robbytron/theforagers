@@ -6,14 +6,16 @@ function resizeINatUrl(url: string, size: 'small' | 'medium' | 'large'): string 
   return url.replace(/\/square\.|\/small\.|\/medium\.|\/large\.|\/original\./, `/${size}.`);
 }
 
-export async function getINatPhotos(taxonId: number, limit = 8): Promise<SpeciesPhoto[]> {
+export async function getINatPhotos(taxonId: number, limit = 11): Promise<SpeciesPhoto[]> {
+  // Filter by license in API call - cc0, cc-by, cc-by-sa (no NC variants)
   const params = new URLSearchParams({
     taxon_id:      String(taxonId),
     quality_grade: 'research',
-    per_page:      String(limit * 3), // fetch extra to account for NC filtering
+    per_page:      String(limit * 2),
     order:         'desc',
     order_by:      'votes',
     photos:        'true',
+    photo_license: 'cc0,cc-by,cc-by-sa',
   });
 
   const res = await fetch(`${INAT_API}/observations?${params}`, { next: { revalidate: 86400 } });
@@ -24,7 +26,7 @@ export async function getINatPhotos(taxonId: number, limit = 8): Promise<Species
 
   for (const obs of data.results) {
     for (const photo of obs.photos) {
-      // Enforce CC-BY only — no NC licenses (affiliate links = commercial use)
+      // Double-check license (API should handle this, but be safe)
       if (!photo.license_code) continue;
       if (photo.license_code.includes('nc')) continue;
       photos.push({
@@ -80,7 +82,7 @@ export async function resolveSpeciesPhotos(species: Species): Promise<SpeciesPho
 
   if (species.hideApiPhotos || !species.iNaturalistTaxonId) return allPhotos;
 
-  const needed = Math.max(0, 6 - allPhotos.length);
+  const needed = Math.max(0, 11 - allPhotos.length);
   const inatPhotos = needed > 0 ? await getINatPhotos(species.iNaturalistTaxonId, needed) : [];
 
   return [...allPhotos, ...inatPhotos];
