@@ -6,7 +6,7 @@ function resizeINatUrl(url: string, size: 'small' | 'medium' | 'large'): string 
   return url.replace(/\/square\.|\/small\.|\/medium\.|\/large\.|\/original\./, `/${size}.`);
 }
 
-export async function getINatPhotos(taxonId: number, limit = 11): Promise<SpeciesPhoto[]> {
+export async function getINatPhotos(taxonId: number, limit = 10): Promise<SpeciesPhoto[]> {
   // Filter by license in API call - cc0, cc-by, cc-by-sa (no NC variants)
   const params = new URLSearchParams({
     taxon_id:      String(taxonId),
@@ -82,7 +82,7 @@ export async function resolveSpeciesPhotos(species: Species): Promise<SpeciesPho
 
   if (species.hideApiPhotos || !species.iNaturalistTaxonId) return allPhotos;
 
-  const needed = Math.max(0, 11 - allPhotos.length);
+  const needed = Math.max(0, 10 - allPhotos.length);
   const inatPhotos = needed > 0 ? await getINatPhotos(species.iNaturalistTaxonId, needed) : [];
 
   return [...allPhotos, ...inatPhotos];
