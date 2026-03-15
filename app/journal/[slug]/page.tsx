@@ -141,8 +141,17 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
             const prevParagraph = i > 0 ? paragraphs[i - 1] : '';
             const isAfterHeading = prevParagraph.startsWith('## ') || prevParagraph.startsWith('### ');
 
-            // Check if we should insert an image before this paragraph (never after a heading)
-            const imageIndex = imageInsertPoints.indexOf(i);
+            // Check if we should insert an image before this paragraph
+            // If this spot is after a heading, the image will be shifted to next paragraph
+            let imageIndex = imageInsertPoints.indexOf(i);
+            if (imageIndex === -1 && i > 0) {
+              // Check if previous paragraph was supposed to have an image but was after a heading
+              const prevWasHeading = paragraphs[i - 1]?.startsWith('## ') || paragraphs[i - 1]?.startsWith('### ');
+              const prevHadImage = imageInsertPoints.indexOf(i - 1) !== -1;
+              if (prevWasHeading && prevHadImage) {
+                imageIndex = imageInsertPoints.indexOf(i - 1);
+              }
+            }
             if (imageIndex !== -1 && inlineImages[imageIndex] && !isAfterHeading) {
               elements.push(
                 <figure key={`img-${i}`} className={styles.inlineImage}>
