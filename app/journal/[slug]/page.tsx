@@ -13,6 +13,15 @@ const ARTICLE_HERO_IMAGES: Record<string, string> = {
   'the-blackbird-at-dusk': '/journal/blackbird-hero.png',
 };
 
+// Inline images for articles
+const ARTICLE_INLINE_IMAGES: Record<string, string[]> = {
+  'the-blackbird-at-dusk': [
+    '/journal/blackbird-1.png',
+    '/journal/blackbird-2.png',
+    '/journal/blackbird-3.png',
+  ],
+};
+
 // Fallback images by category
 const CATEGORY_IMAGES: Record<string, string> = {
   'In Season': 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1600&q=80',
@@ -58,6 +67,9 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
     || CATEGORY_IMAGES[entry.category]
     || DEFAULT_IMAGE;
 
+  // Get inline images for this article
+  const inlineImages = ARTICLE_INLINE_IMAGES[slug] || [];
+
   // Calculate reading time
   const readingTime = getReadingTime(entry.body);
 
@@ -76,6 +88,11 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
 
   // Split body into paragraphs
   const paragraphs = entry.body.split('\n\n').filter(p => p.trim());
+
+  // Calculate where to insert inline images (evenly spaced)
+  const imageInsertPoints = inlineImages.length > 0
+    ? inlineImages.map((_, i) => Math.floor((paragraphs.length / (inlineImages.length + 1)) * (i + 1)))
+    : [];
 
   return (
     <div className={styles.page}>
@@ -120,13 +137,35 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ s
       <article className={styles.article}>
         <div className={styles.content}>
           {paragraphs.map((paragraph, i) => {
-            if (paragraph.startsWith('## ')) {
-              return <h2 key={i} className={styles.heading}>{paragraph.replace('## ', '')}</h2>;
-            } else if (paragraph.startsWith('### ')) {
-              return <h3 key={i} className={styles.subheading}>{paragraph.replace('### ', '')}</h3>;
-            } else {
-              return <p key={i} className={styles.paragraph}>{paragraph}</p>;
+            const elements = [];
+
+            // Check if we should insert an image before this paragraph
+            const imageIndex = imageInsertPoints.indexOf(i);
+            if (imageIndex !== -1 && inlineImages[imageIndex]) {
+              elements.push(
+                <div key={`img-${i}`} className={styles.inlineImage}>
+                  <Image
+                    src={inlineImages[imageIndex]}
+                    alt=""
+                    width={720}
+                    height={0}
+                    sizes="(max-width: 720px) 100vw, 720px"
+                    style={{ width: '100%', height: 'auto' }}
+                  />
+                </div>
+              );
             }
+
+            // Add the paragraph
+            if (paragraph.startsWith('## ')) {
+              elements.push(<h2 key={i} className={styles.heading}>{paragraph.replace('## ', '')}</h2>);
+            } else if (paragraph.startsWith('### ')) {
+              elements.push(<h3 key={i} className={styles.subheading}>{paragraph.replace('### ', '')}</h3>);
+            } else {
+              elements.push(<p key={i} className={styles.paragraph}>{paragraph}</p>);
+            }
+
+            return elements;
           })}
         </div>
 
