@@ -246,3 +246,42 @@ export async function getDangerSpeciesByCategory(category: DangerCategory): Prom
   const all = await getAllDangerSpecies();
   return all.filter(d => d.category === category);
 }
+
+// Homepage Features
+import type { HomepageFeature, FeatureSection, FeatureContentType } from '@/types';
+
+function normaliseHomepageFeature(record: any): HomepageFeature {
+  const f = record.fields;
+  const image: AirtableAttachment | null = f['Image']?.[0] ?? null;
+
+  return {
+    id:          record.id,
+    title:       f['Title'] ?? '',
+    contentType: f['Content Type'] ?? 'Species',
+    slug:        f['Slug'] ?? '',
+    section:     f['Section'] ?? 'Featured',
+    order:       f['Order'] ?? 999,
+    active:      f['Active'] ?? false,
+    image,
+    description: f['Description'] ?? '',
+    customUrl:   f['Custom URL'] ?? null,
+    badge:       f['Badge'] ?? null,
+  };
+}
+
+export async function getHomepageFeatures(): Promise<HomepageFeature[]> {
+  try {
+    const records = await airtableFetch('Homepage Features');
+    return records
+      .map(normaliseHomepageFeature)
+      .filter(f => f.active)
+      .sort((a, b) => a.order - b.order);
+  } catch {
+    return [];
+  }
+}
+
+export async function getHomepageFeaturesBySection(section: FeatureSection): Promise<HomepageFeature[]> {
+  const all = await getHomepageFeatures();
+  return all.filter(f => f.section === section);
+}

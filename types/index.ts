@@ -140,6 +140,24 @@ export interface Lookalike {
 export type DangerCategory = 'Plants' | 'Fungi' | 'Berries';
 export type DangerSpeciesStatus = 'Draft' | 'Live';
 
+// Homepage Features
+export type FeatureContentType = 'Species' | 'Recipe' | 'Journal' | 'Danger' | 'Custom';
+export type FeatureSection = 'Hero' | 'Latest' | 'Featured';
+
+export interface HomepageFeature {
+  id:          string;
+  title:       string;
+  contentType: FeatureContentType;
+  slug:        string;
+  section:     FeatureSection;
+  order:       number;
+  active:      boolean;
+  image:       AirtableAttachment | null;
+  description: string;
+  customUrl:   string | null;
+  badge:       string | null;
+}
+
 export interface DangerSpecies {
   id:                   string;
   name:                 string;
