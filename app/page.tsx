@@ -113,7 +113,7 @@ export default async function HomePage() {
                   </Link>
                 ))}
               </div>
-              <div className={styles.heroMiniIndicator}>→</div>
+              <div className={styles.heroMiniFade} />
             </div>
           </div>
         </div>
@@ -189,7 +189,6 @@ export default async function HomePage() {
                 </Link>
               ))}
             </div>
-            <div className={styles.carouselIndicator}>Scroll for more →</div>
           </div>
         </section>
       )}
