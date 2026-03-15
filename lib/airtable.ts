@@ -292,3 +292,50 @@ export async function getHomepageFeaturesBySection(section: FeatureSection): Pro
   const all = await getHomepageFeatures();
   return all.filter(f => f.section === section);
 }
+
+// Journal Entries
+import type { JournalEntry, JournalCategory } from '@/types';
+
+function normaliseJournalEntry(record: any): JournalEntry {
+  const f = record.fields;
+  const heroAtt: AirtableAttachment | null = f['Hero Image']?.[0] ?? null;
+
+  return {
+    id:               record.id,
+    title:            f['Title'] ?? '',
+    slug:             f['Slug'] ?? '',
+    category:         f['Category'] ?? 'The Field',
+    publishDate:      f['Published Date'] ?? '',
+    excerpt:          f['Short Description'] ?? '',
+    body:             f['Content'] ?? '',
+    heroImage:        heroAtt,
+    status:           f['Status'] ?? 'Draft',
+    seoTitle:         f['SEO Title'] ?? '',
+    seoDescription:   f['SEO Description'] ?? '',
+    speciesIds:       f['Species'] ?? [],
+  };
+}
+
+export async function getAllJournalEntries(): Promise<JournalEntry[]> {
+  try {
+    const records = await airtableFetch('Journal');
+    return records.map(normaliseJournalEntry).filter(j => j.status === 'Live');
+  } catch {
+    return [];
+  }
+}
+
+export async function getJournalEntryBySlug(slug: string): Promise<JournalEntry | null> {
+  const all = await getAllJournalEntries();
+  return all.find(j => j.slug === slug) ?? null;
+}
+
+export async function getJournalEntriesByCategory(category: JournalCategory): Promise<JournalEntry[]> {
+  const all = await getAllJournalEntries();
+  return all.filter(j => j.category === category);
+}
+
+export async function getAllJournalSlugs(): Promise<string[]> {
+  const all = await getAllJournalEntries();
+  return all.map(j => j.slug).filter(Boolean);
+}

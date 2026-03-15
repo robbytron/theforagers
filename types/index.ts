@@ -150,6 +150,25 @@ export type DangerSpeciesStatus = 'Draft' | 'Live';
 
 // Homepage Features
 export type FeatureContentType = 'Species' | 'Recipe' | 'Journal' | 'Danger' | 'Custom';
+
+// Journal
+export type JournalCategory = 'In Season' | 'The Field' | 'The Land' | 'Wild Table';
+export type JournalStatus = 'Draft' | 'Live';
+
+export interface JournalEntry {
+  id:               string;
+  title:            string;
+  slug:             string;
+  category:         JournalCategory;
+  publishDate:      string;
+  excerpt:          string;
+  body:             string;
+  heroImage:        AirtableAttachment | null;
+  status:           JournalStatus;
+  seoTitle:         string;
+  seoDescription:   string;
+  speciesIds:       string[];
+}
 export type FeatureSection = 'Hero' | 'Latest' | 'Featured';
 
 export interface HomepageFeature {
