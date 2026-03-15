@@ -79,6 +79,21 @@ export default async function HomePage() {
           </div>
         </div>
 
+        {/* Mobile Quick Nav - horizontal scroll */}
+        <nav className={styles.mobileQuickNav}>
+          <div className={styles.quickNavScroll}>
+            <Link href="/species" className={styles.quickNavLink}>Species</Link>
+            <Link href="/where-to-forage" className={styles.quickNavLink}>Where to Forage</Link>
+            <Link href="/beginners" className={styles.quickNavLink}>Beginners</Link>
+            <Link href="/guides" className={styles.quickNavLink}>Guides</Link>
+            <Link href="/recipes" className={styles.quickNavLink}>Recipes</Link>
+            <Link href="/prepare-and-preserve" className={styles.quickNavLink}>Prepare & Preserve</Link>
+            <Link href="/journal" className={styles.quickNavLink}>The Journal</Link>
+            <Link href="/dangers" className={styles.quickNavLink}>Dangers</Link>
+            <Link href="/foragers-code" className={styles.quickNavLink}>The Code</Link>
+          </div>
+        </nav>
+
         {/* Desktop Grid - Left side only */}
         <div className={styles.heroGrid}>
           <div className={styles.hero}>

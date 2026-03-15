@@ -53,6 +53,37 @@
   .heroMiniCard { width:42%; }
 }
 
+/* Mobile Quick Nav - hidden on desktop */
+.mobileQuickNav { display:none; }
+@media (max-width:640px) {
+  .mobileQuickNav {
+    display:block;
+    background:var(--white);
+    padding:var(--space-3) 0;
+    overflow:hidden;
+  }
+  .quickNavScroll {
+    display:flex;
+    gap:var(--space-4);
+    padding:0 var(--space-3);
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    touch-action:pan-x;
+    -webkit-overflow-scrolling:touch;
+  }
+  .quickNavScroll::-webkit-scrollbar { display:none; }
+  .quickNavLink {
+    flex-shrink:0;
+    font-size:var(--text-sm);
+    font-weight:500;
+    color:var(--green-deep);
+    white-space:nowrap;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+}
+
 /* Left: Main Hero Card - Text Overlaid */
 .hero { position:relative; display:flex; flex-direction:column; justify-content:flex-end; border-radius:var(--radius-lg); overflow:hidden; animation:heroFade 1.2s ease both; width:100%; box-sizing:border-box; }
 @keyframes heroFade { from{opacity:0} to{opacity:1} }
