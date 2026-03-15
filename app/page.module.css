@@ -40,8 +40,8 @@
 @media (max-width:900px) {
   .heroWrapper { padding:8px; padding-top:80px; }
   .heroGrid { grid-template-columns:1fr; min-height:auto; }
-  .hero { aspect-ratio:4/3; min-height:280px; justify-content:center; }
-  .heroContent { padding:20px; }
+  .hero { aspect-ratio:4/3; min-height:280px; }
+  .heroContent { padding:24px; padding-bottom:32px; }
   .heroRight { gap:8px; }
   .heroFeature { min-height:160px; }
   .heroMiniCarousel { gap:8px; }
@@ -49,8 +49,8 @@
 }
 @media (max-width:600px) {
   .heroWrapper { padding-top:72px; }
-  .hero { aspect-ratio:3/2; min-height:280px; justify-content:center; }
-  .heroContent { padding:20px; }
+  .hero { aspect-ratio:3/2; min-height:300px; }
+  .heroContent { padding:20px; padding-bottom:40px; }
   .heroTitle { font-size:1.4rem; }
   .heroSub { font-size:0.875rem; margin-bottom:16px; }
   .heroActions { gap:8px; }
