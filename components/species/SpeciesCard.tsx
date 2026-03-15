@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Leaf, Circle, Cherry, Nut, Carrot, Waves, Flower2 } from 'lucide-react';
+import { Leaf, Cherry, Nut, Carrot, Waves, Flower2 } from 'lucide-react';
+import { IconMushroom } from '@tabler/icons-react';
 import type { Species } from '@/types';
 import styles from './SpeciesCard.module.css';
 
@@ -8,7 +9,7 @@ import styles from './SpeciesCard.module.css';
 function getTypeIcon(type: string) {
   const iconMap: Record<string, React.ElementType> = {
     'Greens': Leaf,
-    'Fungi': Circle,
+    'Fungi': IconMushroom,
     'Berries': Cherry,
     'Nuts': Nut,
     'Roots': Carrot,
