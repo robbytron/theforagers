@@ -15,12 +15,6 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const MONTHS: Month[] = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const TICKER = [
-  {name:'Wild Garlic',note:'in leaf now'},{name:'Wood Sorrel',note:'emerging'},
-  {name:'Hawthorn Buds',note:'first flush'},{name:'Nettles',note:'young tops only'},
-  {name:'Chickweed',note:'widespread'},{name:'Bittercress',note:'hedgerows'},
-  {name:'Cleavers',note:'young shoots'},{name:'Alexanders',note:'coastal areas'},
-];
 
 // Resolve species data for features that link to species
 async function resolveFeatureSpecies(features: HomepageFeature[]): Promise<Map<string, Species | null>> {
@@ -55,6 +49,13 @@ export default async function HomePage() {
     MONTHS.map(m => [m, allSpecies.filter(s => s.seasons.includes(m)).length])
   ) as Record<Month, number>;
 
+  // Generate ticker from in-season species
+  const inSeasonSpecies = allSpecies.filter(s => s.seasons.includes(currentMonth));
+  const tickerItems = inSeasonSpecies.slice(0, 12).map(s => ({
+    name: s.name,
+    note: s.type.toLowerCase(),
+  }));
+
   const fallbackSpecies = allSpecies.slice(0, 3);
 
   return (
@@ -73,16 +74,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Ticker */}
-      <div className={styles.seasonStrip}>
-        <div className={styles.seasonScroll}>
-          {[...TICKER,...TICKER].map((item,i) => (
-            <div key={i} className={styles.seasonItem}>
-              <span className={styles.dot} /><strong>{item.name}</strong><span>{item.note}</span>
-            </div>
-          ))}
+      {/* Ticker - auto-generated from in-season species */}
+      {tickerItems.length > 0 && (
+        <div className={styles.seasonStrip}>
+          <div className={styles.seasonScroll}>
+            {[...tickerItems,...tickerItems].map((item,i) => (
+              <div key={i} className={styles.seasonItem}>
+                <span className={styles.dot} /><strong>{item.name}</strong><span>{item.note}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Latest - Magazine Layout */}
       {latestFeatures.length > 0 && (
