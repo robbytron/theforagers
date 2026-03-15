@@ -15,7 +15,7 @@
 .seasonItem strong { color:var(--cream); font-weight:500; }
 .dot { width:4px; height:4px; background:var(--brown-light); border-radius:50%; flex-shrink:0; }
 .latestSection { background:var(--cream); padding:var(--space-8) var(--space-6); }
-.sectionHeader { margin-bottom:var(--space-6); }
+.sectionHeader { margin-bottom:var(--space-6); position:relative; z-index:1; }
 
 /* Magazine Layout - Lead + Sidebar */
 .magazineGrid { display:grid; grid-template-columns:1.4fr 1fr; gap:var(--space-4); }
@@ -28,20 +28,20 @@
 .featuredSection { background:var(--parchment); padding:var(--space-8) var(--space-6); }
 
 /* Staggered Grid - Mixed sizes */
-.staggeredGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-4); }
+.staggeredGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-4); position:relative; z-index:1; }
 .staggeredWide { grid-column:span 2; }
 .staggeredNormal { grid-column:span 1; }
 @media (max-width:900px) { .staggeredGrid { grid-template-columns:1fr 1fr; } .staggeredWide { grid-column:span 2; } }
 @media (max-width:600px) { .staggeredGrid { grid-template-columns:1fr; } .staggeredWide,.staggeredNormal { grid-column:span 1; } }
 
 .inSeason { background:var(--parchment); padding:var(--space-8) var(--space-6); }
-.inSeasonIntro { margin-bottom:var(--space-7); }
+.inSeasonIntro { margin-bottom:var(--space-7); position:relative; z-index:1; }
 .inSeasonIntro p { color:var(--green-muted); }
-.sectionTitle { font-family:var(--font-display); font-size:clamp(var(--text-2xl),4vw,var(--text-3xl)); font-weight:300; line-height:1.12; letter-spacing:-0.025em; color:var(--green-deep); margin-bottom:var(--space-5); }
+.sectionTitle { font-family:var(--font-display); font-size:clamp(var(--text-2xl),4vw,var(--text-3xl)); font-weight:300; line-height:1.12; letter-spacing:-0.025em; color:var(--green-deep); margin-bottom:var(--space-5); position:relative; z-index:1; }
 .sectionTitle em { font-style:italic; font-weight:600; color:var(--green-mid); }
-.speciesGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-4); }
+.speciesGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-4); position:relative; z-index:1; }
 .calendarSection { background:var(--green-deep); padding:var(--space-8) var(--space-6); }
-.calendarGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:2px; margin-top:var(--space-6); }
+.calendarGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:2px; margin-top:var(--space-6); position:relative; z-index:1; }
 .calMonth { display:block; background:rgba(244,239,228,0.05); padding:var(--space-4) var(--space-3); text-align:center; border:1px solid transparent; transition:background 0.2s; }
 .calMonth:hover { background:rgba(244,239,228,0.1); border-color:rgba(138,171,130,0.3); }
 .calActive { background:var(--green-mid) !important; border-color:var(--sage) !important; }
