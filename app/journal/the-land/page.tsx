@@ -11,6 +11,8 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
+const FALLBACK_IMAGE = '/journal/categories/the-land-wide.jpg';
+
 function getReadingTime(text: string): number {
   const wordsPerMinute = 200;
   const words = text.trim().split(/\s+/).length;
@@ -41,21 +43,25 @@ export default async function TheLandPage() {
           {entries.length === 0 ? (
             <div className={styles.comingSoon}>
               <h2>Coming Soon</h2>
-              <p>
-                We're working on essays about landscape and ecology. Check back
-                soon for deeper thinking about the land we forage.
-              </p>
+              <p>We're working on essays about landscape and ecology. Check back soon.</p>
             </div>
           ) : (
             <>
               {featured && (
                 <Link href={`/journal/${featured.slug}`} className={styles.featured}>
-                  <span className={styles.featuredLabel}>Latest</span>
-                  <h2 className={styles.featuredTitle}>{featured.title}</h2>
-                  <p className={styles.featuredExcerpt}>{featured.excerpt}</p>
-                  <div className={styles.featuredMeta}>
-                    {formatDate(featured.publishDate) && <span>{formatDate(featured.publishDate)}</span>}
-                    <span>{getReadingTime(featured.body)} min read</span>
+                  <img
+                    src={featured.heroImage?.url || FALLBACK_IMAGE}
+                    alt={featured.title}
+                    className={styles.featuredImage}
+                  />
+                  <div className={styles.featuredContent}>
+                    <span className={styles.featuredLabel}>Latest</span>
+                    <h2 className={styles.featuredTitle}>{featured.title}</h2>
+                    <p className={styles.featuredExcerpt}>{featured.excerpt}</p>
+                    <div className={styles.featuredMeta}>
+                      {formatDate(featured.publishDate) && <span>{formatDate(featured.publishDate)}</span>}
+                      <span>{getReadingTime(featured.body)} min read</span>
+                    </div>
                   </div>
                 </Link>
               )}
@@ -64,11 +70,18 @@ export default async function TheLandPage() {
                 <div className={styles.entryList}>
                   {remaining.map(entry => (
                     <Link key={entry.id} href={`/journal/${entry.slug}`} className={styles.entryCard}>
-                      <h3 className={styles.entryTitle}>{entry.title}</h3>
-                      <p className={styles.entryExcerpt}>{entry.excerpt}</p>
-                      <div className={styles.entryMeta}>
-                        {formatDate(entry.publishDate) && <span>{formatDate(entry.publishDate)}</span>}
-                        <span>{getReadingTime(entry.body)} min read</span>
+                      <img
+                        src={entry.heroImage?.url || FALLBACK_IMAGE}
+                        alt={entry.title}
+                        className={styles.entryImage}
+                      />
+                      <div className={styles.entryContent}>
+                        <h3 className={styles.entryTitle}>{entry.title}</h3>
+                        <p className={styles.entryExcerpt}>{entry.excerpt}</p>
+                        <div className={styles.entryMeta}>
+                          {formatDate(entry.publishDate) && <span>{formatDate(entry.publishDate)}</span>}
+                          <span>{getReadingTime(entry.body)} min read</span>
+                        </div>
                       </div>
                     </Link>
                   ))}
@@ -100,7 +113,7 @@ export default async function TheLandPage() {
         </section>
 
         <div className={styles.backLink}>
-          <Link href="/">← Back to Home</Link>
+          <Link href="/journal">← Back to Journal</Link>
         </div>
       </main>
     </>
