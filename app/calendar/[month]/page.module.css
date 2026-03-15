@@ -8,6 +8,23 @@
   margin-top: 72px;
 }
 
+.heroImage img {
+  object-position: center center;
+}
+
+@media (max-width: 640px) {
+  .heroImage {
+    margin-top: 0;
+    height: 55vh;
+    min-height: 320px;
+  }
+
+  .heroImage img {
+    object-position: center 60%;
+  }
+}
+
+
 /* Header */
 .header {
   text-align: center;
@@ -189,12 +206,6 @@
 }
 
 @media (max-width: 900px) {
-  .heroImage {
-    height: 35vh;
-    min-height: 220px;
-    margin-top: 60px;
-  }
-
   .introSection {
     grid-template-columns: 1fr;
   }
