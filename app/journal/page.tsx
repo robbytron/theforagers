@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Nav from '@/components/ui/Nav';
+import { getAllJournalEntries } from '@/lib/airtable';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -8,29 +9,10 @@ export const metadata: Metadata = {
   description: 'The Foragers Journal — seasonal notes, foraging stories, and updates from the field.',
 };
 
-// Placeholder articles until Airtable is populated
-const PLACEHOLDER_ARTICLES = [
-  {
-    title: 'Spring Has Arrived',
-    excerpt: 'The first wild garlic is emerging in the woodlands. Here\'s what we\'re finding this week.',
-    date: 'March 2024',
-    category: 'Seasonal Notes',
-  },
-  {
-    title: 'A Guide to Your First Forage',
-    excerpt: 'Nervous about your first foraging trip? Here\'s everything you need to know to get started safely.',
-    date: 'February 2024',
-    category: 'Guides',
-  },
-  {
-    title: 'The Ethics of Mushroom Hunting',
-    excerpt: 'As fungi foraging grows in popularity, how do we ensure sustainable harvests?',
-    date: 'January 2024',
-    category: 'Opinion',
-  },
-];
+export const revalidate = 3600;
 
-export default function JournalPage() {
+export default async function JournalPage() {
+  const entries = await getAllJournalEntries();
   return (
     <>
       <Nav />
@@ -66,26 +48,15 @@ export default function JournalPage() {
         </section>
 
         <section className={styles.content}>
-          <div className={styles.comingSoon}>
-            <h2>Coming Soon</h2>
-            <p>
-              We&apos;re building our journal with articles on seasonal foraging, traditional
-              knowledge, and stories from the field. Check back soon for our first posts.
-            </p>
-          </div>
-
-          <div className={styles.preview}>
-            <h3 className={styles.previewTitle}>What to Expect</h3>
-            <div className={styles.articleGrid}>
-              {PLACEHOLDER_ARTICLES.map((article, i) => (
-                <article key={i} className={styles.articleCard}>
-                  <span className={styles.articleCategory}>{article.category}</span>
-                  <h4 className={styles.articleTitle}>{article.title}</h4>
-                  <p className={styles.articleExcerpt}>{article.excerpt}</p>
-                  <span className={styles.articleDate}>{article.date}</span>
-                </article>
-              ))}
-            </div>
+          <h2 className={styles.latestTitle}>Latest Entries</h2>
+          <div className={styles.articleGrid}>
+            {entries.map(entry => (
+              <Link key={entry.id} href={`/journal/${entry.slug}`} className={styles.articleCard}>
+                <span className={styles.articleCategory}>{entry.category}</span>
+                <h4 className={styles.articleTitle}>{entry.title}</h4>
+                <p className={styles.articleExcerpt}>{entry.excerpt}</p>
+              </Link>
+            ))}
           </div>
         </section>
 

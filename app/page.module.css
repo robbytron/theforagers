@@ -1,9 +1,9 @@
 /* Hero Grid - Clean Tile Layout */
-.heroWrapper { background:var(--parchment); padding:var(--space-3); }
-.heroGrid { display:grid; grid-template-columns:4fr 6fr; gap:var(--space-3); min-height:70vh; }
+.heroWrapper { background:var(--parchment); padding:var(--space-3); overflow:hidden; width:100%; box-sizing:border-box; }
+.heroGrid { display:grid; grid-template-columns:4fr 6fr; gap:var(--space-3); min-height:70vh; width:100%; box-sizing:border-box; }
 
 /* Left: Main Hero Card - Text Overlaid */
-.hero { position:relative; display:flex; flex-direction:column; justify-content:flex-end; border-radius:var(--radius-lg); overflow:hidden; animation:heroFade 1.2s ease both; }
+.hero { position:relative; display:flex; flex-direction:column; justify-content:flex-end; border-radius:var(--radius-lg); overflow:hidden; animation:heroFade 1.2s ease both; width:100%; box-sizing:border-box; }
 @keyframes heroFade { from{opacity:0} to{opacity:1} }
 .heroBg { position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1400&q=80') center/cover no-repeat; }
 .heroOverlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(28,43,30,0.95) 0%,rgba(28,43,30,0.4) 50%,rgba(28,43,30,0.1) 100%); }
@@ -15,8 +15,8 @@
 .heroActions { display:flex; gap:var(--space-3); flex-wrap:wrap; }
 
 /* Right: Feature + Mini Carousel */
-.heroRight { display:flex; flex-direction:column; gap:var(--space-3); }
-.heroFeature { position:relative; flex:1; display:flex; flex-direction:column; justify-content:flex-end; padding:var(--space-5); border-radius:var(--radius-lg); overflow:hidden; transition:transform 0.2s; }
+.heroRight { display:flex; flex-direction:column; gap:var(--space-3); min-width:0; overflow:hidden; width:100%; box-sizing:border-box; }
+.heroFeature { position:relative; flex:1; display:flex; flex-direction:column; justify-content:flex-end; padding:var(--space-5); border-radius:var(--radius-lg); overflow:hidden; transition:transform 0.2s; width:100%; box-sizing:border-box; }
 .heroFeature:hover { transform:translateY(-2px); }
 .heroFeatureImage { position:absolute; inset:0; }
 .heroFeatureImage img { width:100%; height:100%; object-fit:cover; }
@@ -25,10 +25,10 @@
 .heroFeatureTitle { position:relative; font-family:var(--font-display); font-size:var(--text-xl); font-weight:400; line-height:1.2; color:var(--cream); }
 
 /* Mini Carousel */
-.heroMiniWrapper { position:relative; }
-.heroMiniCarousel { display:flex; gap:var(--space-2); overflow-x:auto; scrollbar-width:none; padding-right:var(--space-4); }
+.heroMiniWrapper { position:relative; overflow:hidden; width:100%; box-sizing:border-box; }
+.heroMiniCarousel { display:flex; gap:var(--space-2); overflow-x:auto; scrollbar-width:none; width:100%; box-sizing:border-box; }
 .heroMiniCarousel::-webkit-scrollbar { display:none; }
-.heroMiniCard { flex-shrink:0; width:calc(33.33% - 6px); min-width:140px; position:relative; aspect-ratio:4/3; border-radius:var(--radius-lg); overflow:hidden; transition:transform 0.2s; }
+.heroMiniCard { flex-shrink:0; width:calc(33.33% - 6px); min-width:0; position:relative; aspect-ratio:4/3; border-radius:var(--radius-lg); overflow:hidden; transition:transform 0.2s; }
 .heroMiniFade { position:absolute; right:0; top:0; bottom:0; width:40px; background:linear-gradient(to left,var(--parchment),transparent); pointer-events:none; }
 .heroMiniCard:hover { transform:scale(1.03); }
 .heroMiniCard img { width:100%; height:100%; object-fit:cover; }
@@ -38,13 +38,21 @@
 .heroMiniName { font-family:var(--font-display); font-size:var(--text-base); font-weight:400; color:var(--cream); line-height:1.2; }
 
 @media (max-width:900px) {
-  .heroGrid { grid-template-columns:1fr; }
-  .heroImage { aspect-ratio:16/9; }
-  .heroFeature { min-height:180px; }
+  .heroWrapper { padding:8px; }
+  .heroGrid { grid-template-columns:1fr; min-height:auto; }
+  .hero { aspect-ratio:4/3; min-height:280px; }
+  .heroContent { padding:20px; }
+  .heroRight { gap:8px; }
+  .heroFeature { min-height:160px; }
+  .heroMiniWrapper { display:none; }
 }
 @media (max-width:600px) {
-  .heroWrapper { padding:var(--space-2); }
-  .heroMiniCard { min-width:100px; }
+  .hero { aspect-ratio:3/2; min-height:240px; }
+  .heroContent { padding:16px; }
+  .heroTitle { font-size:1.4rem; }
+  .heroSub { font-size:0.875rem; }
+  .heroActions { gap:8px; }
+  .heroFeature { min-height:120px; }
 }
 .seasonStrip { background:var(--green-deep); padding:var(--space-4) 0; overflow:hidden; }
 .seasonScroll { display:flex; gap:var(--space-7); animation:ticker 30s linear infinite; white-space:nowrap; }

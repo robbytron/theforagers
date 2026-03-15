@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Nav from '@/components/ui/Nav';
+import { getJournalEntriesByCategory } from '@/lib/airtable';
 import styles from '../shared.module.css';
 
 export const metadata: Metadata = {
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
   description: 'Essays on the British landscape, ecology, and our relationship with the land we forage.',
 };
 
-export default function TheLandPage() {
+export const revalidate = 3600;
+
+export default async function TheLandPage() {
+  const entries = await getJournalEntriesByCategory('The Land');
+
   return (
     <>
       <Nav />
@@ -33,13 +38,24 @@ export default function TheLandPage() {
             The history of commons, the ecology of hedgerows, the meaning of wild food.
           </p>
 
-          <div className={styles.comingSoon}>
-            <h2>Coming Soon</h2>
-            <p>
-              We&apos;re working on essays about landscape and ecology. Check back
-              soon for deeper thinking about the land we forage.
-            </p>
-          </div>
+          {entries.length > 0 ? (
+            <div className={styles.entryList}>
+              {entries.map(entry => (
+                <Link key={entry.id} href={`/journal/${entry.slug}`} className={styles.entryCard}>
+                  <h3 className={styles.entryTitle}>{entry.title}</h3>
+                  <p className={styles.entryExcerpt}>{entry.excerpt}</p>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.comingSoon}>
+              <h2>Coming Soon</h2>
+              <p>
+                We&apos;re working on essays about landscape and ecology. Check back
+                soon for deeper thinking about the land we forage.
+              </p>
+            </div>
+          )}
         </article>
 
         <div className={styles.backLink}>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Nav from '@/components/ui/Nav';
+import { getJournalEntriesByCategory } from '@/lib/airtable';
 import styles from '../shared.module.css';
 
 export const metadata: Metadata = {
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
   description: 'Cooking with foraged ingredients — meals, experiments, and lessons from the kitchen.',
 };
 
-export default function WildTablePage() {
+export const revalidate = 3600;
+
+export default async function WildTablePage() {
+  const entries = await getJournalEntriesByCategory('Wild Table');
+
   return (
     <>
       <Nav />
@@ -33,13 +38,24 @@ export default function WildTablePage() {
             foraged ingredients, from simple preparations to more ambitious experiments.
           </p>
 
-          <div className={styles.comingSoon}>
-            <h2>Coming Soon</h2>
-            <p>
-              We&apos;re documenting our kitchen experiments. Check back soon for
-              stories of cooking with wild food.
-            </p>
-          </div>
+          {entries.length > 0 ? (
+            <div className={styles.entryList}>
+              {entries.map(entry => (
+                <Link key={entry.id} href={`/journal/${entry.slug}`} className={styles.entryCard}>
+                  <h3 className={styles.entryTitle}>{entry.title}</h3>
+                  <p className={styles.entryExcerpt}>{entry.excerpt}</p>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.comingSoon}>
+              <h2>Coming Soon</h2>
+              <p>
+                We&apos;re documenting our kitchen experiments. Check back soon for
+                stories of cooking with wild food.
+              </p>
+            </div>
+          )}
         </article>
 
         <div className={styles.backLink}>

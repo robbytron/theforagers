@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Nav from '@/components/ui/Nav';
+import { getJournalEntriesByCategory } from '@/lib/airtable';
 import styles from '../shared.module.css';
 
 export const metadata: Metadata = {
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
   description: 'Notes from foraging expeditions across Britain — what we found, where we went, and what we learned.',
 };
 
-export default function TheFieldPage() {
+export const revalidate = 3600;
+
+export default async function TheFieldPage() {
+  const entries = await getJournalEntriesByCategory('The Field');
+
   return (
     <>
       <Nav />
@@ -33,13 +38,21 @@ export default function TheFieldPage() {
             conditions were like. Real foraging, documented as it happens.
           </p>
 
-          <div className={styles.comingSoon}>
-            <h2>Coming Soon</h2>
-            <p>
-              We&apos;re preparing our first field reports. Check back soon for
-              stories from the hedgerows, woodlands, and coastlines of Britain.
-            </p>
-          </div>
+          {entries.length > 0 ? (
+            <div className={styles.entryList}>
+              {entries.map(entry => (
+                <Link key={entry.id} href={`/journal/${entry.slug}`} className={styles.entryCard}>
+                  <h3 className={styles.entryTitle}>{entry.title}</h3>
+                  <p className={styles.entryExcerpt}>{entry.excerpt}</p>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.comingSoon}>
+              <h2>Coming Soon</h2>
+              <p>We&apos;re preparing our first field reports. Check back soon.</p>
+            </div>
+          )}
         </article>
 
         <div className={styles.backLink}>
