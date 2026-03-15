@@ -79,9 +79,8 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Desktop Grid */}
+        {/* Desktop Grid - Left side only */}
         <div className={styles.heroGrid}>
-          {/* Left: Main Hero Card - Text Overlaid */}
           <div className={styles.hero}>
             <div className={styles.heroBg} />
             <div className={styles.heroOverlay} />
@@ -95,42 +94,42 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Right: Feature + Mini Carousel */}
-          <div className={styles.heroRight}>
-            {inSeasonSpecies[0] && (
-              <Link href={`/species/${inSeasonSpecies[0].slug}`} className={styles.heroFeature}>
-                {inSeasonSpecies[0].photos[0] && (
-                  <>
-                    <div className={styles.heroFeatureImage}>
-                      <img src={inSeasonSpecies[0].photos[0].url} alt={inSeasonSpecies[0].name} />
-                    </div>
-                    <div className={styles.heroFeatureOverlay} />
-                  </>
-                )}
-                <span className={styles.heroFeatureLabel}>Featured · {inSeasonSpecies[0].type}</span>
-                <span className={styles.heroFeatureTitle}>{inSeasonSpecies[0].name}</span>
-              </Link>
-            )}
-            <div className={styles.heroMiniWrapper}>
-              <div className={styles.heroMiniCarousel}>
-                {inSeasonSpecies.slice(1, 8).map(species => (
-                  <Link key={species.id} href={`/species/${species.slug}`} className={styles.heroMiniCard}>
-                    {species.photos[0] ? (
-                      <img src={species.photos[0].thumbUrl} alt={species.name} />
-                    ) : (
-                      <div style={{background:'var(--green-mid)', width:'100%', height:'100%'}} />
-                    )}
-                    <div className={styles.heroMiniOverlay} />
-                    <div className={styles.heroMiniContent}>
-                      <span className={styles.heroMiniType}>{species.type}</span>
-                      <span className={styles.heroMiniName}>{species.name}</span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <div className={styles.heroMiniFade} />
+        {/* Right side: Feature + Mini Carousel (shown on both desktop & mobile) */}
+        <div className={styles.heroRight}>
+          {inSeasonSpecies[0] && (
+            <Link href={`/species/${inSeasonSpecies[0].slug}`} className={styles.heroFeature}>
+              {inSeasonSpecies[0].photos[0] && (
+                <>
+                  <div className={styles.heroFeatureImage}>
+                    <img src={inSeasonSpecies[0].photos[0].url} alt={inSeasonSpecies[0].name} />
+                  </div>
+                  <div className={styles.heroFeatureOverlay} />
+                </>
+              )}
+              <span className={styles.heroFeatureLabel}>Featured · {inSeasonSpecies[0].type}</span>
+              <span className={styles.heroFeatureTitle}>{inSeasonSpecies[0].name}</span>
+            </Link>
+          )}
+          <div className={styles.heroMiniWrapper}>
+            <div className={styles.heroMiniCarousel}>
+              {inSeasonSpecies.slice(1, 8).map(species => (
+                <Link key={species.id} href={`/species/${species.slug}`} className={styles.heroMiniCard}>
+                  {species.photos[0] ? (
+                    <img src={species.photos[0].thumbUrl} alt={species.name} />
+                  ) : (
+                    <div style={{background:'var(--green-mid)', width:'100%', height:'100%'}} />
+                  )}
+                  <div className={styles.heroMiniOverlay} />
+                  <div className={styles.heroMiniContent}>
+                    <span className={styles.heroMiniType}>{species.type}</span>
+                    <span className={styles.heroMiniName}>{species.name}</span>
+                  </div>
+                </Link>
+              ))}
             </div>
+            <div className={styles.heroMiniFade} />
           </div>
         </div>
       </section>
