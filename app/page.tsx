@@ -62,8 +62,24 @@ export default async function HomePage() {
     <>
       <Nav />
 
-      {/* Hero Grid - Clean Tile Layout */}
+      {/* Hero Grid - Clean Tile Layout (Desktop) */}
       <section className={styles.heroWrapper}>
+        {/* Mobile Hero - Simple full-width layout */}
+        <div className={styles.heroMobile}>
+          <div className={styles.heroMobileBg} />
+          <div className={styles.heroMobileOverlay} />
+          <div className={styles.heroMobileContent}>
+            <p className={styles.heroSeason}>{currentMonth} · Britain</p>
+            <h1 className={styles.heroTitle}>The land is <em>waking up.</em><br />Go and find it.</h1>
+            <p className={styles.heroSub}>Everything you need to forage wild food in Britain.</p>
+            <div className={styles.heroActions}>
+              <Link href="/species" className="btn-primary">In season now</Link>
+              <Link href="/beginners" className="btn-ghost">Start here →</Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
         <div className={styles.heroGrid}>
           {/* Left: Main Hero Card - Text Overlaid */}
           <div className={styles.hero}>

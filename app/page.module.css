@@ -2,6 +2,38 @@
 .heroWrapper { background:var(--parchment); padding:var(--space-3); overflow:hidden; width:100%; box-sizing:border-box; }
 .heroGrid { display:grid; grid-template-columns:4fr 6fr; gap:var(--space-3); min-height:70vh; width:100%; box-sizing:border-box; }
 
+/* Mobile Hero - hidden on desktop */
+.heroMobile { display:none; }
+
+@media (max-width:640px) {
+  .heroMobile {
+    display:block;
+    position:relative;
+    width:100%;
+    min-height:70vh;
+  }
+  .heroMobileBg {
+    position:absolute;
+    inset:0;
+    background:url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1400&q=80') center/cover no-repeat;
+  }
+  .heroMobileOverlay {
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(28,43,30,0.95) 0%,rgba(28,43,30,0.5) 40%,rgba(28,43,30,0.2) 100%);
+  }
+  .heroMobileContent {
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    min-height:70vh;
+    padding:var(--space-5);
+    padding-top:80px;
+  }
+  .heroGrid { display:none; }
+}
+
 /* Left: Main Hero Card - Text Overlaid */
 .hero { position:relative; display:flex; flex-direction:column; justify-content:flex-end; border-radius:var(--radius-lg); overflow:hidden; animation:heroFade 1.2s ease both; width:100%; box-sizing:border-box; }
 @keyframes heroFade { from{opacity:0} to{opacity:1} }
@@ -50,16 +82,8 @@
   .heroMiniCarousel { gap:8px; }
   .heroMiniCard { width:45%; min-width:0; }
 }
-@media (max-width:600px) {
-  .heroWrapper { padding-top:72px; }
-  .hero { aspect-ratio:3/2; min-height:300px; justify-content:flex-end; }
-  .heroContent { padding:12px !important; padding-top:72px !important; }
-  .heroTitle { font-size:1.4rem; }
-  .heroSub { font-size:0.875rem; margin-bottom:16px; }
-  .heroActions { gap:8px; }
-  .heroActions a { padding:10px 16px; font-size:0.75rem; }
-  .heroFeature { min-height:120px; padding:16px; }
-  .heroMiniCard { width:48%; }
+@media (max-width:640px) {
+  .heroWrapper { padding:0; padding-top:0; }
 }
 .seasonStrip { background:var(--green-deep); padding:var(--space-4) 0; overflow:hidden; }
 .seasonScroll { display:flex; gap:var(--space-7); animation:ticker 30s linear infinite; white-space:nowrap; }
