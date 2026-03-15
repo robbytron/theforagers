@@ -96,21 +96,24 @@ export default async function HomePage() {
                 <span className={styles.heroFeatureTitle}>{inSeasonSpecies[0].name}</span>
               </Link>
             )}
-            <div className={styles.heroMiniCarousel}>
-              {inSeasonSpecies.slice(1, 4).map(species => (
-                <Link key={species.id} href={`/species/${species.slug}`} className={styles.heroMiniCard}>
-                  {species.photos[0] ? (
-                    <img src={species.photos[0].thumbUrl} alt={species.name} />
-                  ) : (
-                    <div style={{background:'var(--green-mid)', width:'100%', height:'100%'}} />
-                  )}
-                  <div className={styles.heroMiniOverlay} />
-                  <div className={styles.heroMiniContent}>
-                    <span className={styles.heroMiniType}>{species.type}</span>
-                    <span className={styles.heroMiniName}>{species.name}</span>
-                  </div>
-                </Link>
-              ))}
+            <div className={styles.heroMiniWrapper}>
+              <div className={styles.heroMiniCarousel}>
+                {inSeasonSpecies.slice(1, 8).map(species => (
+                  <Link key={species.id} href={`/species/${species.slug}`} className={styles.heroMiniCard}>
+                    {species.photos[0] ? (
+                      <img src={species.photos[0].thumbUrl} alt={species.name} />
+                    ) : (
+                      <div style={{background:'var(--green-mid)', width:'100%', height:'100%'}} />
+                    )}
+                    <div className={styles.heroMiniOverlay} />
+                    <div className={styles.heroMiniContent}>
+                      <span className={styles.heroMiniType}>{species.type}</span>
+                      <span className={styles.heroMiniName}>{species.name}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className={styles.heroMiniIndicator}>→</div>
             </div>
           </div>
         </div>
@@ -127,36 +130,6 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
-      )}
-
-      {/* In Season Carousel */}
-      {inSeasonSpecies.length > 3 && (
-        <section className={styles.carouselSection}>
-          <div className={styles.carouselHeader}>
-            <div>
-              <p className={styles.carouselLabel}>In season now</p>
-              <h2 className={styles.carouselTitle}>{currentMonth} foraging</h2>
-            </div>
-            <Link href="/calendar" className={styles.carouselLink}>View calendar →</Link>
-          </div>
-          <div className={styles.carousel}>
-            <div className={styles.carouselTrack}>
-              {inSeasonSpecies.slice(0, 12).map(species => (
-                <Link key={species.id} href={`/species/${species.slug}`} className={styles.carouselCard}>
-                  <div className={styles.carouselImage}>
-                    {species.photos[0] ? (
-                      <img src={species.photos[0].thumbUrl} alt={species.name} />
-                    ) : (
-                      <div className={styles.carouselPlaceholder} />
-                    )}
-                  </div>
-                  <span className={styles.carouselType}>{species.type}</span>
-                  <span className={styles.carouselName}>{species.name}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
       )}
 
       {/* Latest - Magazine Layout */}
@@ -186,6 +159,37 @@ export default async function HomePage() {
                 />
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* In Season Carousel */}
+      {inSeasonSpecies.length > 3 && (
+        <section className={styles.carouselSection}>
+          <div className={styles.carouselHeader}>
+            <div>
+              <p className={styles.carouselLabel}>In season now</p>
+              <h2 className={styles.carouselTitle}>{currentMonth} foraging</h2>
+            </div>
+            <Link href="/calendar" className={styles.carouselLink}>View calendar →</Link>
+          </div>
+          <div className={styles.carousel}>
+            <div className={styles.carouselTrack}>
+              {inSeasonSpecies.slice(0, 12).map(species => (
+                <Link key={species.id} href={`/species/${species.slug}`} className={styles.carouselCard}>
+                  <div className={styles.carouselImage}>
+                    {species.photos[0] ? (
+                      <img src={species.photos[0].thumbUrl} alt={species.name} />
+                    ) : (
+                      <div className={styles.carouselPlaceholder} />
+                    )}
+                  </div>
+                  <span className={styles.carouselType}>{species.type}</span>
+                  <span className={styles.carouselName}>{species.name}</span>
+                </Link>
+              ))}
+            </div>
+            <div className={styles.carouselIndicator}>Scroll for more →</div>
           </div>
         </section>
       )}
