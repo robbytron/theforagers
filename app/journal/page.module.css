@@ -1,0 +1,319 @@
+/* Journal Landing Page */
+.page {
+  min-height: 100vh;
+  background: var(--parchment);
+}
+
+/* Hero */
+.hero {
+  background: var(--green-deep);
+  padding: calc(var(--space-9) + var(--space-4)) var(--space-6) var(--space-8);
+  text-align: center;
+}
+
+.heroLabel {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: var(--space-3);
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: var(--space-4);
+}
+
+.heroIntro {
+  max-width: 540px;
+  margin: 0 auto;
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: rgba(244, 239, 228, 0.8);
+}
+
+/* Featured Latest */
+.featured {
+  background: var(--cream);
+  padding: var(--space-7) var(--space-6);
+  border-bottom: 1px solid rgba(28, 43, 30, 0.1);
+}
+
+.featuredInner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.featuredLabel {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.featuredCard {
+  display: block;
+  background: var(--parchment);
+  padding: var(--space-6);
+  border: 1px solid rgba(28, 43, 30, 0.1);
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.featuredCard:hover {
+  border-color: var(--sage);
+  box-shadow: 0 8px 30px rgba(28, 43, 30, 0.1);
+}
+
+.featuredCategory {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-muted);
+  margin-bottom: var(--space-3);
+}
+
+.featuredTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--green-deep);
+  margin-bottom: var(--space-3);
+}
+
+.featuredExcerpt {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--green-muted);
+  margin-bottom: var(--space-4);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.featuredMeta {
+  font-size: var(--text-sm);
+  color: var(--slate);
+}
+
+/* Journal Sections */
+.sections {
+  padding: var(--space-8) var(--space-6);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.sectionsTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  color: var(--green-deep);
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.sectionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+.sectionCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  padding: var(--space-6);
+  border: 1px solid rgba(28, 43, 30, 0.08);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.sectionCard:hover {
+  border-color: var(--sage);
+  box-shadow: 0 8px 30px rgba(28, 43, 30, 0.08);
+  transform: translateY(-2px);
+}
+
+.sectionNumber {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 200;
+  color: var(--sage);
+  opacity: 0.5;
+  line-height: 1;
+  margin-bottom: var(--space-3);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  color: var(--green-deep);
+  margin-bottom: var(--space-1);
+}
+
+.sectionTagline {
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--sage);
+  margin-bottom: var(--space-3);
+}
+
+.sectionDesc {
+  font-size: var(--text-sm);
+  color: var(--green-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  flex-grow: 1;
+}
+
+.sectionLatest {
+  background: var(--parchment);
+  padding: var(--space-3);
+  margin-bottom: var(--space-4);
+  border-left: 3px solid var(--sage);
+}
+
+.sectionLatestLabel {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: var(--space-1);
+}
+
+.sectionLatestTitle {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--green-deep);
+  line-height: 1.4;
+}
+
+.sectionLink {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--green-mid);
+  transition: color 0.2s;
+}
+
+.sectionCard:hover .sectionLink {
+  color: var(--green-deep);
+}
+
+/* CTA */
+.cta {
+  background: var(--green-deep);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+}
+
+.ctaTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: var(--space-3);
+}
+
+.ctaText {
+  font-size: var(--text-base);
+  color: rgba(244, 239, 228, 0.75);
+  line-height: 1.7;
+  max-width: 450px;
+  margin: 0 auto var(--space-5);
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.ctaButton {
+  display: inline-block;
+  background: var(--brown-light);
+  color: var(--green-deep);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.ctaButton:hover {
+  background: var(--cream);
+}
+
+.ctaButtonAlt {
+  display: inline-block;
+  background: transparent;
+  color: var(--cream);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border: 1px solid rgba(244, 239, 228, 0.3);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.ctaButtonAlt:hover {
+  border-color: var(--cream);
+  background: rgba(244, 239, 228, 0.1);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sectionsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: calc(var(--space-8) + var(--space-3)) var(--space-4) var(--space-6);
+  }
+
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .featured {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .featuredCard {
+    padding: var(--space-5);
+  }
+
+  .sections {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .sectionCard {
+    padding: var(--space-5);
+  }
+
+  .cta {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
